@@ -1,4 +1,25 @@
-.vscode/settings.json
-build/.cmake/api/v1/reply/index-2024-11-16T15-37-39-0894.json
-build/.cmake/api/v1/reply/index-2025-05-16T09-23-45-0871.json
-build/CMakeFiles/BattleShips.dir/compiler_depend.make
+# Ignore build directory
+/build/
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore executables and object files
+*.exe
+*.out
+*.o
+*.obj
+
+# Ignore Visual Studio files
+.vscode/
+*.vcxproj*
+*.sln
+*.user
+
+# Ignore temporary files and editor backups
+*~
+*.swp
+.DS_Store
