@@ -8,7 +8,7 @@ int main()
     std::cout << "Hello world\n";
 
     Board b = Board(10);
-    b.display();
+    displayBoard(b);
 }
 
 void printCell(Cell cell)
@@ -30,11 +30,11 @@ void displayBoard(Board board)
 {
     int size = board.getSize();
 
-    for (int i = 0; i < size; i++)
+    for (int y = 0; y < size; y++)
     {
-        for (int j = 0; j < size; j++)
+        for (int x = 0; x < size; x++)
         {
-            printCell(board.GetBoard()[i][j]);
+            printCell(board.getCell(x, y));
             cout << " ";
         }
         cout << endl;

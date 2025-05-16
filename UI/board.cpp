@@ -18,7 +18,10 @@ const std::vector<std::vector<Cell>>& Board::GetBoard() const
 {
     return board;
 }
-
+Cell Board::getCell(int x, int y)
+{
+    return board[y][x];
+}
 int Board::getSize()
 {
     return size;
