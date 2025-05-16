@@ -4,41 +4,14 @@
 
 using namespace std;
 
-//------------------------
-
-void printCell(Cell cell)
+Board::Board(int _size_)
 {
-    if (!cell.isGuessed()){
-        cout << 'O';
-        return;
-    }
-
-    if (cell.isHit()){
-        cout << 'X';
-    }
-    else{
-        cout << '-';
-    }
-}
-
-//----------------------
-
-Board::Board(int _size_) : size(_size_), board(_size_, std::vector<Cell>(_size_))
-{
-    
-}
-
-void Board::display() const
-{
-    for (int i = 0; i < size; i++)
+    if (_size_ > 26 || _size_ < 2)
     {
-        for (int j = 0; j < size; j++)
-        {
-            printCell(board[i][j]);
-            cout << " ";
-        }
-        cout << endl;
+        throw invalid_argument("board size must be between 2 and 26");
     }
+    size = _size_;
+    board = std::vector<std::vector<Cell>>(size, std::vector<Cell>(size));
 }
 
 const std::vector<std::vector<Cell>>& Board::GetBoard() const

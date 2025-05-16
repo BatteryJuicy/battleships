@@ -12,8 +12,6 @@ private:
 public:
     Board(int size);
 
-    void display() const;
-
     const std::vector<std::vector<Cell>>& GetBoard() const;
 
     int getSize();
