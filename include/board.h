@@ -1,0 +1,34 @@
+#include <vector>
+
+#include "cell.h"
+
+#ifndef BOARD_H
+#define BOARD_H
+
+class Board{
+private:
+    //the length of each side of the square board
+    int size;
+
+    //size * size 2D array (implemented with vectors)
+    std::vector<std::vector<Cell>> board;
+public:
+    Board();
+
+    Board(int size);
+
+    //getters
+    const std::vector<std::vector<Cell>>& getBoard() const;
+    int getSize();
+    
+    /**
+     * @brief Get the Cell object at board index (x,y).
+     * 
+     * @param x 
+     * @param y 
+     * @return Cell reference of the non-border cell at BOARD index (x,y).
+     * @note (x,y) = (0,0) is mapped to (1,1) in the actual border matrix to skip the border cells.
+     */
+    Cell& getCell(int x, int y);
+};
+#endif
