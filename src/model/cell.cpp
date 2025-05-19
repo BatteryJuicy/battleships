@@ -1,6 +1,7 @@
 #include <stdexcept>
+#include <iostream>
 
-#include <cell.h>
+#include <model/cell.h>
 
 Cell::Cell() : guessed(false), hit(false), type(Cell::CellType::SEA) {}
 
