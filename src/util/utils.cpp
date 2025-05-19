@@ -1,11 +1,8 @@
-#include <iostream>
 #include <stdexcept>
+#include <iostream>
 
-#ifndef UI_H
-#define UI_H
-
-#include "Cell.h"
-#include "Board.h"
+#include <board.h>
+#include <cell.h>
 
 void printCell(Cell cell)
 {
@@ -24,7 +21,6 @@ void printCell(Cell cell)
     }
 }
 
-// A is 0 and Z is 25
 char numToLetter(int n)
 {
     if(n >= 0 || n <= 25){
@@ -78,5 +74,3 @@ void displayBoard(Board board)
     }
     std::cout << std::endl;
 }
-
-#endif
