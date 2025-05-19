@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include <ui.h>
+#include <model/board.h>
+#include <model/cell.h>
+#include <util/utils.h>
 
 using namespace std;
 
