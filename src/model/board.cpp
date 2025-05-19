@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "board.h"
+#include <board.h>
 
 Board::Board() : size(0) {}
 
