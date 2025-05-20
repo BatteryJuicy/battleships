@@ -8,6 +8,7 @@ set(SOURCES
     src/model/board.cpp
     src/model/cell.cpp
     src/util/utils.cpp
+    src/logic/controller.cpp
 )
 
 add_executable(BattleShips ${SOURCES})
