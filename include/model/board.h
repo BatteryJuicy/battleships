@@ -17,8 +17,18 @@ public:
 
     Board(int size);
 
-    //getters
+    /**
+     * @brief Get a const reference to the board.
+     * 
+     * @return const std::vector<std::vector<Cell>>& 
+     */
     const std::vector<std::vector<Cell>>& getBoard() const;
+
+    /**
+     * @brief Get the length of the board's side.
+     * 
+     * @return int board.size.
+     */
     int getSize();
     
     /**
@@ -26,7 +36,7 @@ public:
      * 
      * @param x 
      * @param y 
-     * @return Cell reference of the non-border cell at BOARD index (x,y).
+     * @return Cell& reference to the non-border cell at BOARD index (x,y).
      * @note (x,y) = (0,0) is mapped to (1,1) in the actual border matrix to skip the border cells.
      */
     Cell& getCell(int x, int y);
