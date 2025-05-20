@@ -4,7 +4,7 @@
 #include <model/Cell.h>
 #include <model/board.h>
 
-namespace Controler{
+namespace Controller{
 
     static Board* boardInstance = nullptr;
 
