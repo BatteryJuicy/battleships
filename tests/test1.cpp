@@ -6,6 +6,8 @@
 #include <model/cell.h>
 #include <util/utils.h>
 
+using namespace std;
+
 int main()
 {
     Controller::initBoard(8);
@@ -13,10 +15,10 @@ int main()
     Board& board = Controller::getBoard();
 
     //PRINT BOARD WITH BORDER
-/*     for (int i = 0; i < b.getSize() + 2; i++)
+    for (int i = 0; i < board.getSize() + 2; i++)
     {
 
-        for (Cell c : b1[i])
+        for (Cell c : board.getBoard()[i])
         {
             if (c.getType() == Cell::CellType::SEA){
                 cout << "O";
@@ -30,5 +32,5 @@ int main()
             cout << " ";
         }
         cout << endl;
-    } */
+    }
 }
