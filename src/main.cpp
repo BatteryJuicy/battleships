@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+#include <logic/controller.h>
 #include <model/board.h>
 #include <model/cell.h>
 #include <util/utils.h>
@@ -9,18 +10,9 @@ using namespace std;
 
 int main()
 {
-    Board b = Board();
+    Controller::initBoard(8);
 
-    //PRINT BOARD
-    try
-    {
-        b = Board(8);
-        displayBoard(b);
-    }
-    catch(invalid_argument& e)
-    {
-        cerr << e.what() << '\n';
-    }
+    Board& board = Controller::getBoard();
 
     //PRINT BOARD WITH BORDER
 /*     for (int i = 0; i < b.getSize() + 2; i++)
