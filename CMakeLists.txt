@@ -1,13 +1,27 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(BattleShips VERSION 0.1.0 LANGUAGES C CXX)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Recursively get all directories under include
+file(GLOB_RECURSE ALL_INCLUDE_DIRS LIST_DIRECTORIES true
+     "${PROJECT_SOURCE_DIR}/include/*")
+
+# Filter only directories (optional safeguard)
+set(INCLUDE_DIRS "")
+foreach(dir ${ALL_INCLUDE_DIRS})
+    if(IS_DIRECTORY ${dir})
+        list(APPEND INCLUDE_DIRS ${dir})
+    endif()
+endforeach()
+
+# Add them to the include path
+include_directories(${INCLUDE_DIRS})
+
 
 set(SOURCES 
     src/model/board.cpp
     src/model/cell.cpp
     src/util/utils.cpp
-    src/logic/controller.cpp
+    src/controller/GameController.cpp
 )
 
 #main application
