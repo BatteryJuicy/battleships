@@ -5,6 +5,10 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+/**
+ * @brief A 2d vector array of Cell objects.
+ * 
+ */
 class Board{
 private:
     //the length of each side of the square board
