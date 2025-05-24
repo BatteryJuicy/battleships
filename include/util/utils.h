@@ -1,8 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <model/board.h>
-#include<model/cell.h>
+#include <board.h>
+#include<cell.h>
 
 /**
  * @brief prints the cell acording to its CellType

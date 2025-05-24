@@ -1,8 +1,8 @@
 #include <stdexcept>
 #include <iostream>
 
-#include <model/board.h>
-#include <model/cell.h>
+#include <board.h>
+#include <cell.h>
 
 void printCell(Cell cell)
 {

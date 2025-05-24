@@ -1,16 +1,16 @@
 #include <iostream>
 #include <string>
 
-#include <logic/controller.h>
-#include <model/board.h>
-#include <model/cell.h>
-#include <util/utils.h>
+#include <GameController.h>
+#include <board.h>
+#include <cell.h>
+#include <utils.h>
 
 using namespace std;
 
 int main()
 {
-    Controller::initBoard(8);
+/*     Controller::initBoards(8);
 
     Board& board = Controller::getBoard();
 
@@ -32,5 +32,5 @@ int main()
             cout << " ";
         }
         cout << endl;
-    }
+    } */
 }
