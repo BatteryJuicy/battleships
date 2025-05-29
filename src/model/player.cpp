@@ -3,6 +3,11 @@
 
 Player::Player(int size)
 {
+    initBoard(size);
+}
+
+void Player::initBoard(int size)
+{
     board = Board(size);
 }
 

@@ -1,6 +1,9 @@
+#include <vector>
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <board.h>
 #include <ship.h>
 
 class Player{
@@ -11,7 +14,19 @@ private:
 
 public:
 
+    /**
+     * @brief Construct a new Player object
+     * 
+     * @param size the size of the board
+     */
     Player(int size);
+
+    /**
+     * @brief initializes the board of the player.
+     * 
+     * @param size is the size of the board
+     */
+    void initBoard(int size);
 
     /**
      * @brief Get the Board object
