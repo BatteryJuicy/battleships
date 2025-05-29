@@ -2,9 +2,19 @@
 #define CONTROLLER_H
 
 #include <board.h>
+#include <player.h>
 
-namespace GameController{
+#include <GameModel.h>
+#include <GameView.h>
 
+class GameController{
+public:
+    enum class Turn {PLAYER, AI};
+private:
+    GameModel model;
+    GameView view;
+public:
 
-}
+    Turn currentTurn;
+};
 #endif
