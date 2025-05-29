@@ -2,6 +2,7 @@
 #include <vector>
 
 #include <board.h>
+#include <utils.h>
 
 Board::Board() : size(0) {}
 
@@ -79,17 +80,16 @@ int Board::getSize()
     return size;
 }
 
-Cell& Board::getCell(int x, int y)
+Cell& Board::getCell(coord c)
 {
-    if (x < 0 || x >= size || y < 0 || y >= size) {
+    c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
+
+    if (c.x < 1 || c.x > size || c.y < 1 || c.y > size) {
         throw std::out_of_range("getCell: coordinates out of range");
     }
     if(size == 0){
         throw std::logic_error("getCell: empty board, cannot access cell.");
     }
 
-
-    x++;y++; //mapping coordinates to the main board ignoring the border cells
-
-    return board[y][x];
+    return board[c.y][c.x];
 }

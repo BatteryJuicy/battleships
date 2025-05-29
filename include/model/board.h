@@ -1,9 +1,10 @@
 #include <vector>
 
-#include "cell.h"
-
 #ifndef BOARD_H
 #define BOARD_H
+
+#include "cell.h"
+#include <utils.h>
 
 /**
  * @brief A 2d vector array of Cell objects.
@@ -38,11 +39,10 @@ public:
     /**
      * @brief Get the Cell object at board index (x,y).
      * 
-     * @param x 
-     * @param y 
+     * @param coord object containing a point (x,y)
      * @return Cell& reference to the non-border cell at BOARD index (x,y).
      * @note (x,y) = (0,0) is mapped to (1,1) in the actual border matrix to skip the border cells.
      */
-    Cell& getCell(int x, int y);
+    Cell& getCell(coord c);
 };
 #endif
