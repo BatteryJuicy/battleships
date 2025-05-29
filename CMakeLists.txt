@@ -18,10 +18,22 @@ include_directories(${INCLUDE_DIRS})
 
 
 set(SOURCES 
+    #model
     src/model/board.cpp
     src/model/cell.cpp
-    src/util/utils.cpp
+    src/model/GameModel.cpp
+    src/model/player.cpp
+    src/model/ship.cpp
+
+    #controller
     src/controller/GameController.cpp
+
+    #view
+    src/view/GameView.cpp
+    src/view/UI.cpp
+
+    #util
+    src/util/utils.cpp
 )
 
 #main application
