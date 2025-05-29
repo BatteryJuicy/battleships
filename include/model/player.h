@@ -41,6 +41,6 @@ public:
      * @param x 
      * @param y 
      */
-    void guessCell(int x, int y);
+    void guessCell(coord c);
 };
 #endif 

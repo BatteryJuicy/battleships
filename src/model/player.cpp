@@ -16,14 +16,14 @@ Board& Player::getBoard()
     return board;
 }
 
-void Player::guessCell(int x, int y)
+void Player::guessCell(coord c)
 {
-    Cell& c = board.getCell(x, y);
+    Cell& cell = board.getCell(c);
 
-    c.setGuessed(true);
+    cell.setGuessed(true);
     
     //change cell state in the case of a hit
-    if (c.getType() == Cell::CellType::BOAT){
-        c.setHit(true);
+    if (cell.getType() == Cell::CellType::BOAT){
+        cell.setHit(true);
     }
 }

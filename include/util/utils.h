@@ -25,4 +25,16 @@ char numToLetter(int n);
  * @param board 
  */
 void displayBoard(Board board);
+
+/**
+ * @brief object to store x, y coordinates
+ * 
+ */
+class coord{
+public:
+    int x;
+    int y;
+
+    coord(int x, int y);
+};
 #endif

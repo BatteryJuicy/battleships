@@ -57,7 +57,7 @@ void displayBoard(Board board)
         //printing the board
         for (int x = 0; x < size; x++)
         {
-            printCell(board.getCell(x, y));
+            printCell(board.getCell(coord(x,y)));
             std::cout << " ";
         }
         //printing numbers on the right
@@ -74,3 +74,5 @@ void displayBoard(Board board)
     }
     std::cout << std::endl;
 }
+
+coord::coord(int x, int y) : x(x), y(y) {}
