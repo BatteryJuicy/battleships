@@ -1,8 +1,8 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <GameModel.h>
 #include <GameView.h>
+#include <GameModel.h>
 
 namespace Controller
 {
