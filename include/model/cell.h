@@ -16,7 +16,9 @@ public:
     //default constructor
 
     /**
-     * @brief Construct a new Cell object  with CellType::SEA.
+     * @brief Default constructorfor Cell object.
+     * 
+     * @note sets CellType::SEA.
      * 
      */
     Cell();
@@ -32,24 +34,26 @@ public:
     /**
      * @brief getter of hit 
      * 
-     * @return true: if the cell has CellType::BOAT and is guessed (hit)
-     * @return false: if the cell has CellType::SEA and is guessed (miss)
+     * @return hit member.
+     * 
+     * @note
+     *  returns true if the cell has CellType::BOAT and is guessed.
      */
-    bool isHit();
+    bool isHit() const;
     /**
      * @brief getter of guessed
      * 
      * @return true: if guessed through 
      * @return false 
      */
-    bool isGuessed();
+    bool isGuessed() const;
 
     /**
      * @brief Get the CellType
      * 
      * @return CellType of the cell
      */
-    CellType getType();
+    CellType getType() const;
     
     //setters
     void setGuessed(bool guess);
