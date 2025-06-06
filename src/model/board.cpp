@@ -4,16 +4,13 @@
 #include <board.h>
 #include <utils.h>
 
-Board::Board() : size(0) {}
-
-Board::Board(int _size_)
+Board::Board(unsigned int size)
 {
 
-    if (_size_ > 26 || _size_ < 2)
+    if (size > 26 || size < 2)
     {
         throw std::invalid_argument("board size must be between 2 and 26");
     }
-    size = _size_;
 
     //--------creating the border-------
 
@@ -21,13 +18,13 @@ Board::Board(int _size_)
     border.reserve(4);
 
     //creating a temporary array to store the sizes of each of the 4 rows, to make the board (size+2)*(size+2)
-    int s[4] = {size + 2, size, size, size + 2};
+    unsigned int s[4] = {size + 2, size, size, size + 2};
 
     for (int i = 0; i < 4; i++)
     {
         std::vector<Cell> row;
         row.reserve(s[i]);
-        for (int j = 0; j < s[i]; j++)
+        for (unsigned int j = 0; j < s[i]; j++)
         {
             row.emplace_back(Cell::CellType::BORDER);
         }
@@ -42,7 +39,7 @@ Board::Board(int _size_)
     //adding the top border
     board.push_back(move(border[0]));
 
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         std::vector<Cell> row;
         row.reserve(size + 2);
@@ -51,7 +48,7 @@ Board::Board(int _size_)
         row.push_back(std::move(border[1][i]));
 
         //creating and adding the board cells
-        for (int j = 0; j < size; j++)
+        for (unsigned int j = 0; j < size; j++)
         {
             row.emplace_back(Cell::CellType::SEA);
         }
@@ -69,13 +66,10 @@ Board::Board(int _size_)
 
 const std::vector<std::vector<Cell>>& Board::getBoard() const
 {
-    if(size == 0){
-        throw std::logic_error("getBoard: empty board. Board size = 0.");
-    }
     return board;
 }
 
-int Board::getSize()
+unsigned int Board::getSize() const
 {
     return size;
 }
@@ -84,11 +78,19 @@ Cell& Board::getCell(coord c)
 {
     c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
 
-    if (c.x < 1 || c.x > size || c.y < 1 || c.y > size) {
+    if (c.x < 1 || c.x > board.size() || c.y < 1 || c.y > board.size()) {
         throw std::out_of_range("getCell: coordinates out of range");
     }
-    if(size == 0){
-        throw std::logic_error("getCell: empty board, cannot access cell.");
+
+    return board[c.y][c.x];
+}
+
+const Cell& Board::getCell(coord c) const
+{
+    c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
+
+    if (c.x < 1 || c.x > board.size() || c.y < 1 || c.y > board.size()) {
+        throw std::out_of_range("getCell: coordinates out of range");
     }
 
     return board[c.y][c.x];
