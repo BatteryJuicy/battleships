@@ -1,16 +1,19 @@
 #include <stdexcept>
 #include <vector>
+#include <iostream>
 
 #include <board.h>
 #include <utils.h>
 
-Board::Board(unsigned int size)
+Board::Board(unsigned int size_)
 {
 
-    if (size > 26 || size < 2)
+    if (size_ > 26 || size_ < 2)
     {
         throw std::invalid_argument("board size must be between 2 and 26");
     }
+
+    size = size_;
 
     //--------creating the border-------
 
