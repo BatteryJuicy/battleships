@@ -10,8 +10,5 @@ using namespace std;
 
 int main()
 {
-/*     Controller::initBoard(8);
-
-    Board& board = Controller::getBoard(); */
 
 }
