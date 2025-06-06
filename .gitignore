@@ -23,6 +23,3 @@ Makefile
 *~
 *.swp
 .DS_Store
-
-# Ignore old code versions
-oldUI/
