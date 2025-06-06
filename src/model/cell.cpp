@@ -7,14 +7,19 @@ Cell::Cell() : guessed(false), hit(false), type(Cell::CellType::SEA) {}
 
 Cell::Cell(CellType t) : guessed(false), hit(false), type(t) {}
 
-bool Cell::isGuessed()
+bool Cell::isGuessed() const
 {
     return guessed;
 }
-bool Cell::isHit()
+bool Cell::isHit() const
 {
     return hit;
 }
+Cell::CellType Cell::getType() const 
+{
+    return type;
+}
+
 void Cell::setGuessed(bool guess_)
 {
     guessed = guess_;
@@ -22,10 +27,6 @@ void Cell::setGuessed(bool guess_)
 void Cell::setHit(bool hit_)
 {
     hit = hit_;
-}
-Cell::CellType Cell::getType()
-{
-    return type;
 }
 void Cell::setType(Cell::CellType t)
 {
