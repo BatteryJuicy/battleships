@@ -1,8 +1,7 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef H_UTILS_H
+#define H_UTILS_H
 
-#include <cell.h>
-#include <board.h>
+#include <GameController.h>
 
 /**
  * @brief prints the cell acording to its CellType
@@ -25,4 +24,11 @@ char numToLetter(int n);
  * @param board a const reference to the board that will be displayed. 
  */
 void displayBoard(const Board& board);
+
+/**
+ * @brief Prints the full board of the player including boarder cells.
+ * 
+ * @param p player reference
+ */
+void printBoard(Player& p);
 #endif

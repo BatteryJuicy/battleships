@@ -1,8 +1,11 @@
 #include <stdexcept>
 #include <iostream>
 
-#include <board.h>
-#include <cell.h>
+#ifndef UTILS_H
+#define UTILS_H
+
+#include <utils.h>
+#include <GameController.h> //includes basically every header
 
 void printCell(Cell cell)
 {
@@ -33,17 +36,17 @@ char numToLetter(int n)
 
 void displayBoard(const Board& board)
 {
-    int size = board.getSize();
+    unsigned int size = board.getSize();
 
     //print letters above the board
     std::cout << "    ";
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         std::cout << numToLetter(i) << " ";
     }
     std::cout << std::endl;
 
-    for (int y = 0; y < size; y++)
+    for (unsigned int y = 0; y < size; y++)
     { 
         //print numbers left of the board
         //1. double digit 
@@ -55,7 +58,7 @@ void displayBoard(const Board& board)
             std::cout << " " << y+1 << "  ";
         }
         //printing the board
-        for (int x = 0; x < size; x++)
+        for (unsigned int x = 0; x < size; x++)
         {
             printCell(board.getCell(coord(x,y)));
             std::cout << " ";
@@ -68,11 +71,34 @@ void displayBoard(const Board& board)
 
     //printing the letters at the bottom
     std::cout << "    ";
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         std::cout << numToLetter(i) << " ";
     }
     std::cout << std::endl;
 }
 
-coord::coord(int x, int y) : x(x), y(y) {}
+void printBoard(Player& p)
+{
+    Board& board = p.getBoard();
+    //PRINT BOARD WITH BORDER
+    for (unsigned int i = 0; i < board.getBoard().size(); i++)
+    {
+
+        for (Cell c : board.getBoard()[i])
+        {
+            if (c.getType() == Cell::CellType::SEA){
+                std::cout << "O";
+            }
+            else if(c.getType() == Cell::CellType::BOAT){
+                std::cout << "A";
+            }
+            else{
+                std::cout << "X";
+            }
+            std::cout << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+#endif
