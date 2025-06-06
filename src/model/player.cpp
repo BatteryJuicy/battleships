@@ -1,22 +1,14 @@
 #include <player.h>
 #include <board.h>
 
-Player::Player(int size)
-{
-    initBoard(size);
-}
-
-void Player::initBoard(int size)
-{
-    board = Board(size);
-}
+Player::Player(unsigned int size) : board(size) {}
 
 Board& Player::getBoard()
 {
     return board;
 }
 
-void Player::guessCell(coord c)
+void Player::applyGuess(coord c)
 {
     Cell& cell = board.getCell(c);
 

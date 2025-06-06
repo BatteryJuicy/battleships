@@ -18,15 +18,9 @@ public:
      * @brief Construct a new Player object
      * 
      * @param size the size of the board
+     *
      */
-    Player(int size);
-
-    /**
-     * @brief initializes the board of the player.
-     * 
-     * @param size is the size of the board
-     */
-    void initBoard(int size);
+    Player(unsigned int size);
 
     /**
      * @brief Get the Board object
@@ -36,11 +30,11 @@ public:
     Board& getBoard();
 
     /**
-     * @brief Guesses the cell at BOARD index (x,y) and changes its member variables accordingly.
+     * @brief Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly.
      * 
      * @param x 
      * @param y 
      */
-    void guessCell(coord c);
+    void applyGuess(coord c);
 };
 #endif 
