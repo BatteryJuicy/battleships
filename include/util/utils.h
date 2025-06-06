@@ -1,8 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <cell.h>
 #include <board.h>
-#include<cell.h>
 
 /**
  * @brief prints the cell acording to its CellType
@@ -22,19 +22,7 @@ char numToLetter(int n);
 /**
  * @brief displays the board with letters and number to index each cell.
  * 
- * @param board 
+ * @param board a const reference to the board that will be displayed. 
  */
-void displayBoard(Board board);
-
-/**
- * @brief object to store x, y coordinates
- * 
- */
-class coord{
-public:
-    int x;
-    int y;
-
-    coord(int x, int y);
-};
+void displayBoard(const Board& board);
 #endif

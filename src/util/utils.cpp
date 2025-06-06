@@ -31,7 +31,7 @@ char numToLetter(int n)
     }
 }
 
-void displayBoard(Board board)
+void displayBoard(const Board& board)
 {
     int size = board.getSize();
 
