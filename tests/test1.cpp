@@ -2,35 +2,34 @@
 #include <string>
 
 #include <GameController.h>
-#include <board.h>
-#include <cell.h>
-#include <utils.h>
 
-using namespace std;
+using namespace Controller;
 
 int main()
 {
-/*     Controller::initBoards(8);
+    GameController controller = GameController(8);
 
-    Board& board = Controller::getBoard();
+    Board& board = controller.getModel().Player1().getBoard();
 
     //PRINT BOARD WITH BORDER
-    for (int i = 0; i < board.getSize() + 2; i++)
+    for (unsigned int i = 0; i < board.getBoard().size(); i++)
     {
 
         for (Cell c : board.getBoard()[i])
         {
             if (c.getType() == Cell::CellType::SEA){
-                cout << "O";
+                std::cout << "O";
             }
             else if(c.getType() == Cell::CellType::BOAT){
-                cout << "A";
+                std::cout << "A";
             }
             else{
-                cout << "X";
+                std::cout << "X";
             }
-            cout << " ";
+            std::cout << " ";
         }
-        cout << endl;
-    } */
+        std::cout << std::endl;
+    }
+
+    std::cin.get();
 }
