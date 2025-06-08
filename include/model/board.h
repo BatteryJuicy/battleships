@@ -13,7 +13,7 @@ struct coord{
     unsigned int x;
     unsigned int y;
 
-    coord(int x, int y);
+    coord(unsigned int x, unsigned int y);
 };
 
 /**

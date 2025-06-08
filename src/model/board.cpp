@@ -5,15 +5,17 @@
 #include <board.h>
 #include <utils.h>
 
-Board::Board(unsigned int size_)
+coord::coord(unsigned int x, unsigned int y) : x(x), y(y) {}
+
+Board::Board(unsigned int _size_)
 {
 
-    if (size_ > 26 || size_ < 2)
+    if (_size_ > 26 || _size_ < 2)
     {
         throw std::invalid_argument("board size must be between 2 and 26");
     }
 
-    size = size_;
+    size = _size_;
 
     //--------creating the border-------
 
