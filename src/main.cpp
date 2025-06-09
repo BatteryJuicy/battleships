@@ -1,14 +1,15 @@
 #include <iostream>
 #include <string>
 
-#include <GameController.h>
-#include <board.h>
-#include <cell.h>
 #include <utils.h>
+#include <GameController.h>
 
-using namespace std;
+using namespace Controller;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    GameController controller = GameController(8);
+
+    displayBoard(controller.getModel().Player1().getBoard());
+    displayBoard(controller.getModel().Player2().getBoard());
 }
