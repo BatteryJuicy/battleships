@@ -1,20 +1,22 @@
 cmake_minimum_required(VERSION 3.10)
 project(Battleships)
 
+#set cmake version
 set(CMAKE_CXX_STANDARD 17)
 
-set(FLTK_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/fltk)
-set(FLTK_LIBRARIES ${PROJECT_SOURCE_DIR}/external/fltk/lib)
+#add the FLTK dir so cmake can find it
+add_subdirectory(external/fltk)
 
-# Include directories
-include_directories(include external)
-include_directories(${FLTK_INCLUDE_DIRS})
-
-# Find FLTK
-find_package(FLTK REQUIRED)
+# Include headers
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include/controller
+    ${PROJECT_SOURCE_DIR}/include/model
+    ${PROJECT_SOURCE_DIR}/include/util
+    ${PROJECT_SOURCE_DIR}/include/view
+)
 
 # Source files
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 
 # Executable
 add_executable(Battleships ${SOURCES})
