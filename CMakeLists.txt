@@ -1,47 +1,23 @@
-cmake_minimum_required(VERSION 3.5.0)
-project(BattleShips VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.10)
+project(Battleships)
 
-# Recursively get all directories under include
-file(GLOB_RECURSE ALL_INCLUDE_DIRS LIST_DIRECTORIES true
-     "${PROJECT_SOURCE_DIR}/include/*")
+set(CMAKE_CXX_STANDARD 17)
 
-# Filter only directories (optional safeguard)
-set(INCLUDE_DIRS "")
-foreach(dir ${ALL_INCLUDE_DIRS})
-    if(IS_DIRECTORY ${dir})
-        list(APPEND INCLUDE_DIRS ${dir})
-    endif()
-endforeach()
+set(FLTK_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/fltk)
+set(FLTK_LIBRARIES ${PROJECT_SOURCE_DIR}/external/fltk/lib)
 
-# Add them to the include path
-include_directories(${INCLUDE_DIRS})
+# Include directories
+include_directories(include external)
+include_directories(${FLTK_INCLUDE_DIRS})
 
+# Find FLTK
+find_package(FLTK REQUIRED)
 
-set(SOURCES 
-    #model
-    src/model/board.cpp
-    src/model/cell.cpp
-    src/model/GameModel.cpp
-    src/model/player.cpp
-    src/model/ship.cpp
+# Source files
+file(GLOB SOURCES "src/*.cpp")
 
-    #controller
-    src/controller/GameController.cpp
+# Executable
+add_executable(Battleships ${SOURCES})
 
-    #view
-    src/view/GameView.cpp
-    src/view/UI.cpp
-
-    #util
-    src/util/utils.cpp
-)
-
-#main application
-add_executable(BattleShips ${SOURCES} src/main.cpp)
-
-#tests
-enable_testing()
-
-add_executable(BattleShips_TEST ${SOURCES} tests/test1.cpp)
-
-add_test(NAME BattleShips_TEST COMMAND BattleShips_TEST)
+# Link FLTK
+target_link_libraries(Battleships fltk)

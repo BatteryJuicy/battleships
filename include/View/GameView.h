@@ -8,5 +8,7 @@ public:
 
     GameView();
 
+    void updateBoard();
+
 };
 #endif
