@@ -3,15 +3,20 @@ project(Battleships)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(FLTK_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/fltk)
-set(FLTK_LIBRARIES ${PROJECT_SOURCE_DIR}/external/fltk/lib)
+#set(FLTK_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/fltk)
+#set(FLTK_LIBRARIES ${PROJECT_SOURCE_DIR}/external/fltk/lib)
 
 # Include directories
-include_directories(include external)
-include_directories(${FLTK_INCLUDE_DIRS})
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include/controller
+    ${PROJECT_SOURCE_DIR}/include/model
+    ${PROJECT_SOURCE_DIR}/include/util
+    ${PROJECT_SOURCE_DIR}/include/view
+)
+include_directories(${FLTK_INCLUDE_DIR})
 
 # Find FLTK
-find_package(FLTK REQUIRED)
+#find_package(FLTK REQUIRED)
 
 # Source files
 file(GLOB SOURCES "src/*.cpp")
@@ -20,4 +25,4 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(Battleships ${SOURCES})
 
 # Link FLTK
-target_link_libraries(Battleships fltk)
+#target_link_libraries(Battleships fltk)
