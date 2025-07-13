@@ -23,4 +23,3 @@ add_executable(Battleships ${SOURCES})
 
 # Link FLTK
 target_link_libraries(Battleships fltk)
-ltk)
