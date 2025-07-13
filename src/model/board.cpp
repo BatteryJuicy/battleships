@@ -33,7 +33,7 @@ Board::Board(unsigned int _size_)
         {
             row.emplace_back(Cell::CellType::BORDER);
         }
-        border.push_back(move(row));
+        border.push_back(std::move(row));
     }
     
     //---------creating the board----------
@@ -42,7 +42,7 @@ Board::Board(unsigned int _size_)
     board.reserve(size + 2);
 
     //adding the top border
-    board.push_back(move(border[0]));
+    board.push_back(std::move(border[0]));
 
     for (unsigned int i = 0; i < size; i++)
     {
