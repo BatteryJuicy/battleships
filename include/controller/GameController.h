@@ -10,12 +10,16 @@ namespace Controller
     private:
         GameModel model;
         GameView view;
+
+        static void handleGuessButton(Fl_Widget* w, void* data);
     public:
 
-        GameController(unsigned int boardSize);
+        GameController(unsigned int boardSize, int wWidth, int wHeight);
 
         GameModel& getModel();
         GameView& getView();
+
+        void run();
 
     };
 }
