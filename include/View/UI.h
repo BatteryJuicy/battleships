@@ -1,1 +1,0 @@
-//it holds the data that will be displayed by view
