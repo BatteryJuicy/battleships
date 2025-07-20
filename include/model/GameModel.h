@@ -19,7 +19,9 @@ public:
     Player& Player1();
     Player& Player2();
 
-    void makeGuess(coord c);
+    Turn getTurn();
+
+    void makeGuess(Coord c);
 
 };
 #endif
