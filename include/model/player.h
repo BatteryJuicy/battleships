@@ -35,6 +35,6 @@ public:
      * @param x 
      * @param y 
      */
-    void applyGuess(coord c);
+    void applyGuess(Coord c);
 };
 #endif 

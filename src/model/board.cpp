@@ -5,7 +5,7 @@
 #include <board.h>
 #include <utils.h>
 
-coord::coord(unsigned int x, unsigned int y) : x(x), y(y) {}
+Coord::Coord(unsigned int x, unsigned int y) : x(x), y(y) {}
 
 Board::Board(unsigned int _size_)
 {
@@ -79,7 +79,7 @@ unsigned int Board::getSize() const
     return size;
 }
 
-Cell& Board::getCell(coord c)
+Cell& Board::getCell(Coord c)
 {
     c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
 
@@ -90,7 +90,7 @@ Cell& Board::getCell(coord c)
     return board[c.y][c.x];
 }
 
-const Cell& Board::getCell(coord c) const
+const Cell& Board::getCell(Coord c) const
 {
     c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
 

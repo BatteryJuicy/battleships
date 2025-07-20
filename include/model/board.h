@@ -9,11 +9,11 @@
  * @brief object to store x, y coordinates
  * 
  */
-struct coord{
+struct Coord{
     unsigned int x;
     unsigned int y;
 
-    coord(unsigned int x, unsigned int y);
+    Coord(unsigned int x, unsigned int y);
 };
 
 /**
@@ -57,7 +57,7 @@ public:
      * @return Cell& reference to the non-border cell at BOARD index (x,y).
      * @note (x,y) = (0,0) is mapped to (1,1) in the actual border matrix to skip the border cells.
      */
-    Cell& getCell(coord c);
+    Cell& getCell(Coord c);
 
     /**
      * @brief Get the Cell object at board index (x,y).
@@ -67,6 +67,6 @@ public:
      * @note (x,y) = (0,0) is mapped to (1,1) in the actual border matrix to skip the border cells.
      * @note Get's called by const Board& only.
      */
-    const Cell& getCell(coord c) const;
+    const Cell& getCell(Coord c) const;
 };
 #endif

@@ -8,7 +8,7 @@ Board& Player::getBoard()
     return board;
 }
 
-void Player::applyGuess(coord c)
+void Player::applyGuess(Coord c)
 {
     Cell& cell = board.getCell(c);
 

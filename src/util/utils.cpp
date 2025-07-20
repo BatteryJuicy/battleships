@@ -60,7 +60,7 @@ void displayBoard(const Board& board)
         //printing the board
         for (unsigned int x = 0; x < size; x++)
         {
-            printCell(board.getCell(coord(x,y)));
+            printCell(board.getCell(Coord(x,y)));
             std::cout << " ";
         }
         //printing numbers on the right
