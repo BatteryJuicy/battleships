@@ -8,19 +8,20 @@
 
 struct CallBackData{
     Controller::GameController* controller;
-    Coord* coord;
+    Coord coord;
 
-    CallBackData(Controller::GameController* c, Coord* _c) : controller(c), coord(_c) {}
+    CallBackData(Controller::GameController* c, Coord _c) : controller(c), coord(_c) {}
 };
 
 void Controller::GameController::handleGuessButton(Fl_Widget* w, void* data)
 {
     CallBackData* d = static_cast<CallBackData*>(data);
     Controller::GameController* c = d->controller;
-    Coord* coords = d->coord;
+    Coord coords = d->coord;
 
     if (c->model.getTurn() == GameModel::Turn::PLAYER1){
-        c->model.makeGuess(*coords);
+        c->model.makeGuess(coords);
+        c->view.updateBoard(c->model.Player2());
     }   
 
 }
@@ -33,7 +34,7 @@ Controller::GameController::GameController(unsigned int boardSize, int wWidth, i
     {
         for (unsigned int j = 0; j < boardSize; j++)
         {
-            CallBackData* d = new CallBackData(this, new Coord(j, i));
+            CallBackData* d = new CallBackData(this, Coord(j, i));
             view.getOpponentBoard()[i][j]->callback(Controller::GameController::handleGuessButton, d);
         }
         
