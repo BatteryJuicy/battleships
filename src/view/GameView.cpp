@@ -1,5 +1,7 @@
 #include <GameView.h>
 
+#include <FL/Fl_Box.H>
+
 #include <iostream>
 
 void GameView::createWindow(int width, int height)
@@ -11,6 +13,13 @@ void GameView::createWindow(int width, int height)
     int y = (screen_h - height) / 2;
 
     window = new Fl_Window(x, y, width, height, "BATTLESHIPS");
+
+    // Create an invisible box to act as the resizable area
+    Fl_Box* resizableDummy = new Fl_Box(0, 0, 1, 1);
+    resizableDummy->hide();  // Don't want it to be seen
+
+    // Set dummy as the resizable widget
+    window->resizable(resizableDummy);
 }
 
 //CONTROLLER MUST PASS THE FUNCTIONS THE BUTTONS EXECUTE
@@ -83,4 +92,37 @@ std::vector<std::vector<Fl_Button*>>& GameView::getOpponentBoard()
 void GameView::show()
 {
     window->show();
+}
+
+void GameView::updateBoard(Player& player)
+{
+    Board& board = player.getBoard();
+
+    for (Ship& s : player.getShips())
+    {
+        //if ship is shunken mark the cells differently
+    }
+
+    for (int y = 0; y < board.getSize(); y++)
+    {
+        for (int x = 0; x < board.getSize(); x++)
+        {
+            Fl_Button* b = opponentBoard[y][x];
+            Cell& c = board.getCell(Coord(x, y));
+
+            if (c.isGuessed() == true){
+                b->deactivate();
+            }
+            
+            if (c.isHit() == true){
+                b->color(FL_RED);
+            }
+            else{
+                b->color(FL_GRAY);
+            }
+        }
+        
+    }
+    
+    
 }
