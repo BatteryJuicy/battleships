@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <player.h>
+
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Button.H>
@@ -25,7 +27,7 @@ public:
 
     void show();
 
-    void updateBoard();
+    void updateBoard(Player& player);
 
 };
 #endif
