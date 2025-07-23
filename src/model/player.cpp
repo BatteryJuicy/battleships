@@ -19,3 +19,8 @@ void Player::applyGuess(Coord c)
         cell.setHit(true);
     }
 }
+
+std::vector<Ship>& Player::getShips()
+{
+    return ships;
+}

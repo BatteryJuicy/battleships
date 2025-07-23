@@ -36,5 +36,7 @@ public:
      * @param y 
      */
     void applyGuess(Coord c);
+
+    std::vector<Ship>& getShips();
 };
 #endif 
