@@ -7,6 +7,8 @@
 #include <utils.h>
 #include <GameController.h> //includes basically every header
 
+using namespace Battleships;
+
 void printCell(Cell cell)
 {
     //normal

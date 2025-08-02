@@ -5,6 +5,8 @@
 #include <board.h>
 #include <utils.h>
 
+using namespace Battleships;
+
 Coord::Coord(unsigned int x, unsigned int y) : x(x), y(y) {}
 
 Board::Board(unsigned int _size_)
@@ -81,20 +83,20 @@ unsigned int Board::getSize() const
 
 Cell& Board::getCell(Coord c)
 {
-    c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
-
-    if (c.x < 1 || c.x > board.size() || c.y < 1 || c.y > board.size()) {
+    if (c.x < 0 || c.x >= size || c.y < 0 || c.y >= size) {
         throw std::out_of_range("getCell: coordinates out of range");
     }
+
+    c.x++;c.y++; //Map logical coords to internal indices (offset by 1 to skip border)
 
     return board[c.y][c.x];
 }
 
 const Cell& Board::getCell(Coord c) const
 {
-    c.x++;c.y++; //mapping coordinates to the main board ignoring the border cells
+    c.x++;c.y++; // Map logical coords to internal indices (offset by 1 to skip border)
 
-    if (c.x < 1 || c.x > board.size() || c.y < 1 || c.y > board.size()) {
+    if (c.x < 1 || c.x > size || c.y < 1 || c.y > size) {
         throw std::out_of_range("getCell: coordinates out of range");
     }
 

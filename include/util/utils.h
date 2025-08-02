@@ -8,7 +8,7 @@
  * 
  * @param cell 
  */
-void printCell(Cell cell);
+void printCell(Battleships::Cell cell);
 
 /**
  * @brief Converts int to char
@@ -23,12 +23,12 @@ char numToLetter(int n);
  * 
  * @param board a const reference to the board that will be displayed. 
  */
-void displayBoard(const Board& board);
+void displayBoard(const Battleships::Board& board);
 
 /**
  * @brief Prints the full board of the player including boarder cells.
  * 
  * @param p player reference
  */
-void printBoard(Player& p);
+void printBoard(Battleships::Player& p);
 #endif

@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+using namespace Battleships;
+
 void GameView::createWindow(int width, int height)
 {
     int screen_w = Fl::w();  // Full screen width
@@ -42,6 +44,7 @@ void GameView::createBoards(unsigned int boardSize)
     const int VerticalPadding = (h - boardPixelSize) / 2;
 
     //-----------opponent's board------------
+
     Fl_Group* opponentBoard_Group = new Fl_Group(
                                     horizontalPadding + boardPixelSize + boardPadding,
                                     VerticalPadding, 
@@ -69,6 +72,31 @@ void GameView::createBoards(unsigned int boardSize)
 
     //--------player board---------
     
+    Fl_Group* playerBoard_Group = new Fl_Group(
+                                    horizontalPadding,
+                                    VerticalPadding, 
+                                    boardPixelSize,
+                                    boardPixelSize
+                                    );
+
+    playerBoard.reserve(boardSize);
+    for (int i = 0; i < boardSize; i++)
+    {
+        std::vector<Fl_Button*> row;
+        row.reserve(boardSize);
+
+        for (int j = 0; j < boardSize; j++)
+        {
+            int x = playerBoard_Group->x() + j*(cellSize + cellPadding);
+            int y = playerBoard_Group->y() + i*(cellSize + cellPadding) ;
+            Fl_Button* b = new Fl_Button(x, y, cellSize, cellSize);
+
+            row.push_back(b);
+        }
+        playerBoard.push_back(row);
+    }
+
+    playerBoard_Group->end();
     
 }
 
@@ -82,10 +110,10 @@ GameView::GameView(int width, int height, unsigned int boardSize) {
 
 std::vector<std::vector<Fl_Button*>>& GameView::getPlayerBoard()
 {
-    return playerboard;
+    return playerBoard;
 }
 std::vector<std::vector<Fl_Button*>>& GameView::getOpponentBoard()
-{
+{ 
     return opponentBoard;
 }
 
@@ -94,8 +122,12 @@ void GameView::show()
     window->show();
 }
 
-void GameView::updateBoard(Player& player)
+void GameView::updateBoard(GameModel& model)
 {
+    Player& player = (model.getTurn() == GameModel::Turn::PLAYER1) 
+                        ? model.Player1() 
+                        : model.Player2();
+
     Board& board = player.getBoard();
 
     for (Ship& s : player.getShips())

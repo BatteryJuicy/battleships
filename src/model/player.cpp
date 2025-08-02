@@ -1,5 +1,6 @@
 #include <player.h>
-#include <board.h>
+
+using namespace Battleships;
 
 Player::Player(unsigned int size) : board(size) {}
 

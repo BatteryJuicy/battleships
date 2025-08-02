@@ -6,6 +6,11 @@
 #include <board.h>
 #include <ship.h>
 
+namespace Battleships{
+/**
+ * @brief Represents a generic player in the Battleships game, managing their own board and guess logic.
+ * 
+ */
 class Player{
 private:
     int ships_remaining;
@@ -39,4 +44,5 @@ public:
 
     std::vector<Ship>& getShips();
 };
+}
 #endif 

@@ -4,6 +4,11 @@
 #include <player.h>
 #include <ai.h>
 
+namespace Battleships{
+/**
+ * @brief Manages the core  game such as turns, player data like boards and logic like guessing.
+ * 
+ */
 class GameModel{
 public:
     enum class Turn {PLAYER1, PLAYER2};
@@ -24,4 +29,5 @@ public:
     void makeGuess(Coord c);
 
 };
+}
 #endif

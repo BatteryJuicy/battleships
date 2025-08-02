@@ -5,6 +5,7 @@
 
 #include "cell.h"
 
+namespace Battleships{
 /**
  * @brief object to store x, y coordinates
  * 
@@ -69,4 +70,5 @@ public:
      */
     const Cell& getCell(Coord c) const;
 };
+}
 #endif

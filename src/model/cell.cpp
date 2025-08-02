@@ -3,6 +3,8 @@
 
 #include <cell.h>
 
+using namespace Battleships;
+
 Cell::Cell() : guessed(false), hit(false), type(Cell::CellType::SEA) {}
 
 Cell::Cell(CellType t) : guessed(false), hit(false), type(t) {}
