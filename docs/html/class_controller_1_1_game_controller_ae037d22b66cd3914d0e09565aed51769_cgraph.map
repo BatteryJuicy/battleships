@@ -1,0 +1,5 @@
+<map id="Controller::GameController::handleButton_guess" name="Controller::GameController::handleButton_guess">
+<area shape="rect" id="Node000001" title="handle button event on the oponent&#39;s board AKA the player guesses a cell." alt="" coords="5,5,182,46"/>
+<area shape="rect" id="Node000002" href="$class_controller_1_1_game_controller.html#a2b672d9f9aace2984cb7411b72eb347d" title="Get the Model object." alt="" coords="230,5,406,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,23,214,23,214,28,182,28"/>
+</map>

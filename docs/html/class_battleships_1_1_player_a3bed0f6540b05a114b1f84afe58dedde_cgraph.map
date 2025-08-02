@@ -1,0 +1,9 @@
+<map id="Battleships::Player::applyGuess" name="Battleships::Player::applyGuess">
+<area shape="rect" id="Node000001" title="Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly." alt="" coords="5,71,137,111"/>
+<area shape="rect" id="Node000002" href="$class_battleships_1_1_cell.html#a6fc7631b919a3296864c456538b7840b" title="Get the CellType." alt="" coords="185,5,310,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,68,176,49,177,54,129,73"/>
+<area shape="rect" id="Node000003" href="$class_battleships_1_1_cell.html#a86208e974a7b67156df121bddb1f7bd8" title="Set the Guessed object." alt="" coords="185,71,310,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,88,169,88,169,94,137,94"/>
+<area shape="rect" id="Node000004" href="$class_battleships_1_1_cell.html#a4c909d38bdacb223beafe10321c0b1e0" title="Set the Hit object." alt="" coords="185,136,310,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="129,109,177,128,176,133,127,114"/>
+</map>

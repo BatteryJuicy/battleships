@@ -1,0 +1,67 @@
+\doxysection{Battleships\+::Game\+Model Class Reference}
+\hypertarget{class_battleships_1_1_game_model}{}\label{class_battleships_1_1_game_model}\index{Battleships::GameModel@{Battleships::GameModel}}
+
+
+Manages the core game such as turns, player data like boards and logic like guessing.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Model.\+h$>$}
+
+
+
+Collaboration diagram for Battleships\+::Game\+Model\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{class_battleships_1_1_game_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_model_a313de35ceb99f2c4226db6655910c19f}\label{class_battleships_1_1_game_model_a313de35ceb99f2c4226db6655910c19f} 
+enum class {\bfseries Turn} \{ {\bfseries PLAYER1}
+, {\bfseries PLAYER2}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_model_aeba7e8c65f743c36623f32f8871c331e}\label{class_battleships_1_1_game_model_aeba7e8c65f743c36623f32f8871c331e} 
+{\bfseries Game\+Model} (unsigned int board\+Size)
+\item 
+\Hypertarget{class_battleships_1_1_game_model_aa9ae70a5f4659f8224af918f1ecd42be}\label{class_battleships_1_1_game_model_aa9ae70a5f4659f8224af918f1ecd42be} 
+\mbox{\hyperlink{class_battleships_1_1_player}{Player}} \& {\bfseries Player1} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_model_a4f1173b0e88940a572ec80c1d5517c8f}\label{class_battleships_1_1_game_model_a4f1173b0e88940a572ec80c1d5517c8f} 
+\mbox{\hyperlink{class_battleships_1_1_player}{Player}} \& {\bfseries Player2} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_model_ac8e8628bccbccdc473724023ab16345f}\label{class_battleships_1_1_game_model_ac8e8628bccbccdc473724023ab16345f} 
+Turn {\bfseries get\+Turn} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_model_aacfc14584b90e093b0a2a378307a4eee}\label{class_battleships_1_1_game_model_aacfc14584b90e093b0a2a378307a4eee} 
+void {\bfseries make\+Guess} (\mbox{\hyperlink{struct_battleships_1_1_coord}{Coord}} c)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_model_a5b283a0d1c79839d6e0761b4d486d789}\label{class_battleships_1_1_game_model_a5b283a0d1c79839d6e0761b4d486d789} 
+\mbox{\hyperlink{class_battleships_1_1_player}{Player}} {\bfseries player1}
+\item 
+\Hypertarget{class_battleships_1_1_game_model_a0155640f93bea734d9e526d71ab56af8}\label{class_battleships_1_1_game_model_a0155640f93bea734d9e526d71ab56af8} 
+\mbox{\hyperlink{class_battleships_1_1_player}{Player}} {\bfseries player2}
+\item 
+\Hypertarget{class_battleships_1_1_game_model_a3bbd0cfadcf460d59731b6831a2c5b33}\label{class_battleships_1_1_game_model_a3bbd0cfadcf460d59731b6831a2c5b33} 
+Turn {\bfseries current\+Turn}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the core game such as turns, player data like boards and logic like guessing. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/model/Game\+Model.\+h\item 
+src/model/Game\+Model.\+cpp\end{DoxyCompactItemize}

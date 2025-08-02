@@ -1,0 +1,51 @@
+\chapter{Battleships }
+\hypertarget{index}{}\label{index}\index{Battleships@{Battleships}}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
+\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsubsection{\texorpdfstring{This is a simple GUI PvE game of Battleships with two modes\+:}{This is a simple GUI PvE game of Battleships with two modes\+:}}\label{index_autotoc_md2}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Easy}}
+\begin{DoxyItemize}
+\item The computer uses simple algorithms to place and guess ships.
+\end{DoxyItemize}
+\item {\bfseries{Hard}}
+\begin{DoxyItemize}
+\item Neuroevolution-\/based AI.
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Implementation}{Implementation}}\label{index_autotoc_md3}
+
+\begin{DoxyItemize}
+\item MVC design architecture ~\newline
+
+\item FLTK GUI ~\newline
+
+\item Neuroevolution AI model
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{Build}{Build}}\label{index_autotoc_md4}
+To build and run the game\+:
+
+
+\begin{DoxyEnumerate}
+\item Make sure cmake is installed in your system.
+\item Move to the parent directory and create a build folder.
+\item Inside the build folder run the command 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ ..}
+
+\end{DoxyCode}
+ This tells CMake to find the {\ttfamily CMake\+Lists.\+txt} file which specifies how to build the game.
+\item Run the command 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+ And wait for everything to get built. The executable should appear in the build folder.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{Modules}{Modules}}\label{index_autotoc_md5}
+
+\begin{DoxyItemize}
+\item \href{https://www.fltk.org}{\texttt{FLTK}}
+\item \href{https://github.com/pybind/pybind11}{\texttt{pybind11}}
+\item \href{https://neat-python.readthedocs.io/en/latest}{\texttt{NEAT-\/python}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{Author}{Author}}\label{index_autotoc_md6}
+Andreas Thanopoulos 

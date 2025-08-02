@@ -1,0 +1,5 @@
+<map id="Battleships::Ai" name="Battleships::Ai">
+<area shape="rect" id="Node000001" title="AI player that extends the base Player class to implement automated ship placement and guessing." alt="" coords="18,79,124,105"/>
+<area shape="rect" id="Node000002" href="$class_battleships_1_1_player.html" title="Represents a generic player in the Battleships game, managing their own board and guess logic." alt="" coords="5,5,137,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,74,79,68,79,68,46"/>
+</map>

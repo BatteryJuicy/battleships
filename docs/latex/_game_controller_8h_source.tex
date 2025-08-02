@@ -1,0 +1,36 @@
+\doxysection{Game\+Controller.\+h}
+\hypertarget{_game_controller_8h_source}{}\label{_game_controller_8h_source}\index{include/controller/GameController.h@{include/controller/GameController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CONTROLLER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CONTROLLER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <GameView.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <GameModel.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }Battleships\{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }GameController\{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_game_model}{GameModel}}\ model;}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_game_view}{GameView}}\ view;}
+\DoxyCodeLine{00016\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8}{handleButton\_guess}}(Fl\_Widget*\ w,\ \textcolor{keywordtype}{void}*\ data);}
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battleships_1_1_game_controller_af17ab1a5ee28860600215d62fd8ff505}{handleButton\_placeShips}}(Fl\_Widget*\ w,\ \textcolor{keywordtype}{void}*\ data);}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ GameController(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize,\ \textcolor{keywordtype}{int}\ wWidth,\ \textcolor{keywordtype}{int}\ wHeight);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_game_model}{GameModel}}\&\ \mbox{\hyperlink{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665}{getModel}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_game_view}{GameView}}\&\ \mbox{\hyperlink{class_battleships_1_1_game_controller_af47a9a30adabc17d52097e5159e23e08}{getView}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ placeShips();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ run();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

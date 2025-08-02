@@ -1,0 +1,68 @@
+\doxysection{Game\+View Class Reference}
+\hypertarget{class_game_view}{}\label{class_game_view}\index{GameView@{GameView}}
+
+
+Responsible for rendering the game interface and handling user interactions.  
+
+
+
+
+{\ttfamily \#include $<$Game\+View.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_view_ae8393ed55ecb458010c28ec241e08ddb}\label{class_game_view_ae8393ed55ecb458010c28ec241e08ddb} 
+{\bfseries Game\+View} (int width, int height, unsigned int board\+Size)
+\item 
+\Hypertarget{class_game_view_aaacc04ec761f04bf0eacbea51ab20fa3}\label{class_game_view_aaacc04ec761f04bf0eacbea51ab20fa3} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ \& {\bfseries get\+Player\+Board} ()
+\item 
+\Hypertarget{class_game_view_a913704be07f2aadbd3df3090cfa62b02}\label{class_game_view_a913704be07f2aadbd3df3090cfa62b02} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ \& {\bfseries get\+Opponent\+Board} ()
+\item 
+\Hypertarget{class_game_view_a0aa5b05b38007520a6393ed7a7b5f35a}\label{class_game_view_a0aa5b05b38007520a6393ed7a7b5f35a} 
+void {\bfseries show} ()
+\item 
+\Hypertarget{class_game_view_a5ad2c330570071ad426ca8c7e4a25aaf}\label{class_game_view_a5ad2c330570071ad426ca8c7e4a25aaf} 
+void {\bfseries update\+Board} (\mbox{\hyperlink{class_game_model}{Game\+Model}} \&model)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_view_a66ef1785a53477d1a8594d94409b20a6}\label{class_game_view_a66ef1785a53477d1a8594d94409b20a6} 
+void {\bfseries create\+Window} (int width, int height)
+\item 
+\Hypertarget{class_game_view_a6c7f828bb17529ffb1912017b4c6bc2a}\label{class_game_view_a6c7f828bb17529ffb1912017b4c6bc2a} 
+void {\bfseries create\+Boards} (unsigned int board\+Size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_view_a1e18c9225e38f8ee5c8c29bda8954e85}\label{class_game_view_a1e18c9225e38f8ee5c8c29bda8954e85} 
+Fl\+\_\+\+Window \texorpdfstring{$\ast$}{*} {\bfseries window}
+\item 
+\Hypertarget{class_game_view_a20aeaec1262fadd46cbda760e1cadd35}\label{class_game_view_a20aeaec1262fadd46cbda760e1cadd35} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries player\+Board}
+\item 
+\Hypertarget{class_game_view_a68434aa5d73385798a2519e7f906a365}\label{class_game_view_a68434aa5d73385798a2519e7f906a365} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries opponent\+Board}
+\item 
+\Hypertarget{class_game_view_a28efafd4100aef4a8b40b7866b896b4e}\label{class_game_view_a28efafd4100aef4a8b40b7866b896b4e} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+sea}
+\item 
+\Hypertarget{class_game_view_a85a52947a5f914b028b95f964aba3751}\label{class_game_view_a85a52947a5f914b028b95f964aba3751} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+miss}
+\item 
+\Hypertarget{class_game_view_addf13d3a9441c648fa2373a5ee1ab758}\label{class_game_view_addf13d3a9441c648fa2373a5ee1ab758} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+hit}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Responsible for rendering the game interface and handling user interactions. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+View/Game\+View.\+h\item 
+src/view/Game\+View.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,148 @@
+\doxysection{Battleships\+::Game\+Controller Class Reference}
+\hypertarget{class_battleships_1_1_game_controller}{}\label{class_battleships_1_1_game_controller}\index{Battleships::GameController@{Battleships::GameController}}
+
+
+Coordinates interactions between the game model and view, handling game flow and user input.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Controller.\+h$>$}
+
+
+
+Collaboration diagram for Battleships\+::Game\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{class_battleships_1_1_game_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_controller_aa88892cd914826aad2ef6ccb6ffabeb4}\label{class_battleships_1_1_game_controller_aa88892cd914826aad2ef6ccb6ffabeb4} 
+{\bfseries Game\+Controller} (unsigned int board\+Size, int w\+Width, int w\+Height)
+\item 
+\mbox{\hyperlink{class_battleships_1_1_game_model}{Game\+Model}} \& \mbox{\hyperlink{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665}{get\+Model}} ()
+\begin{DoxyCompactList}\small\item\em Get the Model object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battleships_1_1_game_view}{Game\+View}} \& \mbox{\hyperlink{class_battleships_1_1_game_controller_af47a9a30adabc17d52097e5159e23e08}{get\+View}} ()
+\begin{DoxyCompactList}\small\item\em Get the View object. \end{DoxyCompactList}\item 
+\Hypertarget{class_battleships_1_1_game_controller_a3399465b2da571f4f1cf9aa3e938b6f3}\label{class_battleships_1_1_game_controller_a3399465b2da571f4f1cf9aa3e938b6f3} 
+void {\bfseries place\+Ships} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_controller_a5d6169c7a3aae6db94690e2f27d780a2}\label{class_battleships_1_1_game_controller_a5d6169c7a3aae6db94690e2f27d780a2} 
+void {\bfseries run} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8}{handle\+Button\+\_\+guess}} (Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}w, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em handle button event on the oponent\textquotesingle{}s board AKA the player guesses a cell. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_battleships_1_1_game_controller_af17ab1a5ee28860600215d62fd8ff505}{handle\+Button\+\_\+place\+Ships}} (Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}w, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em handle button event on the player\textquotesingle{}s board when he places his ships. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_controller_a06b7b7bf620cf7843c9945a690690bd6}\label{class_battleships_1_1_game_controller_a06b7b7bf620cf7843c9945a690690bd6} 
+\mbox{\hyperlink{class_battleships_1_1_game_model}{Game\+Model}} {\bfseries model}
+\item 
+\Hypertarget{class_battleships_1_1_game_controller_af3bf6bd4a5b3199b73104148e5055134}\label{class_battleships_1_1_game_controller_af3bf6bd4a5b3199b73104148e5055134} 
+\mbox{\hyperlink{class_battleships_1_1_game_view}{Game\+View}} {\bfseries view}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Coordinates interactions between the game model and view, handling game flow and user input. 
+
+\label{doc-func-members}
+\Hypertarget{class_battleships_1_1_game_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665}\index{Battleships::GameController@{Battleships::GameController}!getModel@{getModel}}
+\index{getModel@{getModel}!Battleships::GameController@{Battleships::GameController}}
+\doxysubsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665} 
+\mbox{\hyperlink{class_battleships_1_1_game_model}{Game\+Model}} \& Game\+Controller\+::get\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the Model object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_battleships_1_1_game_model}{Game\+Model}\& 
+\end{DoxyReturn}
+
+
+Referenced by \mbox{\hyperlink{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8}{handle\+Button\+\_\+guess()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_game_controller_af47a9a30adabc17d52097e5159e23e08}\index{Battleships::GameController@{Battleships::GameController}!getView@{getView}}
+\index{getView@{getView}!Battleships::GameController@{Battleships::GameController}}
+\doxysubsubsection{\texorpdfstring{getView()}{getView()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_game_controller_af47a9a30adabc17d52097e5159e23e08} 
+\mbox{\hyperlink{class_battleships_1_1_game_view}{Game\+View}} \& Game\+Controller\+::get\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the View object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_battleships_1_1_game_view}{Game\+View}\& 
+\end{DoxyReturn}
+\Hypertarget{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8}\index{Battleships::GameController@{Battleships::GameController}!handleButton\_guess@{handleButton\_guess}}
+\index{handleButton\_guess@{handleButton\_guess}!Battleships::GameController@{Battleships::GameController}}
+\doxysubsubsection{\texorpdfstring{handleButton\_guess()}{handleButton\_guess()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8} 
+void Game\+Controller\+::handle\+Button\+\_\+guess (\begin{DoxyParamCaption}\item[{Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}}]{w}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+handle button event on the oponent\textquotesingle{}s board AKA the player guesses a cell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & pointer to the widget that callbacks this function \\
+\hline
+{\em data} & Call\+Back\+Data defined in Game\+Controller.\+cpp \\
+\hline
+\end{DoxyParams}
+
+
+References \mbox{\hyperlink{class_battleships_1_1_game_controller_a951f0a1b65eacb6a48757ce9f78a2665}{get\+Model()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_battleships_1_1_game_controller_aca9de972b41e99c2f3787768c5f49ce8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_game_controller_af17ab1a5ee28860600215d62fd8ff505}\index{Battleships::GameController@{Battleships::GameController}!handleButton\_placeShips@{handleButton\_placeShips}}
+\index{handleButton\_placeShips@{handleButton\_placeShips}!Battleships::GameController@{Battleships::GameController}}
+\doxysubsubsection{\texorpdfstring{handleButton\_placeShips()}{handleButton\_placeShips()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_game_controller_af17ab1a5ee28860600215d62fd8ff505} 
+void Battleships\+::\+Game\+Controller\+::handle\+Button\+\_\+place\+Ships (\begin{DoxyParamCaption}\item[{Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}}]{w}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+handle button event on the player\textquotesingle{}s board when he places his ships. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & pointer to the widget that callbacks this function \\
+\hline
+{\em data} & Call\+Back\+Data defined in Game\+Controller.\+cpp \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/controller/Game\+Controller.\+h\item 
+src/controller/Game\+Controller.\+cpp\end{DoxyCompactItemize}

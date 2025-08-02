@@ -1,0 +1,141 @@
+\doxysection{Controller\+::Game\+Controller Class Reference}
+\hypertarget{class_controller_1_1_game_controller}{}\label{class_controller_1_1_game_controller}\index{Controller::GameController@{Controller::GameController}}
+
+
+Coordinates interactions between the game model and view, handling game flow and user input.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Controller.\+h$>$}
+
+
+
+Collaboration diagram for Controller\+::Game\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_controller_1_1_game_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_controller_1_1_game_controller_a6e78c2417b8d3ffa2f9d71c4b17cfd1e}\label{class_controller_1_1_game_controller_a6e78c2417b8d3ffa2f9d71c4b17cfd1e} 
+{\bfseries Game\+Controller} (unsigned int board\+Size, int w\+Width, int w\+Height)
+\item 
+\mbox{\hyperlink{class_game_model}{Game\+Model}} \& \mbox{\hyperlink{class_controller_1_1_game_controller_a2b672d9f9aace2984cb7411b72eb347d}{get\+Model}} ()
+\begin{DoxyCompactList}\small\item\em Get the Model object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_game_view}{Game\+View}} \& \mbox{\hyperlink{class_controller_1_1_game_controller_a4090fbd4b8a733c04a199ebc296621ec}{get\+View}} ()
+\begin{DoxyCompactList}\small\item\em Get the View object. \end{DoxyCompactList}\item 
+\Hypertarget{class_controller_1_1_game_controller_accfb470a8d08e80a46203f6805ce861c}\label{class_controller_1_1_game_controller_accfb470a8d08e80a46203f6805ce861c} 
+void {\bfseries place\+Ships} ()
+\item 
+\Hypertarget{class_controller_1_1_game_controller_a89ec1b0d5b37f50e99373259310aac5e}\label{class_controller_1_1_game_controller_a89ec1b0d5b37f50e99373259310aac5e} 
+void {\bfseries run} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_controller_1_1_game_controller_ae037d22b66cd3914d0e09565aed51769}{handle\+Button\+\_\+guess}} (Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}w, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em handle button event on the oponent\textquotesingle{}s board AKA the player guesses a cell. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_controller_1_1_game_controller_a0617224c3bdf53a0ce7e705053f2585a}{handle\+Button\+\_\+place\+Ships}} (Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}w, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em handle button event on the player\textquotesingle{}s board when he places his ships. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_controller_1_1_game_controller_a9b81dbc9803e2b658d16e3d6b8730a16}\label{class_controller_1_1_game_controller_a9b81dbc9803e2b658d16e3d6b8730a16} 
+\mbox{\hyperlink{class_game_model}{Game\+Model}} {\bfseries model}
+\item 
+\Hypertarget{class_controller_1_1_game_controller_ae1023d9418f9111137d857a4dc6f97bc}\label{class_controller_1_1_game_controller_ae1023d9418f9111137d857a4dc6f97bc} 
+\mbox{\hyperlink{class_game_view}{Game\+View}} {\bfseries view}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Coordinates interactions between the game model and view, handling game flow and user input. 
+
+\label{doc-func-members}
+\Hypertarget{class_controller_1_1_game_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_controller_1_1_game_controller_a2b672d9f9aace2984cb7411b72eb347d}\index{Controller::GameController@{Controller::GameController}!getModel@{getModel}}
+\index{getModel@{getModel}!Controller::GameController@{Controller::GameController}}
+\doxysubsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily \label{class_controller_1_1_game_controller_a2b672d9f9aace2984cb7411b72eb347d} 
+\mbox{\hyperlink{class_game_model}{Game\+Model}} \& Controller\+::\+Game\+Controller\+::get\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the Model object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_game_model}{Game\+Model}\& 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_controller_1_1_game_controller_a2b672d9f9aace2984cb7411b72eb347d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_controller_1_1_game_controller_a4090fbd4b8a733c04a199ebc296621ec}\index{Controller::GameController@{Controller::GameController}!getView@{getView}}
+\index{getView@{getView}!Controller::GameController@{Controller::GameController}}
+\doxysubsubsection{\texorpdfstring{getView()}{getView()}}
+{\footnotesize\ttfamily \label{class_controller_1_1_game_controller_a4090fbd4b8a733c04a199ebc296621ec} 
+\mbox{\hyperlink{class_game_view}{Game\+View}} \& Controller\+::\+Game\+Controller\+::get\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the View object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_game_view}{Game\+View}\& 
+\end{DoxyReturn}
+\Hypertarget{class_controller_1_1_game_controller_ae037d22b66cd3914d0e09565aed51769}\index{Controller::GameController@{Controller::GameController}!handleButton\_guess@{handleButton\_guess}}
+\index{handleButton\_guess@{handleButton\_guess}!Controller::GameController@{Controller::GameController}}
+\doxysubsubsection{\texorpdfstring{handleButton\_guess()}{handleButton\_guess()}}
+{\footnotesize\ttfamily \label{class_controller_1_1_game_controller_ae037d22b66cd3914d0e09565aed51769} 
+void Controller\+::\+Game\+Controller\+::handle\+Button\+\_\+guess (\begin{DoxyParamCaption}\item[{Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}}]{w}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+handle button event on the oponent\textquotesingle{}s board AKA the player guesses a cell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & pointer to the widget that callbacks this function \\
+\hline
+{\em data} & \doxylink{struct_call_back_data}{Call\+Back\+Data} defined in Game\+Controller.\+cpp \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_controller_1_1_game_controller_ae037d22b66cd3914d0e09565aed51769_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_controller_1_1_game_controller_a0617224c3bdf53a0ce7e705053f2585a}\index{Controller::GameController@{Controller::GameController}!handleButton\_placeShips@{handleButton\_placeShips}}
+\index{handleButton\_placeShips@{handleButton\_placeShips}!Controller::GameController@{Controller::GameController}}
+\doxysubsubsection{\texorpdfstring{handleButton\_placeShips()}{handleButton\_placeShips()}}
+{\footnotesize\ttfamily \label{class_controller_1_1_game_controller_a0617224c3bdf53a0ce7e705053f2585a} 
+void Controller\+::\+Game\+Controller\+::handle\+Button\+\_\+place\+Ships (\begin{DoxyParamCaption}\item[{Fl\+\_\+\+Widget \texorpdfstring{$\ast$}{*}}]{w}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+handle button event on the player\textquotesingle{}s board when he places his ships. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & pointer to the widget that callbacks this function \\
+\hline
+{\em data} & \doxylink{struct_call_back_data}{Call\+Back\+Data} defined in Game\+Controller.\+cpp \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/controller/Game\+Controller.\+h\item 
+src/controller/Game\+Controller.\+cpp\end{DoxyCompactItemize}

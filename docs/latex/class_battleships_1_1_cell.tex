@@ -1,0 +1,245 @@
+\doxysection{Battleships\+::Cell Class Reference}
+\hypertarget{class_battleships_1_1_cell}{}\label{class_battleships_1_1_cell}\index{Battleships::Cell@{Battleships::Cell}}
+
+
+\doxylink{class_battleships_1_1_cell}{Cell} that makes up the board that can either be s ship, sea or border cell.  
+
+
+
+
+{\ttfamily \#include $<$cell.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}\label{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb} 
+enum class \mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}} \{ {\bfseries SEA}
+, {\bfseries BOAT}
+, {\bfseries BORDER}
+ \}
+\begin{DoxyCompactList}\small\item\em specifies the type of cell that determines the function of the cell. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_cell_a925805034259f46c05469e04a9df7bc0}\label{class_battleships_1_1_cell_a925805034259f46c05469e04a9df7bc0} 
+std\+::string {\bfseries type\+To\+String} () const
+\item 
+\mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{class_battleships_1_1_cell}{Cell} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battleships_1_1_cell_a5b30b7a1bc0b73ddc5637135ff95d328}{Cell}} (\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}} t)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_battleships_1_1_cell}{Cell} object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battleships_1_1_cell_a129fca84f6f9ee348d325ffd92533515}{is\+Hit}} () const
+\begin{DoxyCompactList}\small\item\em getter of hit \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_battleships_1_1_cell_a37fd331db09511d4064f96a1768dcfef}{is\+Guessed}} () const
+\begin{DoxyCompactList}\small\item\em getter of guessed \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}} \mbox{\hyperlink{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b}{get\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Get the \doxylink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8}{set\+Guessed}} (bool guess)
+\begin{DoxyCompactList}\small\item\em Set the Guessed object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0}{set\+Hit}} (bool hit)
+\begin{DoxyCompactList}\small\item\em Set the Hit object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battleships_1_1_cell_ae2a60040d34fed1406a90dd5d3865de8}{set\+Type}} (\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}} t)
+\begin{DoxyCompactList}\small\item\em Set the Type object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_cell_aefe042e8884ce4cd47e2b4c6637db43a}\label{class_battleships_1_1_cell_aefe042e8884ce4cd47e2b4c6637db43a} 
+bool {\bfseries guessed}
+\item 
+\Hypertarget{class_battleships_1_1_cell_aef3b9a621021b265245a4592323279db}\label{class_battleships_1_1_cell_aef3b9a621021b265245a4592323279db} 
+bool {\bfseries hit}
+\item 
+\Hypertarget{class_battleships_1_1_cell_a7b29170b9c12223ef7fd5df9f4455576}\label{class_battleships_1_1_cell_a7b29170b9c12223ef7fd5df9f4455576} 
+\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}} {\bfseries type}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_battleships_1_1_cell}{Cell} that makes up the board that can either be s ship, sea or border cell. 
+
+\label{doc-constructors}
+\Hypertarget{class_battleships_1_1_cell_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}\index{Battleships::Cell@{Battleships::Cell}!Cell@{Cell}}
+\index{Cell@{Cell}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{Cell()}{Cell()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71} 
+Cell\+::\+Cell (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor for \doxylink{class_battleships_1_1_cell}{Cell} object. 
+
+\begin{DoxyNote}{Note}
+sets Cell\+Type\+::\+SEA by default unless specified. 
+\end{DoxyNote}
+
+
+References \mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell()}}.
+
+
+
+Referenced by \mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_cell_a5b30b7a1bc0b73ddc5637135ff95d328}\index{Battleships::Cell@{Battleships::Cell}!Cell@{Cell}}
+\index{Cell@{Cell}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{Cell()}{Cell()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a5b30b7a1bc0b73ddc5637135ff95d328} 
+Cell\+::\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_battleships_1_1_cell}{Cell} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \doxylink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type} of the cell \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_battleships_1_1_cell_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b}\index{Battleships::Cell@{Battleships::Cell}!getType@{getType}}
+\index{getType@{getType}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b} 
+\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+::\+Cell\+Type}} Cell\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the \doxylink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type}. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+Type} of the cell 
+\end{DoxyReturn}
+
+
+Referenced by \mbox{\hyperlink{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}{Battleships\+::\+Player\+::apply\+Guess()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_cell_a37fd331db09511d4064f96a1768dcfef}\index{Battleships::Cell@{Battleships::Cell}!isGuessed@{isGuessed}}
+\index{isGuessed@{isGuessed}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{isGuessed()}{isGuessed()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a37fd331db09511d4064f96a1768dcfef} 
+bool Cell\+::is\+Guessed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+getter of guessed 
+
+\begin{DoxyReturn}{Returns}
+true\+: if guessed through 
+
+false 
+\end{DoxyReturn}
+\Hypertarget{class_battleships_1_1_cell_a129fca84f6f9ee348d325ffd92533515}\index{Battleships::Cell@{Battleships::Cell}!isHit@{isHit}}
+\index{isHit@{isHit}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{isHit()}{isHit()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a129fca84f6f9ee348d325ffd92533515} 
+bool Cell\+::is\+Hit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+getter of hit 
+
+\begin{DoxyReturn}{Returns}
+hit member.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+returns true if the cell has Cell\+Type\+::\+BOAT and is guessed. 
+\end{DoxyNote}
+\Hypertarget{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8}\index{Battleships::Cell@{Battleships::Cell}!setGuessed@{setGuessed}}
+\index{setGuessed@{setGuessed}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{setGuessed()}{setGuessed()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8} 
+void Cell\+::set\+Guessed (\begin{DoxyParamCaption}\item[{bool}]{guess}{}\end{DoxyParamCaption})}
+
+
+
+Set the Guessed object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em guess} & \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by \mbox{\hyperlink{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}{Battleships\+::\+Player\+::apply\+Guess()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0}\index{Battleships::Cell@{Battleships::Cell}!setHit@{setHit}}
+\index{setHit@{setHit}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{setHit()}{setHit()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0} 
+void Cell\+::set\+Hit (\begin{DoxyParamCaption}\item[{bool}]{hit}{}\end{DoxyParamCaption})}
+
+
+
+Set the Hit object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hit} & \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by \mbox{\hyperlink{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}{Battleships\+::\+Player\+::apply\+Guess()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_cell_ae2a60040d34fed1406a90dd5d3865de8}\index{Battleships::Cell@{Battleships::Cell}!setType@{setType}}
+\index{setType@{setType}!Battleships::Cell@{Battleships::Cell}}
+\doxysubsubsection{\texorpdfstring{setType()}{setType()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_cell_ae2a60040d34fed1406a90dd5d3865de8} 
+void Cell\+::set\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{Cell\+::\+Cell\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+
+
+Set the Type object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/model/cell.\+h\item 
+src/model/cell.\+cpp\end{DoxyCompactItemize}

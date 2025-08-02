@@ -1,0 +1,68 @@
+\doxysection{Game\+Model Class Reference}
+\hypertarget{class_game_model}{}\label{class_game_model}\index{GameModel@{GameModel}}
+
+
+Manages the core game such as turns, player data like boards and logic like guessing.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Model.\+h$>$}
+
+
+
+Collaboration diagram for Game\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{class_game_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_model_a2983ef547c4cd9dc05332ddcb7b8ce6e}\label{class_game_model_a2983ef547c4cd9dc05332ddcb7b8ce6e} 
+enum class {\bfseries Turn} \{ {\bfseries PLAYER1}
+, {\bfseries PLAYER2}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_model_aeba7e8c65f743c36623f32f8871c331e}\label{class_game_model_aeba7e8c65f743c36623f32f8871c331e} 
+{\bfseries Game\+Model} (unsigned int board\+Size)
+\item 
+\Hypertarget{class_game_model_aa9ae70a5f4659f8224af918f1ecd42be}\label{class_game_model_aa9ae70a5f4659f8224af918f1ecd42be} 
+\mbox{\hyperlink{class_player}{Player}} \& {\bfseries Player1} ()
+\item 
+\Hypertarget{class_game_model_a4f1173b0e88940a572ec80c1d5517c8f}\label{class_game_model_a4f1173b0e88940a572ec80c1d5517c8f} 
+\mbox{\hyperlink{class_player}{Player}} \& {\bfseries Player2} ()
+\item 
+\Hypertarget{class_game_model_ac8e8628bccbccdc473724023ab16345f}\label{class_game_model_ac8e8628bccbccdc473724023ab16345f} 
+Turn {\bfseries get\+Turn} ()
+\item 
+\Hypertarget{class_game_model_aacfc14584b90e093b0a2a378307a4eee}\label{class_game_model_aacfc14584b90e093b0a2a378307a4eee} 
+void {\bfseries make\+Guess} (\mbox{\hyperlink{struct_coord}{Coord}} c)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_model_afc6ff453220f852535410025313572e5}\label{class_game_model_afc6ff453220f852535410025313572e5} 
+\mbox{\hyperlink{class_player}{Player}} {\bfseries player1}
+\item 
+\Hypertarget{class_game_model_aa2f2e31747871160a59cc9c43f01d4bf}\label{class_game_model_aa2f2e31747871160a59cc9c43f01d4bf} 
+\mbox{\hyperlink{class_player}{Player}} {\bfseries player2}
+\item 
+\Hypertarget{class_game_model_a6124848220095a1c17a898a35ace1f2b}\label{class_game_model_a6124848220095a1c17a898a35ace1f2b} 
+Turn {\bfseries current\+Turn}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the core game such as turns, player data like boards and logic like guessing. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/model/Game\+Model.\+h\item 
+src/model/Game\+Model.\+cpp\end{DoxyCompactItemize}

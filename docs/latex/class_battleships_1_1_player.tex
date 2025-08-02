@@ -1,0 +1,128 @@
+\doxysection{Battleships\+::Player Class Reference}
+\hypertarget{class_battleships_1_1_player}{}\label{class_battleships_1_1_player}\index{Battleships::Player@{Battleships::Player}}
+
+
+Represents a generic player in the Battleships game, managing their own board and guess logic.  
+
+
+
+
+{\ttfamily \#include $<$player.\+h$>$}
+
+
+
+Inheritance diagram for Battleships\+::Player\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_battleships_1_1_player__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Battleships\+::Player\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_battleships_1_1_player__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battleships_1_1_player_aceb057a111cb2ee0fea34e8d43f8a7cb}{Player}} (unsigned int size)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_battleships_1_1_player}{Player} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battleships_1_1_board}{Board}} \& \mbox{\hyperlink{class_battleships_1_1_player_a0be1779a5617a6f8f151529f44076ed6}{get\+Board}} ()
+\begin{DoxyCompactList}\small\item\em Get the \doxylink{class_battleships_1_1_board}{Board} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}{apply\+Guess}} (\mbox{\hyperlink{struct_battleships_1_1_coord}{Coord}} c)
+\begin{DoxyCompactList}\small\item\em Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly. \end{DoxyCompactList}\item 
+\Hypertarget{class_battleships_1_1_player_a5aa43b5eb5f19f357e58b584ada0c8e2}\label{class_battleships_1_1_player_a5aa43b5eb5f19f357e58b584ada0c8e2} 
+std\+::vector$<$ \mbox{\hyperlink{class_battleships_1_1_ship}{Ship}} $>$ \& {\bfseries get\+Ships} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_player_abb3c241e8670cf98c5cfe8919ce9a3cd}\label{class_battleships_1_1_player_abb3c241e8670cf98c5cfe8919ce9a3cd} 
+int {\bfseries ships\+\_\+remaining}
+\item 
+\Hypertarget{class_battleships_1_1_player_afb85d7d09fc89e9856801f12644f6cc3}\label{class_battleships_1_1_player_afb85d7d09fc89e9856801f12644f6cc3} 
+std\+::vector$<$ \mbox{\hyperlink{class_battleships_1_1_ship}{Ship}} $>$ {\bfseries ships}
+\item 
+\Hypertarget{class_battleships_1_1_player_ab97bfc4f246ed307b53d8907399c10fa}\label{class_battleships_1_1_player_ab97bfc4f246ed307b53d8907399c10fa} 
+\mbox{\hyperlink{class_battleships_1_1_board}{Board}} {\bfseries board}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a generic player in the Battleships game, managing their own board and guess logic. 
+
+\label{doc-constructors}
+\Hypertarget{class_battleships_1_1_player_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_battleships_1_1_player_aceb057a111cb2ee0fea34e8d43f8a7cb}\index{Battleships::Player@{Battleships::Player}!Player@{Player}}
+\index{Player@{Player}!Battleships::Player@{Battleships::Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_player_aceb057a111cb2ee0fea34e8d43f8a7cb} 
+Player\+::\+Player (\begin{DoxyParamCaption}\item[{unsigned int}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_battleships_1_1_player}{Player} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & the size of the board \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_battleships_1_1_player_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}\index{Battleships::Player@{Battleships::Player}!applyGuess@{applyGuess}}
+\index{applyGuess@{applyGuess}!Battleships::Player@{Battleships::Player}}
+\doxysubsubsection{\texorpdfstring{applyGuess()}{applyGuess()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde} 
+void Player\+::apply\+Guess (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_battleships_1_1_coord}{Coord}}}]{c}{}\end{DoxyParamCaption})}
+
+
+
+Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+
+
+References \mbox{\hyperlink{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b}{Battleships\+::\+Cell\+::get\+Type()}}, \mbox{\hyperlink{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8}{Battleships\+::\+Cell\+::set\+Guessed()}}, and \mbox{\hyperlink{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0}{Battleships\+::\+Cell\+::set\+Hit()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_battleships_1_1_player_a0be1779a5617a6f8f151529f44076ed6}\index{Battleships::Player@{Battleships::Player}!getBoard@{getBoard}}
+\index{getBoard@{getBoard}!Battleships::Player@{Battleships::Player}}
+\doxysubsubsection{\texorpdfstring{getBoard()}{getBoard()}}
+{\footnotesize\ttfamily \label{class_battleships_1_1_player_a0be1779a5617a6f8f151529f44076ed6} 
+\mbox{\hyperlink{class_battleships_1_1_board}{Board}} \& Player\+::get\+Board (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the \doxylink{class_battleships_1_1_board}{Board} object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{class_battleships_1_1_board}{Board}\& 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/model/player.\+h\item 
+src/model/player.\+cpp\end{DoxyCompactItemize}

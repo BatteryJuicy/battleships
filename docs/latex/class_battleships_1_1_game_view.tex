@@ -1,0 +1,68 @@
+\doxysection{Battleships\+::Game\+View Class Reference}
+\hypertarget{class_battleships_1_1_game_view}{}\label{class_battleships_1_1_game_view}\index{Battleships::GameView@{Battleships::GameView}}
+
+
+Responsible for rendering the game interface and handling user interactions.  
+
+
+
+
+{\ttfamily \#include $<$Game\+View.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_ae8393ed55ecb458010c28ec241e08ddb}\label{class_battleships_1_1_game_view_ae8393ed55ecb458010c28ec241e08ddb} 
+{\bfseries Game\+View} (int width, int height, unsigned int board\+Size)
+\item 
+\Hypertarget{class_battleships_1_1_game_view_aaacc04ec761f04bf0eacbea51ab20fa3}\label{class_battleships_1_1_game_view_aaacc04ec761f04bf0eacbea51ab20fa3} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ \& {\bfseries get\+Player\+Board} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a913704be07f2aadbd3df3090cfa62b02}\label{class_battleships_1_1_game_view_a913704be07f2aadbd3df3090cfa62b02} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ \& {\bfseries get\+Opponent\+Board} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a0aa5b05b38007520a6393ed7a7b5f35a}\label{class_battleships_1_1_game_view_a0aa5b05b38007520a6393ed7a7b5f35a} 
+void {\bfseries show} ()
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a5ad2c330570071ad426ca8c7e4a25aaf}\label{class_battleships_1_1_game_view_a5ad2c330570071ad426ca8c7e4a25aaf} 
+void {\bfseries update\+Board} (\mbox{\hyperlink{class_battleships_1_1_game_model}{Game\+Model}} \&model)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a66ef1785a53477d1a8594d94409b20a6}\label{class_battleships_1_1_game_view_a66ef1785a53477d1a8594d94409b20a6} 
+void {\bfseries create\+Window} (int width, int height)
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a6c7f828bb17529ffb1912017b4c6bc2a}\label{class_battleships_1_1_game_view_a6c7f828bb17529ffb1912017b4c6bc2a} 
+void {\bfseries create\+Boards} (unsigned int board\+Size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a09a6b737df8d304cddba0a0eb25bd06d}\label{class_battleships_1_1_game_view_a09a6b737df8d304cddba0a0eb25bd06d} 
+Fl\+\_\+\+Window \texorpdfstring{$\ast$}{*} {\bfseries window}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a045960089123a04b9a4b9b45bee6e0e8}\label{class_battleships_1_1_game_view_a045960089123a04b9a4b9b45bee6e0e8} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries player\+Board}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_ae3a60097cf472057be9bd5de5c937738}\label{class_battleships_1_1_game_view_ae3a60097cf472057be9bd5de5c937738} 
+std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries opponent\+Board}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a0c6abae3c9e524ba25b700871eccda3c}\label{class_battleships_1_1_game_view_a0c6abae3c9e524ba25b700871eccda3c} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+sea}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_af935c17a82e00ab82810c92c66c38a02}\label{class_battleships_1_1_game_view_af935c17a82e00ab82810c92c66c38a02} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+miss}
+\item 
+\Hypertarget{class_battleships_1_1_game_view_ae260d321a9e3544701e59cebcb686f1f}\label{class_battleships_1_1_game_view_ae260d321a9e3544701e59cebcb686f1f} 
+Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+hit}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Responsible for rendering the game interface and handling user interactions. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+View/Game\+View.\+h\item 
+src/view/Game\+View.\+cpp\end{DoxyCompactItemize}

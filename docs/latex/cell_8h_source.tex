@@ -1,0 +1,41 @@
+\doxysection{cell.\+h}
+\hypertarget{cell_8h_source}{}\label{cell_8h_source}\index{include/model/cell.h@{include/model/cell.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ CELL\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ CELL\_H}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }Battleships\{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell}}\{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{CellType}}\ \{SEA,\ BOAT,\ BORDER\};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ typeToString()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ guessed;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ hit;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{CellType}}\ type;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//default\ constructor}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell}}();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_cell_a394510643e8664cf12b5efaf5cb99f71}{Cell}}(\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{CellType}}\ t);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//getters}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battleships_1_1_cell_a129fca84f6f9ee348d325ffd92533515}{isHit}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_battleships_1_1_cell_a37fd331db09511d4064f96a1768dcfef}{isGuessed}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{CellType}}\ \mbox{\hyperlink{class_battleships_1_1_cell_a6fc7631b919a3296864c456538b7840b}{getType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00064\ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//setters}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battleships_1_1_cell_a86208e974a7b67156df121bddb1f7bd8}{setGuessed}}(\textcolor{keywordtype}{bool}\ guess);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battleships_1_1_cell_a4c909d38bdacb223beafe10321c0b1e0}{setHit}}(\textcolor{keywordtype}{bool}\ hit);}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_battleships_1_1_cell_ae2a60040d34fed1406a90dd5d3865de8}{setType}}(\mbox{\hyperlink{class_battleships_1_1_cell_ad2e778cd8ae919fcc1e77f5be8a026fb}{CellType}}\ t);}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

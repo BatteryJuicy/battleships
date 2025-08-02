@@ -1,0 +1,32 @@
+\doxysection{Battleships Namespace Reference}
+\hypertarget{namespace_battleships}{}\label{namespace_battleships}\index{Battleships@{Battleships}}
+
+
+AI player that extends the base \doxylink{class_battleships_1_1_player}{Player} class to implement automated ship placement and guessing.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_battleships_1_1_ai}{Ai}}
+\item 
+class \mbox{\hyperlink{class_battleships_1_1_board}{Board}}
+\begin{DoxyCompactList}\small\item\em A 2d vector array of \doxylink{class_battleships_1_1_cell}{Cell} objects. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_cell}{Cell}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_battleships_1_1_cell}{Cell} that makes up the board that can either be s ship, sea or border cell. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_battleships_1_1_coord}{Coord}}
+\begin{DoxyCompactList}\small\item\em object to store x, y coordinates \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_game_controller}{Game\+Controller}}
+\begin{DoxyCompactList}\small\item\em Coordinates interactions between the game model and view, handling game flow and user input. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_game_model}{Game\+Model}}
+\begin{DoxyCompactList}\small\item\em Manages the core game such as turns, player data like boards and logic like guessing. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_game_view}{Game\+View}}
+\begin{DoxyCompactList}\small\item\em Responsible for rendering the game interface and handling user interactions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_player}{Player}}
+\begin{DoxyCompactList}\small\item\em Represents a generic player in the \doxylink{namespace_battleships}{Battleships} game, managing their own board and guess logic. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_battleships_1_1_ship}{Ship}}
+\begin{DoxyCompactList}\small\item\em Linked list of Cells objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+AI player that extends the base \doxylink{class_battleships_1_1_player}{Player} class to implement automated ship placement and guessing. 

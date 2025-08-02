@@ -1,0 +1,49 @@
+\doxysection{Battleships\+::Ai Class Reference}
+\hypertarget{class_battleships_1_1_ai}{}\label{class_battleships_1_1_ai}\index{Battleships::Ai@{Battleships::Ai}}
+
+
+AI player that extends the base \doxylink{class_battleships_1_1_player}{Player} class to implement automated ship placement and guessing.  
+
+
+
+
+{\ttfamily \#include $<$ai.\+h$>$}
+
+
+
+Inheritance diagram for Battleships\+::Ai\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_battleships_1_1_ai__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Battleships\+::Ai\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_battleships_1_1_ai__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_battleships_1_1_player}{Battleships\+::\+Player}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_battleships_1_1_player_aceb057a111cb2ee0fea34e8d43f8a7cb}{Player}} (unsigned int size)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_battleships_1_1_player}{Player} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_battleships_1_1_board}{Board}} \& \mbox{\hyperlink{class_battleships_1_1_player_a0be1779a5617a6f8f151529f44076ed6}{get\+Board}} ()
+\begin{DoxyCompactList}\small\item\em Get the \doxylink{class_battleships_1_1_board}{Board} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_battleships_1_1_player_a3bed0f6540b05a114b1f84afe58dedde}{apply\+Guess}} (\mbox{\hyperlink{struct_battleships_1_1_coord}{Coord}} c)
+\begin{DoxyCompactList}\small\item\em Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_battleships_1_1_ship}{Ship}} $>$ \& {\bfseries get\+Ships} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+AI player that extends the base \doxylink{class_battleships_1_1_player}{Player} class to implement automated ship placement and guessing. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/model/ai.\+h\end{DoxyCompactItemize}
