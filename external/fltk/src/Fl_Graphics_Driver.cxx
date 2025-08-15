@@ -19,6 +19,7 @@
 */
 #include <config.h> // for HAVE_GL
 #include <FL/Fl_Graphics_Driver.H>
+#include "Fl_Scalable_Graphics_Driver.H" // Fl_Fontdesc
 /** Points to the driver that currently receives all graphics requests */
 FL_EXPORT Fl_Graphics_Driver *fl_graphics_driver;
 
@@ -800,9 +801,7 @@ Fl_Font_Descriptor::Fl_Font_Descriptor(const char* name, Fl_Fontsize Size) {
 Fl_Scalable_Graphics_Driver::Fl_Scalable_Graphics_Driver() : Fl_Graphics_Driver() {
   line_width_ = 0;
   fontsize_ = -1;
-#if FL_ABI_VERSION >= 10403     // Issue #1214
   is_solid_ = true;
-#endif
 }
 
 void Fl_Scalable_Graphics_Driver::rect(int x, int y, int w, int h)
@@ -853,11 +852,7 @@ void Fl_Scalable_Graphics_Driver::xyline(int x, int y, int x1) {
   int xx1 = (x < x1 ? x1 : x);
   if (s != s_int && line_width_ <= s_int) {
     int lwidth = this->floor((y+1)) - this->floor(y);
-#if FL_ABI_VERSION >= 10403     // Issue #1214
     bool need_change_width = (lwidth != s_int && is_solid_);
-#else
-    bool need_change_width = (lwidth != s_int);
-#endif
     void *data = NULL;
     if (need_change_width) data = change_pen_width(lwidth);
     xyline_unscaled(this->floor(xx), this->floor(y) + int(lwidth/2.f), this->floor(xx1+1)-1);
@@ -877,11 +872,7 @@ void Fl_Scalable_Graphics_Driver::yxline(int x, int y, int y1) {
   int yy1 = (y < y1 ? y1 : y);
   if (s != s_int && line_width_ <= s_int) {
     int lwidth = (this->floor((x+1)) - this->floor(x));
-#if FL_ABI_VERSION >= 10403     // Issue #1214
     bool need_change_width = (lwidth != s_int && is_solid_);
-#else
-    bool need_change_width = (lwidth != s_int);
-#endif
     void *data = NULL;
     if (need_change_width) data = change_pen_width(lwidth);
     yxline_unscaled(this->floor(x) + int(lwidth/2.f), this->floor(yy), this->floor(yy1+1) - 1);
@@ -1061,9 +1052,7 @@ void Fl_Scalable_Graphics_Driver::draw_circle(int x0, int y0, int d, Fl_Color c)
 void Fl_Scalable_Graphics_Driver::line_style(int style, int width, char* dashes) {
   if (width == 0) line_width_ = int(scale() < 2 ? 0 : scale());
   else line_width_ = int(width>0 ? width*scale() : -width*scale());
-#if FL_ABI_VERSION >= 10403     // Issue #1214
   is_solid_ = ((style & 0xff) == FL_SOLID && (!dashes || !*dashes));
-#endif
   line_style_unscaled(style, line_width_, dashes);
 }
 

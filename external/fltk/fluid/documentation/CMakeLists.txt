@@ -1,7 +1,7 @@
 #
 # CMakeLists.txt to build docs for the FLTK project using CMake (www.cmake.org)
 #
-# Copyright 1998-2024 by Bill Spitzak and others.
+# Copyright 1998-2025 by Bill Spitzak and others.
 #
 # This library is free software. Distribution and use rights are outlined in
 # the file "COPYING" which should have been included with this file.  If this
@@ -15,6 +15,7 @@
 #
 
 set(DOCS)
+set(GIT_REVISION "")
 set(YEAR "")
 set(CURRENT_DATE "")
 
@@ -35,7 +36,7 @@ if(FLTK_BUILD_FLUID_DOCS OR FLTK_BUILD_PDF_DOCS)
   string(REPLACE " 0" " " TODAY "${TODAY}")
 
   # Find "short" doxygen version if it was built from Git
-  # Note: this is still needed in CMake 3.15.0 but later CMake versions
+  # Note: this is still needed in CMake 3.15 but later CMake versions
   #       (notably 3.25) remove the Git revision in 'DOXYGEN_VERSION'.
   # Todo: Find the "first good" CMake version and remove this redundant
   #       code once we require this as our minimal version and replace the
@@ -45,6 +46,13 @@ if(FLTK_BUILD_FLUID_DOCS OR FLTK_BUILD_PDF_DOCS)
     # strip trailing git revision if doxygen was built from source
     string(REGEX REPLACE " .*$" "" DOXYGEN_VERSION_SHORT ${DOXYGEN_VERSION})
   endif(DOXYGEN_FOUND)
+
+  # configure version.dox (includes the bare FLTK version number)
+  configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/version.dox.in
+    ${CMAKE_CURRENT_BINARY_DIR}/version.dox
+    @ONLY
+  )
 
   # configure copyright.dox (includes current year)
   configure_file(

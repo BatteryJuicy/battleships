@@ -201,7 +201,12 @@ int fl_filename_relative(char *to, int tolen, const char *from, const char *base
  \{
  */
 
-int Fl_System_Driver::filename_relative(char *to, int tolen, const char *dest_dir, const char *base_dir)
+int Fl_System_Driver::filename_relative(char *to, int tolen, const char *dest_dir, const char *base_dir) {
+  return filename_relative_(to, tolen, dest_dir, base_dir, true);
+}
+
+
+int Fl_System_Driver::filename_relative_(char *to, int tolen, const char *dest_dir, const char *base_dir, bool case_sensitive)
 {
   // Find the relative path from base_dir to dest_dir.
   // Both paths must be absolute and well formed (contain no /../ and /./ segments).
@@ -223,16 +228,17 @@ int Fl_System_Driver::filename_relative(char *to, int tolen, const char *dest_di
 
   // compare both path names until we find a difference
   for (;;) {
-#ifndef __APPLE__ // case sensitive
-    base_i++;
-    dest_i++;
-    char b = *base_i, d = *dest_i;
-#else // case insensitive
-    base_i += fl_utf8len1(*base_i);
-    int b = fl_tolower(fl_utf8decode(base_i, NULL, NULL));
-    dest_i += fl_utf8len1(*dest_i);
-    int d = fl_tolower(fl_utf8decode(dest_i, NULL, NULL));
-#endif
+    int b, d;
+    if (case_sensitive) { // case sensitive
+      base_i++;
+      dest_i++;
+      b = *base_i, d = *dest_i;
+    } else { // case insensitive
+      base_i += fl_utf8len1(*base_i);
+      b = fl_tolower(fl_utf8decode(base_i, NULL, NULL));
+      dest_i += fl_utf8len1(*dest_i);
+      d = fl_tolower(fl_utf8decode(dest_i, NULL, NULL));
+    }
     int b0 = (b==0) || (isdirsep(b));
     int d0 = (d==0) || (isdirsep(d));
     if (b0 && d0) {
@@ -285,10 +291,6 @@ int Fl_System_Driver::filename_relative(char *to, int tolen, const char *dest_di
  \endcond
  */
 
-// FIXME: '0 &&' => We can't do that in 1.4.x, enable this block in 1.5 or higher.
-// There would be too many naming conflicts with fluid's usage of these functions.
-
-#if (0 && FLTK_USE_STD)
 
 /**
  Return a new string that contains the name part of the filename.
@@ -296,7 +298,7 @@ int Fl_System_Driver::filename_relative(char *to, int tolen, const char *dest_di
  \return the name part of a filename
  \see fl_filename_name(const char *filename)
  */
-std::string fl_filename_name(const std::string &filename) {
+std::string fl_filename_name_str(const std::string &filename) {
   return std::string(fl_filename_name(filename.c_str()));
 }
 
@@ -306,7 +308,7 @@ std::string fl_filename_name(const std::string &filename) {
  \return the path part of a filename without the name
  \see fl_filename_name(const char *filename)
  */
-std::string fl_filename_path(const std::string &filename) {
+std::string fl_filename_path_str(const std::string &filename) {
   const char *base = filename.c_str();
   const char *name = fl_filename_name(base);
   if (name) {
@@ -323,7 +325,7 @@ std::string fl_filename_path(const std::string &filename) {
     string if the filename has no extension
  \see fl_filename_ext(const char *buf)
  */
-std::string fl_filename_ext(const std::string &filename) {
+std::string fl_filename_ext_str(const std::string &filename) {
   return std::string(fl_filename_ext(filename.c_str()));
 }
 
@@ -334,7 +336,7 @@ std::string fl_filename_ext(const std::string &filename) {
  \return the new filename
  \see fl_filename_setext(char *to, int tolen, const char *ext)
  */
-std::string fl_filename_setext(const std::string &filename, const std::string &new_extension) {
+std::string fl_filename_setext_str(const std::string &filename, const std::string &new_extension) {
   char buffer[FL_PATH_MAX];
   fl_strlcpy(buffer, filename.c_str(), FL_PATH_MAX);
   fl_filename_setext(buffer, FL_PATH_MAX, new_extension.c_str());
@@ -347,7 +349,7 @@ std::string fl_filename_setext(const std::string &filename, const std::string &n
  \return the new, expanded filename
  \see fl_filename_expand(char *to, int tolen, const char *from)
 */
-std::string fl_filename_expand(const std::string &from) {
+std::string fl_filename_expand_str(const std::string &from) {
   char buffer[FL_PATH_MAX];
   fl_filename_expand(buffer, FL_PATH_MAX, from.c_str());
   return std::string(buffer);
@@ -359,7 +361,7 @@ std::string fl_filename_expand(const std::string &from) {
  \return the new, absolute filename
  \see fl_filename_absolute(char *to, int tolen, const char *from)
  */
-std::string fl_filename_absolute(const std::string &from) {
+std::string fl_filename_absolute_str(const std::string &from) {
   char buffer[FL_PATH_MAX];
   fl_filename_absolute(buffer, FL_PATH_MAX, from.c_str());
   return std::string(buffer);
@@ -373,7 +375,7 @@ std::string fl_filename_absolute(const std::string &from) {
  \return the new, absolute filename
  \see fl_filename_absolute(char *to, int tolen, const char *from, const char *base)
  */
-std::string fl_filename_absolute(const std::string &from, const std::string &base) {
+std::string fl_filename_absolute_str(const std::string &from, const std::string &base) {
   char buffer[FL_PATH_MAX];
   fl_filename_absolute(buffer, FL_PATH_MAX, from.c_str(), base.c_str());
   return std::string(buffer);
@@ -385,7 +387,7 @@ std::string fl_filename_absolute(const std::string &from, const std::string &bas
  \return the new, relative filename
  \see fl_filename_relative(char *to, int tolen, const char *from)
  */
-std::string fl_filename_relative(const std::string &from) {
+std::string fl_filename_relative_str(const std::string &from) {
   char buffer[FL_PATH_MAX];
   fl_filename_relative(buffer, FL_PATH_MAX, from.c_str());
   return std::string(buffer);
@@ -398,7 +400,7 @@ std::string fl_filename_relative(const std::string &from) {
  \return the new, relative filename
  \see fl_filename_relative(char *to, int tolen, const char *from, const char *base)
  */
-std::string fl_filename_relative(const std::string &from, const std::string &base) {
+std::string fl_filename_relative_str(const std::string &from, const std::string &base) {
   char buffer[FL_PATH_MAX];
   fl_filename_relative(buffer, FL_PATH_MAX, from.c_str(), base.c_str());
   return std::string(buffer);
@@ -408,10 +410,9 @@ std::string fl_filename_relative(const std::string &from, const std::string &bas
  as a UTF-8 encoded value in an std::string.
  \return the CWD encoded as UTF-8
  */
-std::string fl_getcwd() {
+std::string fl_getcwd_str() {
   char buffer[FL_PATH_MAX];
+  buffer[0] = 0;
   fl_getcwd(buffer, FL_PATH_MAX);
   return std::string(buffer);
 }
-
-#endif // FLTK_USE_STD

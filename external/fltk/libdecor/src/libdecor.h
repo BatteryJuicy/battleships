@@ -83,6 +83,10 @@ enum libdecor_window_state {
 	LIBDECOR_WINDOW_STATE_TILED_BOTTOM = 1 << 6,
 	LIBDECOR_WINDOW_STATE_SUSPENDED = 1 << 7,
 	LIBDECOR_WINDOW_STATE_RESIZING = 1 << 8,
+	LIBDECOR_WINDOW_STATE_CONSTRAINED_LEFT = 1 << 9,
+	LIBDECOR_WINDOW_STATE_CONSTRAINED_RIGHT = 1 << 10,
+	LIBDECOR_WINDOW_STATE_CONSTRAINED_TOP = 1 << 11,
+	LIBDECOR_WINDOW_STATE_CONSTRAINED_BOTTOM = 1 << 12,
 };
 
 enum libdecor_resize_edge {
@@ -168,6 +172,15 @@ struct libdecor_frame_interface {
 			       const char *seat_name,
 			       void *user_data);
 
+	/**
+	 * The recommended client region bounds for the window.
+	 * This will be followed by a configure event.
+	 */
+	void (* bounds)(struct libdecor_frame *frame,
+			int width,
+			int height,
+			void *user_data);
+
 	/* Reserved */
 	void (* reserved0)(void);
 	void (* reserved1)(void);
@@ -178,7 +191,6 @@ struct libdecor_frame_interface {
 	void (* reserved6)(void);
 	void (* reserved7)(void);
 	void (* reserved8)(void);
-	void (* reserved9)(void);
 };
 
 /**
@@ -542,6 +554,14 @@ libdecor_frame_get_xdg_toplevel(struct libdecor_frame *frame);
  */
 enum libdecor_wm_capabilities
 libdecor_frame_get_wm_capabilities(struct libdecor_frame *frame);
+
+/**
+ * Tell libdecor to set the default pointer cursor when the pointer is over an
+ * application surface. The default false.
+ */
+void
+libdecor_set_handle_application_cursor(struct libdecor *context,
+				       bool handle_cursor);
 
 /**
  * Create a new content surface state.

@@ -1,0 +1,57 @@
+#
+# Files to be ignored by Git (do not commit)
+#
+
+# Ignore everywhere, also in subdirectories
+
+*.bck
+*.exe
+*.o
+**/.DS_Store
+
+# CMake build artifacts if built in source - strongly discouraged!
+# We may disallow this later...
+
+bin/
+**/cmake_install.cmake
+**/CMakeCache.txt
+**/CMakeFiles/
+cmake_uninstall.cmake
+FLTK.sln
+FLTK-Targets.cmake
+FLTKConfig.cmake
+etc/FLTKConfig.cmake
+/CMakeSettings.json
+/CppProperties.json
+
+# Visual Studio (MSVC) build artifacts
+
+*.tlog
+.vs/
+/out
+
+# VS Code (Visual Studio Code) Editor
+
+.vscode/
+
+# /
+
+/build
+/fltk-config
+/fltk.list
+/fltk.spec
+/TAGS
+
+# /FL
+
+/FL/fl_config.h
+
+# /lib/
+
+/lib/lib*
+/lib/*.lib
+/lib/*.a
+
+# /misc/
+
+/misc/doxystar

@@ -1,0 +1,87 @@
+# This file controls GitLab CI (Continuous Integration) for FLTK.
+#
+# It serves two purposes:
+#
+# (1) Continuously building FLTK with one or more build systems.
+# (2) Generating current HTML and PDF documentation and putting it online.
+#
+# The HTML documentation will be viewable at:
+#
+#   https://fltk.gitlab.io/fltk/
+#
+# The PDF documentation will be viewable at:
+#
+#   https://fltk.gitlab.io/fltk/fltk.pdf
+#
+# Details of this script:
+#
+# - use the official gcc or debian image
+# - can use versions as well, like gcc:5.2 or debian:trixie
+#
+# see https://hub.docker.com/_/gcc/
+#  or https://hub.docker.com/_/debian
+
+image: debian:trixie
+
+stages:
+  - build
+  - deploy
+
+# Build with CMake and Ninja (with pango, cairo, building examples)
+
+build-cmake:
+  stage: build
+  only:
+    - master
+  # install the necessary build tools
+  before_script:
+    - date
+    - apt update && apt -y install build-essential cmake ninja-build git
+    - apt -y install freeglut3-dev libfontconfig-dev libxft-dev libglew-dev libxcursor-dev libxinerama-dev libasound2-dev libcairo2-dev libpango1.0-dev
+    - apt -y install libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev libdecor-0-dev libgtk-3-dev
+  script:
+    - date
+    - gcc --version
+    - git log -1
+    - mkdir build && cd build
+    - cmake -G Ninja -D CMAKE_BUILD_TYPE=Debug -D FLTK_BUILD_EXAMPLES=ON -D FLTK_USE_PANGO=ON -D FLTK_OPTION_CAIRO_WINDOW=ON ..
+    - date
+    - time ninja
+    - date
+
+# Generate and install HTML documentation
+
+pages:
+  stage: deploy
+  only:
+    - master
+  # run this job (documentation) independent of the build jobs (empty "needs" clause)
+  needs: []
+  # install the necessary build tools
+  before_script:
+    - date
+    - apt update && apt -y install build-essential cmake ninja-build git man doxygen-latex
+    - apt -y install freeglut3-dev libfontconfig-dev libxft-dev libglew-dev libxcursor-dev libxinerama-dev libasound2-dev libcairo2-dev libpango1.0-dev
+    - apt -y install libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev libdecor-0-dev libgtk-3-dev
+  script:
+    - date
+    - pwd
+    - git log -1
+    - doxygen --version
+    - mkdir build && cd build
+    - cmake -G Ninja -D CMAKE_BUILD_TYPE=Debug -D FLTK_OPTION_CAIRO_WINDOW=ON ..
+    - date
+    - time ninja html
+    - time ninja pdf
+    - date
+    - cd ..
+    - pwd
+    - mkdir -p public/
+    - mv build/documentation/html/* public/
+    - mv build/documentation/fltk.pdf public/
+    - date
+  artifacts:
+    paths:
+      - public
+    # keep artifacts of the latest three weekly builds
+    expire_in: 20 days

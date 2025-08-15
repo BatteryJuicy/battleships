@@ -89,17 +89,6 @@ inline void fl_push_clip(int x, int y, int w, int h) {
   fl_graphics_driver->push_clip(x, y, w, h);
 }
 /**
-  Intersect the current clip region with a rectangle and push this
-  new region onto the stack (deprecated).
-  \param[in] x,y,w,h position and size
-  \deprecated
-    Please use fl_push_clip(int x, int y, int w, int h) instead.
-    fl_clip(int, int, int, int) will be removed in FLTK 1.5.
-*/
-inline void fl_clip(int x, int y, int w, int h) {
-  fl_graphics_driver->push_clip(x, y, w, h);
-}
-/**
   Push an empty clip region onto the stack so nothing will be clipped.
 */
 inline void fl_push_no_clip() {
@@ -1155,13 +1144,13 @@ FL_EXPORT Fl_RGB_Image *fl_capture_window(Fl_Window *win, int x, int y, int w, i
   The image is dithered on 8-bit displays so you won't lose color
   space for programs displaying both images and pixmaps.
 
-  \param[in] data pointer to XPM image data
-  \param[in] x,y  position of top-left corner
-  \param[in] bg   background color
+  \param[in] cdata  pointer to XPM image data
+  \param[in] x,y    position of top-left corner
+  \param[in] bg     background color
 
   \returns 0 if there was any error decoding the XPM data.
 */
-FL_EXPORT int fl_draw_pixmap(const char *const *data, int x, int y, Fl_Color bg = FL_GRAY);
+FL_EXPORT int fl_draw_pixmap(const char *const *cdata, int x, int y, Fl_Color bg = FL_GRAY);
 /**
   Draw XPM image data, with the top-left corner at the given position.
   \see fl_draw_pixmap(const char* const* data, int x, int y, Fl_Color bg)

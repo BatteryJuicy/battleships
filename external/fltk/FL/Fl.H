@@ -1,7 +1,7 @@
 //
 // Main header file for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2024 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -99,10 +99,17 @@ typedef void (*Fl_Timeout_Handler)(void *data);
 /** Signature of some wakeup callback functions passed as parameters */
 typedef void (*Fl_Awake_Handler)(void *data);
 
-/** Signature of add_idle callback functions passed as parameters */
+/** Signature of add_idle callback function passed as parameter.
+  This signature allows an idle callback to use one parameter as an
+  arbitrary `data` value.
+*/
 typedef void (*Fl_Idle_Handler)(void *data);
 
-/** Signature of set_idle callback functions passed as parameters */
+/** Signature of add_idle callback function passed as parameter.
+  This signature allows an idle callback without parameters.
+  When the callback is called it is called with an additional
+  parameter (set to nullptr) which is not used by the callback.
+*/
 typedef void (*Fl_Old_Idle_Handler)();
 
 /** Signature of add_fd functions passed as parameters */
@@ -312,6 +319,8 @@ public:
    */
   static void option(Fl_Option opt, bool val);
 
+private:
+
   /**
     The currently executing idle callback function: DO NOT USE THIS DIRECTLY!
 
@@ -319,15 +328,24 @@ public:
     idle callback functions to be called.
     \see add_idle(), remove_idle()
   */
-  static void (*idle)();
+  static void (*idle_)();
+
+public:
+  /**
+    Returns whether at least one idle callback is currently set.
+
+    \c true means that at least one callback is currently queued, but
+    not necessarily active. While a callback is being executed, it is
+    also counted as "set" unless (i.e. before) it removes itself from
+    the idle callback queue (ring).
+
+    \return  whether an idle callback is currently set
+    \retval true  At least one idle callback is currently set.
+    \retval false No idle callback is currently set.
+   */
+  static bool idle() { return (idle_ != nullptr); }
 
 #ifndef FL_DOXYGEN
-private:
-  static Fl_Awake_Handler *awake_ring_;
-  static void **awake_data_;
-  static int awake_ring_size_;
-  static int awake_ring_head_;
-  static int awake_ring_tail_;
 public:
   static const char* scheme_;
   static Fl_Image* scheme_bg_;
@@ -336,10 +354,6 @@ public:
   static int scrollbar_size_;
   static int menu_linespacing_; // STR #2927
 #endif
-
-
-  static int add_awake_handler_(Fl_Awake_Handler, void*);
-  static int get_awake_handler_(Fl_Awake_Handler&, void*&);
 
 public:
 
@@ -491,9 +505,10 @@ public:
   static long ticks_since(Fl_Timestamp& then);
   static long ticks_between(Fl_Timestamp& back, Fl_Timestamp& further_back);
 
-  // private
+private:
   static void run_idle();
   static void run_checks();
+public:
   static void add_fd(int fd, int when, Fl_FD_Handler cb, void* = 0); // platform dependent
   static void add_fd(int fd, Fl_FD_Handler cb, void* = 0); // platform dependent
   /** Removes a file descriptor handler. */
@@ -504,6 +519,7 @@ public:
   static void add_idle(Fl_Idle_Handler cb, void* data = 0);
   static int  has_idle(Fl_Idle_Handler cb, void* data = 0);
   static void remove_idle(Fl_Idle_Handler cb, void* data = 0);
+  static void add_idle(Fl_Old_Idle_Handler cb);
   /** If true then flush() will do something. */
   static int damage() {return damage_;}
   static void redraw();
@@ -1292,18 +1308,20 @@ public:
   static int event_button5() {return e_state & FL_BUTTON5;}
   /**   @} */
 
+private:
   /**
-    Sets an idle callback.
+    Sets an idle callback (internal use only).
 
-    \deprecated This method is obsolete - use the add_idle() method instead.
+    This method is now private and is used to store the idle callback.
+    The old, public set_idle() method was deprecated since 1.3.x and
+    is no longer available in FLTK 1.5.
+
+    See documentation: use Fl::add_idle() instead.
   */
-  static void set_idle(Fl_Old_Idle_Handler cb) {idle = cb;}
+  static void set_idle_(Fl_Old_Idle_Handler cb) {idle_ = cb;}
+public:
   /** See grab(Fl_Window*) */
   static void grab(Fl_Window& win) {grab(&win);}
-  /** Releases the current grabbed window, equals grab(0).
-  \deprecated Use Fl::grab(0) instead.
-  \see grab(Fl_Window*) */
-  static void release() {grab(0);}
 
   // Visible focus methods...
   /**
@@ -1334,23 +1352,22 @@ public:
     cut/paste shortcut.
   */
   static int  dnd_text_ops() { return option(OPTION_DND_TEXT); }
+
+  // --- FLTK Multithreading support functions ---
   /** \defgroup fl_multithread Multithreading support functions
         fl multithreading support functions declared in <FL/Fl.H>
    @{ */
-
-  // Multithreading support:
+  // Thread locking:
   static int lock();
   static void unlock();
-  static void awake(void* message = 0);
-  /** See void awake(void* message=0). */
-  static int awake(Fl_Awake_Handler cb, void* message = 0);
-  /**
-    The thread_message() method returns the last message
-    that was sent from a child by the awake() method.
-
-    See also: \ref advanced_multithreading
-  */
-  static void* thread_message(); // platform dependent
+  // Thread wakup and defered calls:
+  static void awake();
+  FL_DEPRECATED("since 1.5.0 - use Fl::awake() or Fl::awake(handler, user_data) instead",
+  static void awake(void* message));
+  static int awake(Fl_Awake_Handler handler, void* user_data=nullptr);
+  static int awake_once(Fl_Awake_Handler handler, void* user_data=nullptr);
+  FL_DEPRECATED("since 1.5.0 - use Fl::awake() or Fl::awake(handler, user_data) instead",
+  static void* thread_message()); // platform dependent
   /** @} */
 
   /** \defgroup fl_del_widget Safe widget deletion support functions
@@ -1449,7 +1466,7 @@ public:
     In this last case, you don't need anymore to call Fl::cairo_make_current().
     You can use Fl::cairo_cc() to get the current Cairo context anytime.
 
-    \note Only available when configure has the --enable-cairo option
+    \note Only available if built with CMake option FLTK_OPTION_CAIRO_WINDOW=ON.
   */
   static void cairo_autolink_context(bool alink) {
     cairo_state_.autolink(alink);
@@ -1460,8 +1477,9 @@ public:
     \retval false if no Cairo context autolink is made for each window.
     \retval true if any fltk window is attached a Cairo context when it
     is current. \see void cairo_autolink_context(bool alink)
-    \note Only available when configure has the --enable-cairo option
- */
+
+    \note Only available if built with CMake option FLTK_OPTION_CAIRO_EXT=ON.
+    */
   static bool cairo_autolink_context() {
     return cairo_state_.autolink();
   }
@@ -1473,7 +1491,8 @@ public:
 
   /** Sets the current Cairo context to \p c.
     Set \p own to true if you want fltk to handle this cc deletion.
-    \note Only available when configure has the --enable-Cairo option
+
+    \note Only available if built with CMake option FLTK_OPTION_CAIRO_WINDOW=ON.
   */
   static void cairo_cc(cairo_t *c, bool own=false) {
     cairo_state_.cc(c, own);
@@ -1498,8 +1517,8 @@ public:
       Fl::cairo_flush(cc);            // flush Cairo drawings to the device
     \endcode
 
-    If you configure FLTK with \c '--enable-cairo' or CMake option
-    \c 'FLTK_OPTION_CAIRO_WINDOW' (i.e. without \c '--enable-cairoext' or CMake option
+    If you configure FLTK with CMake option
+    \c 'FLTK_OPTION_CAIRO_WINDOW' (i.e. without CMake option
     \c 'FLTK_OPTION_CAIRO_EXT') or if you don't enable the \c 'autolink' Cairo
     context you may do the equivalent to use Cairo drawings in an
     overridden draw() method of derived classes by using

@@ -1,7 +1,7 @@
 //
 // Windows-specific code for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2024 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -45,6 +45,7 @@
 // Some versions of MinGW now require us to explicitly include winerror to get S_OK defined
 #include <winerror.h>
 #include <math.h> // for ceil() and round()
+#include <algorithm> // for min and max (clamp is C++17)
 
 void fl_free_fonts(void);
 void fl_release_dc(HWND, HDC);
@@ -105,8 +106,8 @@ extern void fl_cleanup_pens(void);
 
 // MSVC 2010 can't find round() although <math.h> is included above,
 // which is surprising because ceil() works fine.
-// We could (should?) probably add configure/CMake feature tests for
-// round() and ceil() rather than depending on MSVC version numbers.
+// We could (should?) probably add CMake feature tests for round()
+// and ceil() rather than depending on MSVC version numbers.
 // AlbrechtS, 02/2010 - Note: we don't know about MSVC 2012 - 2015, see
 // https://docs.microsoft.com/en-us/cpp/preprocessor/predefined-macros
 
@@ -117,6 +118,11 @@ extern void fl_cleanup_pens(void);
 // Internal functions
 static void fl_clipboard_notify_target(HWND wnd);
 static void fl_clipboard_notify_untarget(HWND wnd);
+static int clamp(int v, int a, int b) {
+  if (v < a) return a;
+  if (v > b) return b;
+  return v;
+}
 
 // Internal variables
 static HWND clipboard_wnd = 0;
@@ -350,7 +356,7 @@ MSG fl_msg;
 static void process_awake_handler_requests(void) {
   Fl_Awake_Handler func;
   void *data;
-  while (Fl::get_awake_handler_(func, data) == 0) {
+  while (Fl_WinAPI_System_Driver::pop_awake_handler(func, data) == 0) {
     func(data);
   }
 }
@@ -396,7 +402,7 @@ double Fl_WinAPI_System_Driver::wait(double time_to_wait) {
     }
   }
 
-  if (Fl::idle || Fl::damage())
+  if (Fl::idle() || Fl::damage())
     time_to_wait = 0.0;
 
   // if there are no more windows and this timer is set
@@ -1023,6 +1029,12 @@ void fl_get_codepage() {
 
 HWND fl_capture;
 
+// \param[in] window The FLTK window that generated the event
+// \param[in] what 0 = down, 1 = double down, 2 = up, 3 = move
+// \param[in] button 1 = left, 2 = middle, 3 = right, 4 = XBUTTON1, 5 = any other XBUTTON
+// \param[in] wParam depends on event, for example MK_LBUTTON, MK_MBUTTON, MK_RBUTTON, MK_XBUTTON1, MK_XBUTTON2
+// \param[in] lParam 32 bit value, top 16 bit are the signed y coordinate, bottom 16 bits is x in window space
+// WM_KILLFOCUS calls this with (Fl::grab(), 0, 1, MK_LBUTTON, MAKELPARAM(32767, 0))
 static int mouse_event(Fl_Window *window, int what, int button,
                        WPARAM wParam, LPARAM lParam) {
   static int px, py, pmx, pmy;
@@ -1391,6 +1403,16 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
           Fl_Window *tw = window;
           while (tw->parent()) // find top level window
             tw = tw->window();
+          // Get a better mouse position for FL_LEAVE event (#87)
+          POINT pt;
+          if (GetCursorPos(&pt)) {
+            float scale = Fl::screen_driver()->scale(tw->screen_num());
+            Fl::e_x_root = int(pt.x / scale);
+            Fl::e_y_root = int(pt.y / scale);
+            ScreenToClient(fl_xid(tw), &pt);
+            Fl::e_x = clamp(int(pt.x / scale), 0, window->w() - 1);
+            Fl::e_y = clamp(int(pt.y / scale), 0, window->h() - 1);
+          }
           Fl::belowmouse(0);
           Fl::handle(FL_LEAVE, tw);
         }
@@ -1407,8 +1429,8 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
       case WM_KILLFOCUS:
         if (Fl::grab() && (Fl::grab() != window) && Fl::grab()->menu_window()) {
-          // simulate click at remote location (see issue #1166)
-          mouse_event(Fl::grab(), 0, 1, MK_LBUTTON, MAKELPARAM(100000, 0));
+          // simulate click at remote location (see issue #1166), coordinates are signed 16 bit values
+          mouse_event(Fl::grab(), 0, 1, MK_LBUTTON, MAKELPARAM(32767, 0));
         }
         Fl::handle(FL_UNFOCUS, window);
         Fl::flush(); // it never returns to main loop when deactivated...
@@ -2342,6 +2364,8 @@ void Fl_WinAPI_Window_Driver::makeWindow() {
 
   if (!im_enabled)
     flImmAssociateContextEx((HWND)x->xid, 0, 0);
+
+  if (w->fullscreen_active()) Fl::handle(FL_FULLSCREEN, w);
 }
 
 

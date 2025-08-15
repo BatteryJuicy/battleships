@@ -354,21 +354,27 @@ private:
   fl_uintptr_t id_;
   fl_uintptr_t mask_;
   int cache_w_, cache_h_; // size of image when cached
+
+  Fl_RGB_Image *copy_scale_down_2h_() const;
+  Fl_RGB_Image *copy_scale_down_2v_() const;
+  Fl_RGB_Image *copy_bilinear_(int W, int H) const;
+  Fl_RGB_Image *copy_nearest_neighbor_(int W, int H) const;
+  Fl_RGB_Image *copy_optimize_(int W, int H) const;
 public:
 
   Fl_RGB_Image(const uchar *bits, int W, int H, int D=3, int LD=0);
   Fl_RGB_Image(const uchar *bits, int bits_length, int W, int H, int D, int LD);
   Fl_RGB_Image(const Fl_Pixmap *pxm, Fl_Color bg=FL_GRAY);
-  ~Fl_RGB_Image() FL_OVERRIDE;
-  Fl_Image *copy(int W, int H) const FL_OVERRIDE;
+  ~Fl_RGB_Image() override;
+  Fl_Image *copy(int W, int H) const override;
   Fl_Image *copy() const { return Fl_Image::copy(); }
-  void color_average(Fl_Color c, float i) FL_OVERRIDE;
-  void desaturate() FL_OVERRIDE;
-  void draw(int X, int Y, int W, int H, int cx=0, int cy=0) FL_OVERRIDE;
+  void color_average(Fl_Color c, float i) override;
+  void desaturate() override;
+  void draw(int X, int Y, int W, int H, int cx=0, int cy=0) override;
   void draw(int X, int Y) {draw(X, Y, w(), h(), 0, 0);}
-  void label(Fl_Widget*w) FL_OVERRIDE;
-  void label(Fl_Menu_Item*m) FL_OVERRIDE;
-  void uncache() FL_OVERRIDE;
+  void label(Fl_Widget*w) override;
+  void label(Fl_Menu_Item*m) override;
+  void uncache() override;
   int cache_w() {return cache_w_;}
   int cache_h() {return cache_h_;}
   /** Sets the maximum allowed image size in bytes when creating an Fl_RGB_Image object.

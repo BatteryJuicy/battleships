@@ -342,6 +342,8 @@ struct libdecor_plugin_gtk {
 
 	int double_click_time_ms;
 	int drag_threshold;
+
+	bool handle_cursor;
 };
 
 static const char *libdecor_gtk_proxy_tag = "libdecor-gtk";
@@ -555,6 +557,16 @@ libdecor_plugin_gtk_dispatch(struct libdecor_plugin *plugin,
 	}
 }
 
+static void
+libdecor_plugin_gtk_set_handle_application_cursor(struct libdecor_plugin *plugin,
+						  bool handle_cursor)
+{
+	struct libdecor_plugin_gtk *plugin_gtk =
+		(struct libdecor_plugin_gtk *) plugin;
+
+	plugin_gtk->handle_cursor = handle_cursor;
+}
+
 static struct libdecor_frame *
 libdecor_plugin_gtk_frame_new(struct libdecor_plugin *plugin)
 {
@@ -759,7 +771,8 @@ redraw_scale(struct libdecor_frame_gtk *frame_gtk,
 	}
 	if (scale != cmpnt->scale) {
 		cmpnt->scale = scale;
-		if ((cmpnt->type != SHADOW) || is_border_surfaces_showing(frame_gtk)) {
+		if ((frame_gtk->decoration_type != DECORATION_TYPE_NONE) &&
+		    ((cmpnt->type != SHADOW) || is_border_surfaces_showing(frame_gtk))) {
 			draw_border_component(frame_gtk, cmpnt, cmpnt->type);
 			return true;
 		}
@@ -1643,7 +1656,7 @@ synthesize_pointer_enter(struct seat *seat)
 	struct libdecor_frame_gtk *frame_gtk;
 
 	surface = seat->pointer_focus;
-	if (!surface)
+	if (!surface || !own_surface(surface))
 		return;
 
 	frame_gtk = wl_surface_get_user_data(surface);
@@ -1670,7 +1683,7 @@ synthesize_pointer_leave(struct seat *seat)
 	struct libdecor_frame_gtk *frame_gtk;
 
 	surface = seat->pointer_focus;
-	if (!surface)
+	if (!surface || !own_surface(surface))
 		return;
 
 	frame_gtk = wl_surface_get_user_data(surface);
@@ -1786,6 +1799,8 @@ static struct libdecor_plugin_interface gtk_plugin_iface = {
 	.destroy = libdecor_plugin_gtk_destroy,
 	.get_fd = libdecor_plugin_gtk_get_fd,
 	.dispatch = libdecor_plugin_gtk_dispatch,
+
+	.set_handle_application_cursor = libdecor_plugin_gtk_set_handle_application_cursor,
 
 	.frame_new = libdecor_plugin_gtk_frame_new,
 	.frame_free = libdecor_plugin_gtk_frame_free,
@@ -2088,12 +2103,17 @@ pointer_enter(void *data,
 		return;
 
 	struct seat *seat = data;
-	struct libdecor_frame_gtk *frame_gtk;
+	struct libdecor_frame_gtk *frame_gtk = NULL;
 
-	if (!own_surface(surface))
-		return;
+	if (!own_surface(surface)) {
+		struct seat *seat = wl_pointer_get_user_data(wl_pointer);
+		struct libdecor_plugin_gtk *plugin_gtk = seat->plugin_gtk;
 
-	frame_gtk = wl_surface_get_user_data(surface);
+		if (!plugin_gtk->handle_cursor)
+			return;
+	} else {
+		frame_gtk = wl_surface_get_user_data(surface);
+	}
 
 	ensure_cursor_surface(seat);
 
@@ -2123,18 +2143,19 @@ pointer_leave(void *data,
 	      uint32_t serial,
 	      struct wl_surface *surface)
 {
-	if (!surface)
-		return;
-
 	struct seat *seat = data;
 	struct libdecor_frame_gtk *frame_gtk;
+
+	seat->pointer_focus = NULL;
+
+	if (!surface)
+		return;
 
 	if (!own_surface(surface))
 		return;
 
 	frame_gtk = wl_surface_get_user_data(surface);
 
-	seat->pointer_focus = NULL;
 	if (frame_gtk) {
 		frame_gtk->titlebar_gesture.state =
 			TITLEBAR_GESTURE_STATE_INIT;
@@ -2989,6 +3010,7 @@ libdecor_plugin_description = {
 	.constructor = libdecor_plugin_new,
 	.conflicting_symbols = {
 		"png_free",
+		"gdk_get_use_xshm",
 		NULL,
 	},
 };

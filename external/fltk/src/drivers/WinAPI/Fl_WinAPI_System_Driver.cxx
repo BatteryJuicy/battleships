@@ -22,7 +22,6 @@
 #include <FL/filename.H>
 #include <FL/Fl_File_Browser.H>
 #include <FL/Fl_File_Icon.H>
-#include "../../Fl_String.H"
 #include "../../flstring.h"
 #include <stdio.h>
 #include <stdarg.h>
@@ -39,6 +38,7 @@
 #include <direct.h>
 #include <io.h>
 #include <fcntl.h>
+#include <string>
 
 // We must define _WIN32_IE at least to 0x0500 before inclusion of 'shlobj.h' to enable
 // the declaration of SHGFP_TYPE_CURRENT for some older versions of MinGW, notably
@@ -1000,7 +1000,7 @@ int Fl_WinAPI_System_Driver::file_type(const char *filename)
 // Note: the result is cached in a static variable
 const char *Fl_WinAPI_System_Driver::home_directory_name()
 {
-  static Fl_String home;
+  static std::string home;
   if (!home.empty())
     return home.c_str();
 
@@ -1046,9 +1046,9 @@ const char *Fl_WinAPI_System_Driver::home_directory_name()
     home = "~/"; // last resort
   }
   // Make path canonical.
-  for (int i = 0; i < home.size(); ++i) {
-    if (home[i] == '\\')
-      home[i] = '/';
+  for (char& c : home) {
+    if (c == '\\')
+      c = '/';
   }
 #if (DEBUG_HOME_DIRECTORY_NAME)
   printf("home_directory_name() returns \"%s\"\n", home.c_str());

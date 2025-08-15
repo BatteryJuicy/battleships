@@ -170,7 +170,7 @@ inline void fl_add_timeout(long msec, void (*cb)(void*), void* v) {
 inline void fl_remove_timeout(int) {}
 
 // type of callback is different!
-inline void fl_set_idle_callback(void (*cb)()) {Fl::set_idle(cb);}
+inline void fl_set_idle_callback(void (*cb)()) {Fl::add_idle(cb);}
 
 FL_EXPORT Fl_Widget* fl_do_forms(void);
 FL_EXPORT Fl_Widget* fl_check_forms();
@@ -803,7 +803,7 @@ inline void fl_set_slider_precision(Fl_Widget* o, int i) {
 // meaning of FL_ALIGN_INSIDE.  Implementation in forms.cxx
 class FL_EXPORT Fl_FormsText : public Fl_Widget {
 protected:
-    void draw() FL_OVERRIDE;
+    void draw() override;
 public:
     Fl_FormsText(Fl_Boxtype b, int X, int Y, int W, int H, const char* l=0)
         : Fl_Widget(X,Y,W,H,l) {box(b); align(FL_ALIGN_LEFT);}

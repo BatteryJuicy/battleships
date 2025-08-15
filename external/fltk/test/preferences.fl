@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0401
+version 1.0500
 i18n_type 1
 i18n_include {<stdio.h>}
 i18n_conditional {}
@@ -138,8 +138,7 @@ Function {} {open return_type int
   code {readLanguagePrefs();
 Fl_Input::cut_menu_text = gettext("Cut");
 Fl_Input::copy_menu_text = gettext("Copy");
-Fl_Input::paste_menu_text = gettext("Paste");} {selected
-  }
+Fl_Input::paste_menu_text = gettext("Paste");} {}
   Fl_Window myWindow {
     label {My Preferences}
     callback closeWindowCB open
@@ -204,7 +203,7 @@ Fl_Input::paste_menu_text = gettext("Paste");} {selected
           xywh {35 112 100 24} type Radio down_box ROUND_DOWN_BOX
         }
         Fl_Round_Button wRight {
-          label {right side}
+          label {right side} selected
           xywh {35 136 100 24} type Radio down_box ROUND_DOWN_BOX
         }
         Fl_Box {} {

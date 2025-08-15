@@ -1,7 +1,7 @@
 //
-// FLUID main entry for the Fast Light Tool Kit (FLTK).
+// Fluid Application header for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2024 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -14,190 +14,209 @@
 //     https://www.fltk.org/bugs.php
 //
 
-#ifndef _FLUID_FLUID_H
-#define _FLUID_FLUID_H
+#ifndef FLUID_FLUID_H
+#define FLUID_FLUID_H
 
-#include "fluid_filename.h"
+#include "Project.h"
+#include "app/args.h"
+#include "app/history.h"
+#include "app/Snap_Action.h"
+#include "tools/filename.h"
+
 #include <FL/Fl_Preferences.H>
 #include <FL/Fl_Menu_Item.H>
-#include "../src/Fl_String.H"
+#include <FL/filename.H>
 
-#define BROWSERWIDTH 300
-#define BROWSERHEIGHT 500
-#define WINWIDTH 300
-#define MENUHEIGHT 25
-#define WINHEIGHT (BROWSERHEIGHT+MENUHEIGHT)
+#include <string>
+
+constexpr int BROWSERWIDTH = 300;
+constexpr int BROWSERHEIGHT = 500;
+constexpr int WINWIDTH = 300;
+constexpr int MENUHEIGHT = 25;
+constexpr int WINHEIGHT = (BROWSERHEIGHT+MENUHEIGHT);
 
 // ---- types
 
 class Fl_Double_Window;
 class Fl_Window;
 class Fl_Menu_Bar;
-class Fl_Type;
+class Node;
 class Fl_Choice;
 class Fl_Button;
 class Fl_Check_Button;
+class Fl_Help_Dialog;
+
+namespace fld {
+namespace app {
+class Layout_List;
+}
+namespace widget {
+class App_Menu_Bar;
+}
 
 /**
  Indicate the storage location for tools like layout suites and shell macros.
- \see class Fd_Shell_Command, class Fd_Layout_Suite
+ \see class Fd_Shell_Command, class Layout_Suite
  */
-typedef enum {
-  FD_STORE_INTERNAL,  ///< stored inside FLUID app
-  FD_STORE_USER,      ///< suite is stored in the user wide FLUID settings
-  FD_STORE_PROJECT,   ///< suite is stored within the current .fl project file
-  FD_STORE_FILE       ///< store suite in external file
-} Fd_Tool_Store;
-
-// ---- global variables
-
-extern Fl_Preferences fluid_prefs;
-extern Fl_Menu_Item Main_Menu[];
-extern Fl_Menu_Bar *main_menubar;
-extern Fl_Window *main_window;
-
-extern int show_guides;
-extern int show_restricted;
-extern int show_ghosted_outline;
-extern int show_comments;
-
-extern int G_use_external_editor;
-extern int G_debug;
-extern char G_external_editor_command[512];
-
-// File history info...
-extern char absolute_history[10][FL_PATH_MAX];
-extern char relative_history[10][FL_PATH_MAX];
-extern void load_history();
-extern void update_history(const char *);
-
-extern Fl_Menu_Item *save_item;
-extern Fl_Menu_Item *history_item;
-extern Fl_Menu_Item *widgetbin_item;
-extern Fl_Menu_Item *codeview_item;
-extern Fl_Menu_Item *overlay_item;
-extern Fl_Button *overlay_button;
-extern Fl_Menu_Item *guides_item;
-extern Fl_Menu_Item *restricted_item;
-extern Fl_Check_Button *guides_button;
-
-extern int modflag;
-
-extern int update_file;            // fluid -u
-extern int compile_file;           // fluid -c
-extern int compile_strings;        // fluic -cs
-extern int batch_mode;
-
-extern int pasteoffset;
-
-extern Fl_String g_code_filename_arg;
-extern Fl_String g_header_filename_arg;
-extern Fl_String g_launch_path;
-
-extern Fl_String g_autodoc_path;
-
-// ---- project class declaration
-
-/**
- Enumeration of available internationalization types.
- */
-typedef enum {
-  FD_I18N_NONE = 0, ///< No i18n, all strings are litearals
-  FD_I18N_GNU,      ///< GNU gettext internationalization
-  FD_I18N_POSIX     ///< Posix catgets internationalization
-} Fd_I18n_Type;
-
-/**
- Data and settings for a FLUID project file.
- */
-class Fluid_Project {
-public:
-  Fluid_Project();
-  ~Fluid_Project();
-  void reset();
-  void update_settings_dialog();
-
-  Fl_String projectfile_path() const;
-  Fl_String projectfile_name() const;
-  Fl_String codefile_path() const;
-  Fl_String codefile_name() const;
-  Fl_String headerfile_path() const;
-  Fl_String headerfile_name() const;
-  Fl_String stringsfile_path() const;
-  Fl_String stringsfile_name() const;
-  Fl_String basename() const;
-
-  /// One of the available internationalization types.
-  Fd_I18n_Type i18n_type;
-  /// Include file for GNU i18n, writes an #include statement into the source
-  /// file. This is usually `<libintl.h>` or `"gettext.h"` for GNU gettext.
-  Fl_String i18n_gnu_include;
-  // Optional name of a macro for conditional i18n compilation.
-  Fl_String i18n_gnu_conditional;
-  /// For the gettext/intl.h options, this is the function that translates text
-  /// at runtime. This is usually "gettext" or "_".
-  Fl_String i18n_gnu_function;
-  /// For the gettext/intl.h options, this is the function that marks the translation
-  /// of text at initialisation time. This is usually "gettext_noop" or "N_".
-  Fl_String i18n_gnu_static_function;
-
-  /// Include file for Posix i18n, write a #include statement into the source
-  /// file. This is usually `<nl_types.h>` for Posix catgets.
-  Fl_String i18n_pos_include;
-  // Optional name of a macro for conditional i18n compilation.
-  Fl_String i18n_pos_conditional;
-  /// Name of the nl_catd database
-  Fl_String i18n_pos_file;
-  /// Message set ID for the catalog.
-  Fl_String i18n_pos_set;
-
-  /// If set, generate code to include the header file form the c++ file
-  int include_H_from_C;
-  /// If set, handle keyboard shortcut Ctrl on macOS using Cmd instead
-  int use_FL_COMMAND;
-  /// Clear if UTF-8 characters in statics texts are written as escape sequences
-  int utf8_in_src;
-  /// If set, <FL/Fl.H> will not be included from the header code before anything else
-  int avoid_early_includes;
-  /// If set, command line overrides header file name in .fl file.
-  int header_file_set;
-  ///  If set, command line overrides source code file name in .fl file.
-  int code_file_set;
-  int write_mergeback_data;
-  /// Hold the default extension for header files, or the entire filename if set via command line.
-  Fl_String header_file_name;
-  /// Hold the default extension for source code  files, or the entire filename if set via command line.
-  Fl_String code_file_name;
+enum class Tool_Store {
+  INTERNAL,  ///< stored inside FLUID app
+  USER,      ///< suite is stored in the user wide FLUID settings
+  PROJECT,   ///< suite is stored within the current .fl project file
+  FILE       ///< store suite in external file
 };
 
-extern Fluid_Project g_project;
 
-// ---- public functions
+class Project;
 
-extern bool new_project(bool user_must_confirm = true);
-extern void enter_project_dir();
-extern void leave_project_dir();
-extern void set_filename(const char *c);
-extern void set_modflag(int mf, int mfc=-1);
+class Application {
+  /// Currently selected project.
+  Project *current_project_ = new Project();
+  /// Working directory at application launch.
+  std::string launch_path_;
+  /// Path to store temporary files during app run.
+  std::string tmpdir_path;
+  /// True if the temporary file path was already created.
+  bool tmpdir_create_called = false;
+  // Generate a path to a directory for temporary data storage.
+  void create_tmpdir();
+  // Delete the temporary directory and all its contents.
+  void delete_tmpdir();
 
-extern const Fl_String &get_tmpdir();
+public: // Member Variables
+  /// Application wide preferences
+  Fl_Preferences preferences;
+  /// Project history.
+  app::History history;
+  /// Command line arguments
+  app::Args args;
+  /// List of available layouts
+  app::Layout_List layout_list;
+  /// Set, if Fluid runs in batch mode, and no user interface is activated.
+  int batch_mode { 0 };             // fluid + any code generators (-u, -c, -cs)
 
-// ---- public callback functions
+  // TODO: make this into a class: app::Settings
+  /// Show guides in the design window when positioning widgets, saved in app preferences.
+  int show_guides { 1 };
+  /// Show areas of restricted use in overlay plane.
+  /// Restricted areas are widget that overlap each other, widgets that are outside
+  /// of their parent's bounds (except children of Scroll groups), and areas
+  /// within an Fl_Tile that are not covered by children.
+  int show_restricted { 1 };
+  /// Show a ghosted outline for groups that have very little contrast.
+  /// This makes groups with NO_BOX or FLAT_BOX better editable.
+  int show_ghosted_outline { 1 };
+  /// Show widget comments in the browser, saved in app preferences.
+  int show_comments { 1 };
 
-extern void save_cb(Fl_Widget *, void *v);
-extern void save_template_cb(Fl_Widget *, void *);
-extern void revert_cb(Fl_Widget *,void *);
-extern void exit_cb(Fl_Widget *,void *);
+  // TODO: make this into a class: app::External_Editor
+  /// Use external editor for editing Code_Node, saved in app preferences.
+  int use_external_editor { 0 };
+  /// Debugging help for external Code_Node editor.
+  int debug_external_editor { 0 };
+  /// Run this command to load an Code_Node into an external editor, save in app preferences.
+  // TODO: make this into a std::string
+  char external_editor_command[512] { };
 
-extern int write_code_files(bool dont_show_completion_dialog=false);
-extern void write_strings_cb(Fl_Widget *, void *);
-extern void align_widget_cb(Fl_Widget *, long);
-extern void toggle_widgetbin_cb(Fl_Widget *, void *);
+  // TODO: make this into a class: app::GUI
+  Fl_Window *main_window { nullptr };
+  static Fl_Menu_Item main_menu[];
+  fld::widget::App_Menu_Bar *main_menubar { nullptr };
+  Fl_Menu_Item *save_item { nullptr };
+  Fl_Menu_Item *history_item { nullptr };
+  Fl_Menu_Item *widgetbin_item { nullptr };
+  Fl_Menu_Item *codeview_item { nullptr };
+  Fl_Menu_Item *overlay_item { nullptr };
+  Fl_Button *overlay_button { nullptr };
+  Fl_Menu_Item *guides_item { nullptr };
+  Fl_Menu_Item *restricted_item { nullptr };
+  /// Offset in pixels when adding widgets from an .fl file.
+  int pasteoffset { 0 };
+  int ipasteoffset { 0 };
+  /// FLUID-wide help dialog.
+  Fl_Help_Dialog *help_dialog { nullptr };
 
-extern char position_window(Fl_Window *w, const char *prefsName, int Visible, int X, int Y, int W=0, int H=0);
+public: // Methods
+  // Create the Fluid application.
+  Application();
+  /// Destructor.
+  ~Application() = default;
+  // Launch the application.
+  int run(int argc,char **argv);
+  // Quit the application and clean up.
+  void quit();
+  /// Quick access to the current project. Make sure it stays synched to current_project_.
+  Project &proj { *current_project_ };
+  // Return the working directory path at application launch.
+  const std::string &launch_path() const;
+  // Return the path to a temporary directory for this instance of Fluid.
+  const std::string &get_tmpdir();
+  // Return the path and filename of a temporary file for cut or duplicated data.
+  const char *cutfname(int which = 0);
 
-inline int fd_min(int a, int b) { return (a < b ? a : b); }
-inline int fd_max(int a, int b) { return (a > b ? a : b); }
-inline int fd_min(int a, int b, int c) { return fd_min(a, fd_min(b, c)); }
+  // Clear the current project and create a new, empty one.
+  bool new_project(bool user_must_confirm = true);
+  // Open a file chooser and load an exiting project file.
+  bool open_project_file(const std::string &filename_arg);
+  // Load a project from the give file name and path.
+  bool merge_project_file(const std::string &filename_arg);
+  // Save the current design to the file given by \c filename.
+  void save_project_file(void *arg);
+  // Reload the file set by \c filename, replacing the current design.
+  void revert_project();
+  // Open the template browser and load a new file from templates.
+  bool new_project_from_template();
+  // Open the dialog to allow the user to print the current window.
+  void print_snapshots();
+  // Generate the C++ source and header filenames and write those files.
+  int write_code_files(bool dont_show_completion_dialog=false);
 
-#endif // _FLUID_FLUID_H
+  // User chose to cut the currently selected widgets.
+  void cut_selected();
+  // User chose to copy the currently selected widgets.
+  void copy_selected();
+  // User chose to paste the widgets from the cut buffer.
+  void paste_from_clipboard();
+  // Duplicate the selected widgets.
+  void duplicate_selected();
+  // User chose to delete the currently selected widgets.
+  void delete_selected();
+  // Show the editor for the \c current Node.
+  void edit_selected();
+  // User wants to sort selected widgets by y coordinate.
+  void sort_selected();
+  // Show or hide the widget bin.
+  void toggle_widget_bin();
+  // Open a dialog to show the HTML help page form the FLTK documentation folder.
+  void show_help(const char *name);
+  // Open the "About" dialog.
+  void about();
+
+  // Build the main app window and create a few other dialogs.
+  void make_main_window();
+  // Open a native file chooser to allow choosing a project file for reading.
+  std::string open_project_filechooser(const std::string &title);
+  // Give the user the opportunity to save a project before clearing it.
+  bool confirm_project_clear();
+  // Ensure that text widgets in the widget panel propagates apply current changes.
+  void flush_text_widgets();
+  // Position the given window window based on entries in the app preferences.
+  char position_window(Fl_Window *w, const char *prefsName, int Visible, int X, int Y, int W=0, int H=0);
+  // Save the position and visibility state of a window to the app preferences.
+  void save_position(Fl_Window *w, const char *prefsName);
+  // Change the app's and hence preview the design's scheme.
+  void set_scheme(const char *new_scheme);
+  // Read Fluid's scheme preferences and set the app's scheme.
+  void init_scheme();
+
+#ifdef __APPLE__
+  static void apple_open_cb(const char *c);
+#endif // __APPLE__
+};
+
+} // namespace fld
+
+extern fld::Application Fluid;
+
+
+#endif // FLUID_FLUID_H
+

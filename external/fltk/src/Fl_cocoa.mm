@@ -686,7 +686,7 @@ void Fl_Cocoa_Screen_Driver::breakMacEventLoop()
   }
   return self;
 }
-- (Fl_Window *)getFl_Window;
+- (Fl_Window *)getFl_Window
 {
   return w;
 }
@@ -865,7 +865,7 @@ double Fl_Darwin_System_Driver::wait(double time_to_wait)
   Fl::flush();
   if (fl_mac_os_version < 101100) NSEnableScreenUpdates(); // deprecated 10.11
 #pragma clang diagnostic pop
-  if (Fl::idle) // 'idle' may have been set within flush()
+  if (Fl::idle()) // 'idle' may have been set within flush()
     time_to_wait = 0.0;
   int retval = do_queued_events(time_to_wait);
 
@@ -1525,13 +1525,13 @@ static FLWindowDelegate *flwindowdelegate_instance = nil;
   Fl::handle(FL_HIDE, window);
   fl_unlock_function();
 }
-- (void)windowWillEnterFullScreen:(NSNotification *)notif;
+- (void)windowWillEnterFullScreen:(NSNotification *)notif
 {
   FLWindow *nsw = (FLWindow*)[notif object];
   Fl_Window *window = [nsw getFl_Window];
   window->_set_fullscreen();
 }
-- (void)windowWillExitFullScreen:(NSNotification *)notif;
+- (void)windowWillExitFullScreen:(NSNotification *)notif
 {
   FLWindow *nsw = (FLWindow*)[notif object];
   Fl_Window *window = [nsw getFl_Window];
@@ -2514,6 +2514,14 @@ static FLTextInputContext* fltextinputcontext_instance = nil;
 - (BOOL)performKeyEquivalent:(NSEvent*)theEvent
 {
   //NSLog(@"performKeyEquivalent:");
+  /* The condition below is always false (and therefore the return statement doesn't run)
+   for the FLTK library unless it contains class Fl_Native_Input with which FLTK windows
+   may contain subviews inside their contentView. When such subview has focus, the condition
+   below becomes true.
+   */
+  if ([[self window] firstResponder] != self) {
+    return NO;
+  }
   fl_lock_function();
   cocoaKeyboardHandler(theEvent);
   BOOL handled;
@@ -3251,7 +3259,7 @@ void Fl_Cocoa_Window_Driver::makeWindow()
 
   w->set_visible();
   if ( w->border() || (!w->modal() && !w->tooltip_window() &&
-                       w->user_data() != &Fl_Screen_Driver::transient_scale_display) ) Fl::handle(FL_FOCUS, w);
+                       w->user_data() != (void*)&Fl_Screen_Driver::transient_scale_display) ) Fl::handle(FL_FOCUS, w);
   [cw setDelegate:[FLWindowDelegate singleInstance]];
   if (show_iconic()) {
     show_iconic(0);
@@ -4722,7 +4730,7 @@ int Fl_Cocoa_Window_Driver::decorated_h()
   return h() + bt/s;
 }
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0 && defined(__BLOCKS__)
 
 // Requires -weak_framework ScreenCaptureKit and used by FLTK for macOS ≥ 15.0
 static CGImageRef capture_decorated_window_SCK(NSWindow *nswin) {
@@ -4747,7 +4755,7 @@ static CGImageRef capture_decorated_window_SCK(NSWindow *nswin) {
       }
       win = Fl::next_window(win);
     }
-    CGWindowID target_id = [nswin windowNumber];
+    CGWindowID target_id = (CGWindowID)[nswin windowNumber];
     NSRect r = [nswin frame];
     int W = r.size.width, H = r.size.height;
     [SCShareableContent getCurrentProcessShareableContentWithCompletionHandler: // macOS 14.4
@@ -4770,6 +4778,7 @@ static CGImageRef capture_decorated_window_SCK(NSWindow *nswin) {
       int s = (int)[filter pointPixelScale];
       SCStreamConfiguration *config = [[[SCStreamConfiguration alloc] init] autorelease];
       [config setIgnoreShadowsSingleWindow:YES];
+      [config setIgnoreShadowsDisplay:YES]; // necessary with macOS 26 Tahoe
       [config setShowsCursor:NO];
       [config setWidth:W*s];
       [config setHeight:H*s];
@@ -4791,7 +4800,7 @@ static CGImageRef capture_decorated_window_SCK(NSWindow *nswin) {
     while (!capture_err && !capture) CFRunLoopRun();
     if (capture_err) return NULL;
     // ScreenCaptureKit bug cont'd: restore modified styleMasks.
-    for (int i = 0, count = [xid_array count]; i < count; i++) {
+    for (int i = 0, count = (int)[xid_array count]; i < count; i++) {
       NSUInteger mask;
       [(NSData*)[mask_array objectAtIndex:i] getBytes:&mask length:sizeof(NSUInteger)];
       NSWindow *xid = (NSWindow*)[xid_array objectAtIndex:i];
@@ -4807,7 +4816,7 @@ CGImageRef Fl_Cocoa_Window_Driver::capture_decorated_window_10_5(NSWindow *nswin
   // usable with 10.5 and above
   CGImageRef img = NULL;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-#  if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
+#  if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0 && defined(__BLOCKS__)
   if (fl_mac_os_version >= 150000)
       img = capture_decorated_window_SCK(nswin);
   else

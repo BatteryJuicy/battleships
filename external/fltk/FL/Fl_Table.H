@@ -3,7 +3,7 @@
 //
 // Copyright 2002 by Greg Ercolano.
 // Copyright (c) 2004 O'ksi'D
-// Copyright 2023 by Bill Spitzak and others.
+// Copyright 2009-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -22,17 +22,7 @@
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Scroll.H>
 
-// EXPERIMENTAL
-// We use either std::vector or the private class Fl_Int_Vector
-// depending on the build option FLTK_OPTION_STD or --enable-use_std.
-// This option allows to use std::string and std::vector in FLTK 1.4.x
-
-#if (FLTK_USE_STD)
 #include <vector>
-typedef std::vector<int> Fl_Int_Vector;
-#else
-class Fl_Int_Vector; // private class declared in src/Fl_Int_Vector.H
-#endif
 
 /**
   A table of widgets or other content.
@@ -167,8 +157,8 @@ private:
   };
   unsigned int flags_;
 
-  Fl_Int_Vector *_colwidths;            // column widths in pixels
-  Fl_Int_Vector *_rowheights;           // row heights in pixels
+  std::vector<int> *_colwidths;         // column widths in pixels
+  std::vector<int> *_rowheights;        // row heights in pixels
 
   // number of columns and rows == size of corresponding vectors
   int col_size();                       // size of the column widths vector
@@ -247,7 +237,7 @@ protected:
   Fl_Scrollbar *hscrollbar;                     ///< child horizontal scrollbar widget
 
   // Fltk
-  int handle(int e) FL_OVERRIDE;        // fltk handle() FL_OVERRIDE
+  int handle(int e) override;        // fltk handle() override
 
   // Class maintenance
   void recalc_dimensions();
@@ -413,7 +403,7 @@ protected:
   }
 
   // draw() has to be protected per FLTK convention (was public in 1.3.x)
-  void draw() FL_OVERRIDE;
+  void draw() override;
 
 public:
   Fl_Table(int X, int Y, int W, int H, const char *l=0);
@@ -740,7 +730,7 @@ public:
   void set_selection(int row_top, int col_left, int row_bot, int col_right);
   int move_cursor(int R, int C, int shiftselect);
   int move_cursor(int R, int C);
-  void resize(int X, int Y, int W, int H) FL_OVERRIDE; // fltk resize() FL_OVERRIDE
+  void resize(int X, int Y, int W, int H) override; // fltk resize() override
 
   // This crashes sortapp() during init.
   //  void box(Fl_Boxtype val) {

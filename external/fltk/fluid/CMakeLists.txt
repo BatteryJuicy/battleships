@@ -14,6 +14,8 @@
 #     https://www.fltk.org/bugs.php
 #
 
+# Targets that will be built: fluid and fluid-cmd (Windows)
+
 # Targets that will be built: fluid, fluid-shared, and fluid-cmd (Windows only)
 set(TARGETS "")
 
@@ -92,82 +94,124 @@ endmacro(make_target TARGET GUI SOURCES LIBS EXPORT_NAME)
 # Main source and header files used for the executable because macOS (Xcode)
 # needs at least one source file (main.cxx) to link the main program properly
 
-set(MAIN_FILES fluid.cxx fluid.h)
+set(MAIN_FILES main.cxx main.h)
 
 # Source files for 'fluid-lib': all source files except ${MAIN_FILES}
 
 set(CPPFILES
-  CodeEditor.cxx
-  StyleParse.cxx
-  Fd_Snap_Action.cxx
-  Fl_Function_Type.cxx
-  Fl_Grid_Type.cxx
-  Fl_Group_Type.cxx
-  Fl_Menu_Type.cxx
-  Fl_Type.cxx
-  Fl_Widget_Type.cxx
-  Fl_Window_Type.cxx
-  Fl_Button_Type.cxx
-  Fluid_Image.cxx
-  about_panel.cxx
-  align_widget.cxx
-  settings_panel.cxx
-  autodoc.cxx
-  code.cxx
-  custom_widgets.cxx
-  factory.cxx
-  file.cxx
-  fluid_filename.cxx
-  function_panel.cxx
-  mergeback.cxx
-  pixmaps.cxx
-  shell_command.cxx
-  codeview_panel.cxx
-  template_panel.cxx
-  undo.cxx
-  widget_browser.cxx
-  widget_panel.cxx
-  ExternalCodeEditor_${SUFFIX}.cxx
+  Fluid.cxx
+  Project.cxx
+  app/args.cxx
+  app/Snap_Action.cxx
+  app/Image_Asset.cxx
+  app/history.cxx
+  app/Menu.cxx
+  app/shell_command.cxx
+  app/templates.cxx
+  io/Code_Writer.cxx
+  io/Project_Writer.cxx
+  io/Project_Reader.cxx
+  io/String_Writer.cxx
+  nodes/Tree.cxx
+  nodes/Button_Node.cxx
+  nodes/Function_Node.cxx
+  nodes/Grid_Node.cxx
+  nodes/Group_Node.cxx
+  nodes/Menu_Node.cxx
+  nodes/Node.cxx
+  nodes/Widget_Node.cxx
+  nodes/Window_Node.cxx
+  nodes/callbacks.cxx
+  nodes/factory.cxx
+  panels/about_panel.cxx
+  panels/codeview_panel.cxx
+  panels/function_panel.cxx
+  panels/settings_panel.cxx
+  panels/template_panel.cxx
+  panels/widget_panel.cxx
+  panels/widget_panel/Grid_Tab.cxx
+  panels/widget_panel/Grid_Child_Tab.cxx
+  proj/align_widget.cxx
+  proj/i18n.cxx
+  proj/mergeback.cxx
+  proj/undo.cxx
+  rsrcs/pixmaps.cxx
+  tools/ExternalCodeEditor_${SUFFIX}.cxx
+  tools/autodoc.cxx
+  tools/filename.cxx
+  widgets/App_Menu_Bar.cxx
+  widgets/Code_Editor.cxx
+  widgets/Code_Viewer.cxx
+  widgets/Text_Viewer.cxx
+  widgets/Formula_Input.cxx
+  widgets/Bin_Button.cxx
+  widgets/Style_Parser.cxx
+  widgets/Node_Browser.cxx
 )
 
 # List header files in Apple's Xcode IDE
 
 set(HEADERFILES
-  CodeEditor.h
-  Fd_Snap_Action.h
-  Fl_Function_Type.h
-  Fl_Grid_Type.h
-  Fl_Group_Type.h
-  Fl_Menu_Type.h
-  Fl_Type.h
-  Fl_Widget_Type.h
-  Fl_Window_Type.h
-  Fl_Button_Type.h
-  Fluid_Image.h
-  StyleParse.h
-  about_panel.h
-  align_widget.h
-  settings_panel.h
-  autodoc.h
-  code.h
-  comments.h
-  custom_widgets.h
-  factory.h
-  file.h
-  function_panel.h
-  mergeback.h
-  print_panel.h
-  pixmaps.h
-  shell_command.h
-  codeview_panel.h
-  template_panel.h
-  undo.h
-  widget_browser.h
-  widget_panel.h
-  ExternalCodeEditor_${SUFFIX}.h
+  Fluid.h
+  Project.h
+  app/args.h
+  app/Snap_Action.h
+  app/Image_Asset.h
+  app/history.h
+  app/Menu.h
+  app/shell_command.h
+  app/templates.h
+  io/Code_Writer.h
+  io/Project_Writer.h
+  io/Project_Reader.h
+  io/String_Writer.h
+  nodes/Tree.h
+  nodes/Button_Node.h
+  nodes/Function_Node.h
+  nodes/Grid_Node.h
+  nodes/Group_Node.h
+  nodes/Menu_Node.h
+  nodes/Node.h
+  nodes/Widget_Node.h
+  nodes/Window_Node.h
+  nodes/callbacks.h
+  nodes/factory.h
+  panels/about_panel.h
+  panels/codeview_panel.h
+  panels/function_panel.h
+  panels/settings_panel.h
+  panels/template_panel.h
+  panels/widget_panel.h
+  panels/widget_panel/Grid_Tab.h
+  panels/widget_panel/Grid_Child_Tab.h
+  proj/align_widget.h
+  proj/mergeback.h
+  proj/i18n.h
+  proj/undo.h
+  rsrcs/comments.h
+  rsrcs/pixmaps.h
+  tools/ExternalCodeEditor_${SUFFIX}.h
+  tools/autodoc.h
+  tools/filename.h
+  widgets/App_Menu_Bar.h
+  widgets/Code_Editor.h
+  widgets/Code_Viewer.h
+  widgets/Text_Viewer.h
+  widgets/Formula_Input.h
+  widgets/Bin_Button.h
+  widgets/Style_Parser.h
+  widgets/Node_Browser.h
 )
 
-source_group("Header Files" FILES ${HEADERFILES})
+source_group(
+  TREE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+  FILES
+    ${CPPFILES}
+    ${HEADERFILES}
+    ${MAIN_FILES}
+    CMakeLists.txt
+)
 
 # Build a local object library to avoid compiling all source files
 # multiple times for all fluid targets on Windows (fluid + fluid-cmd).

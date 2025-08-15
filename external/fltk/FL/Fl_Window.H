@@ -1,7 +1,7 @@
 //
 // Window header file for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2023 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -97,7 +97,7 @@ protected:
 
   /** Stores the last window that was made current. See current() const */
   static Fl_Window *current_;
-  void draw() FL_OVERRIDE;
+  void draw() override;
 
 public:
 
@@ -118,8 +118,9 @@ protected:
     if (force) set_flag(FORCE_POSITION);
     else clear_flag(FORCE_POSITION);
   }
+
   /**
-    Returns the internal state of the window's FORCE_POSITION flag.
+    Returns the internal state of the window's \c FORCE_POSITION flag.
 
     \retval 1 if flag is set
     \retval 0 otherwise
@@ -197,7 +198,7 @@ public:
   */
     virtual ~Fl_Window();
 
-  int handle(int) FL_OVERRIDE;
+  int handle(int) override;
 
   /**
     Changes the size and position of the window.  If shown() is true,
@@ -215,7 +216,7 @@ public:
     dimensions. It is up to the application developer to verify window
     parameters after the resize request.
   */
-  void resize(int X,int Y,int W,int H) FL_OVERRIDE;
+  void resize(int X,int Y,int W,int H) override;
   /** Sets whether or not the window manager border is around the window.
   The default value is true. The macOS platform ignores requests to change the
   border state of a fullscreen or maximized window.
@@ -350,11 +351,13 @@ public:
     Undoes the effect of a previous resize() or show() so that the next time
     show() is called the window manager is free to position the window.
 
-    This is for Forms compatibility only.
+    This is the same as the \e protected method Fl_Window::force_position(0).
 
-    \deprecated please use force_position(0) instead
+    \internal
+    This method was erroneously declared 'deprecated' in earlier versions.
+    This has been corrected in FLTK 1.4.3.
   */
-  void free_position()  {clear_flag(FORCE_POSITION);}
+  void free_position()  { clear_flag(FORCE_POSITION); }
 
   void size_range(int minw, int minh, int maxw=0, int maxh=0, int dw=0, int dh=0, int aspect=0);
 
@@ -455,12 +458,12 @@ public:
 
     \see Fl_Window::show(int argc, char **argv)
   */
-  void show() FL_OVERRIDE;
+  void show() override;
   /**
     Removes the window from the screen.  If the window is already hidden or
     has not been shown then this does nothing and is harmless.
   */
-  void hide() FL_OVERRIDE;
+  void hide() override;
   /**
     Puts the window on the screen with show() and parses command-line arguments.
 
@@ -593,8 +596,8 @@ public:
   int decorated_h() const;
 
   // Note: Doxygen docs in Fl_Widget.H to avoid redundancy.
-  Fl_Window* as_window() FL_OVERRIDE { return this; }
-  Fl_Window const* as_window() const FL_OVERRIDE { return this; }
+  Fl_Window* as_window() override { return this; }
+  Fl_Window const* as_window() const override { return this; }
 
   /**
    Return non-null if this is an Fl_Overlay_Window object.

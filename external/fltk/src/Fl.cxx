@@ -1,7 +1,7 @@
 //
 // Main event handling code for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2024 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -580,7 +580,7 @@ void fl_trigger_clipboard_notify(int source) {
 ////////////////////////////////////////////////////////////////
 // idle/wait/run/check/ready:
 
-void (*Fl::idle)(); // see Fl::add_idle.cxx for the add/remove functions
+void (*Fl::idle_)(); // see Fl::add_idle.cxx for the add/remove functions
 
 /*
   Private, undocumented method to run idle callbacks.
@@ -611,9 +611,9 @@ void (*Fl::idle)(); // see Fl::add_idle.cxx for the add/remove functions
 */
 void Fl::run_idle() {
   static char in_idle;
-  if (Fl::idle && !in_idle) {
+  if (Fl::idle_ && !in_idle) {
     in_idle = 1;
-    Fl::idle();
+    Fl::idle_(); // call the idle callback stored in Fl::idle_ == Fl::idle()
     in_idle = 0;
   }
 }
@@ -1800,7 +1800,7 @@ static Fl_Widget  **dwidgets = 0;
 
   To avoid early deletion of widgets, this function should be called
   toward the end of a callback and only after any call to the event
-  loop (Fl::wait(), Fl::flush(), Fl::check(), fl_ask(), etc.).
+  loop (Fl::wait(), Fl::flush(), Fl::check(), fl_choice(), etc.).
 
   When deleting groups or windows, you must only delete the group or
   window widget and not the individual child widgets.

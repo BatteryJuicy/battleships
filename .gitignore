@@ -1,4 +1,4 @@
-# Ignore build directories
+# Ignore build directory
 build/
 
 # Ignore CMake generated files

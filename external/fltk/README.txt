@@ -1,21 +1,21 @@
-README - Fast Light Tool Kit (FLTK) Version 1.4.3
--------------------------------------------------
+README - Fast Light Tool Kit (FLTK) Version 1.5
+------------------------------------------------
 
-WHAT IS FLTK?
+What is FLTK?
 
-    The Fast Light Tool Kit is a cross-platform C++ GUI toolkit for
-    UNIX®/Linux® (X11 or Wayland), Microsoft® Windows®, and macOS®.
-    FLTK provides modern GUI functionality without bloat and
-    supports 3D graphics via OpenGL® and its built-in GLUT
-    emulation. It was originally developed by Mr. Bill Spitzak
-    and is currently maintained by a small group of developers
-    across the world with a central repository on GitHub.
+    The Fast Light Tool Kit (FLTK) is a cross-platform C++ GUI toolkit
+    for UNIX®/Linux® (X11 or Wayland), Microsoft® Windows®, and macOS®.
+    FLTK provides modern GUI functionality without bloat and supports
+    3D graphics via OpenGL® and its built-in GLUT emulation.
+    It was originally developed by Mr. Bill Spitzak and is currently
+    maintained by a small group of developers across the world with
+    a central repository on GitHub.
 
         https://www.fltk.org/
         https://github.com/fltk/fltk/
 
 
-LICENSING
+Licensing
 
     FLTK comes with complete free source code.  FLTK is available
     under the terms of the GNU Library General Public License with
@@ -24,157 +24,199 @@ LICENSING
     software! (Even Bill Gates could use it.)
 
 
-ON-LINE DOCUMENTATION
+Online Documentation
 
     The documentation in HTML and PDF forms can be created by
     Doxygen from the source files. HTML and PDF versions of this
-    documentation is also available from the FLTK web site at:
+    documentation are also available from the FLTK web site at:
 
         https://www.fltk.org/documentation.php
 
 
-BUILDING AND INSTALLING FLTK UNDER UNIX AND macOS
+Prerequisites for Building FLTK
 
-    Beginning with FLTK 1.4 the main and recommended build system
-    is CMake. CMake is a "build system generator" and can be used
-    to create Makefile's, Ninja build files, Xcode (macOS),
-    Visual Studio (Windows) IDE files and many more.
+    To build FLTK 1.5 and higher you need:
 
-    Please see README.CMake.txt for further information.
+      - CMake
+      - a C++11 capable compiler, e.g. gcc, clang, Visual Studio, Xcode
+      - system specific build files (headers etc.)
 
-    Alternatively FLTK can be built with autoconf + make, the
-    build system used in FLTK 1.3 and earlier versions. Please
-    be aware that the following information may be outdated
-    because it is no longer actively maintained.
+    CMake is used to generate the build environment on your system.
+    It can create build environments for a lot of different build tools,
+    please see the CMake documentation for more info. For details and the
+    required CMake version please see README.CMake.txt.
 
-    Note: autoconf + configure + make is still supported in FLTK 1.4.x
-    but will be removed in FLTK 1.5.0 or any higher version.
+    Since FLTK 1.5 we use C++11 features and you need at least a C++11 capable
+    compiler running in C++11 mode. The minimal C++ standard used for building
+    FLTK and your application *may* be raised in future versions.
 
-    In most cases you can just type "make".  This will run configure
-    with the default (no) options and then compile everything.
-
-    FLTK uses GNU autoconf to configure itself for your UNIX
-    platform. The main things that the configure script will
-    look for are the X11, OpenGL (or Mesa), and JPEG header and
-    library files.  Make sure that they are in the standard
-    include/library locations.  If they aren't you need to
-    define the CFLAGS, CXXFLAGS, and LDFLAGS environment
-    variables.
-
-    If you aren't using "gcc", "g++", "c++", or "CC" for your
-    C++ compiler, you'll also need to set the CXX environment
-    variable. Similarly, if you aren't using "gcc" or "cc" for
-    your C compiler you'll need to set the CC environment variable.
-
-    You can run configure yourself to get the exact setup you
-    need. Type "./configure <options>".  Options include:
-
-        --help                  - display help and exit
-        --enable-cygwin         - Enable the Cygwin DLL (Cygwin only)
-        --enable-debug          - Enable debugging code & symbols
-        --disable-forms         - Disable generation of the forms library
-        --disable-gl            - Disable OpenGL support
-        --enable-shared         - Enable generation of shared libraries
-        --enable-threads        - Enable multithreading support
-        --enable-xft            - Enable the Xft library (anti-aliased fonts)
-        --enable-pango          - Draw text with the pango library
-        --disable-wayland       - Force building for X11 only (no Wayland support)
-        --enable-x11            - Force building for X11 (macOS and Cygwin)
-        --disable-x11           - Force building for Wayland only (Linux/Unix)
-        --bindir=/path          - Set the location for executables
-                                  [default = /usr/local/bin]
-        --libdir=/path          - Set the location for libraries
-                                  [default = /usr/local/lib]
-        --includedir=/path      - Set the location for include files.
-                                  [default = /usr/local/include]
-        --prefix=/dir           - Set the directory prefix for files
-                                  [default = /usr/local]
-
-    For more options please see './configure --help'.
-
-    When the configure script is done you can just run the
-    "make" command. This will build the library, FLUID tool, and
-    all of the test programs.
-
-    To install the library, become root and type "make
-    install".  This will copy the "fluid" executable to
-    "bindir", the header files to "includedir", and the library
-    files to "libdir".
-
-    To install additional files and icons to be used by the main
-    desktop environments such as KDE, GNOME and XFCE, you will also
-    need to run "make install-desktop" as root.
+    The required header files etc. (build environment or SDK) vary across
+    platforms and are described in platform specific README.* files, e.g. on
+    Unix/Linux systems these are typically provided by the package manager.
 
 
-GIT USERS
+Building and Installing FLTK With CMake (Generic Instructions)
 
-    If you've just checked out a fresh copy of FLTK from  Git (GitHub),
-    you'll need to generate an initial version of 'configure'
-    by running 'make makeinclude' or 'make clean' (we don't
-    include a copy of configure in git).
+    Since FLTK 1.5 the only available build system is CMake. CMake is a
+    "build system generator" and can be used to create Makefile's, Ninja
+    build files, Xcode (macOS), Visual Studio (Windows) IDE files, and
+    many more. Use `cmake --help` or the CMake GUI tools (cmake-gui or
+    ccmake) to display the available generators on your platform.
+
+    Please see also README.CMake.txt for further details. There are *many*
+    options to configure the build as you need.
+
+    CMake comes in two flavors: a commandline utility and a GUI program.
+    On many platforms both can be used to generate the build files and
+    even to *build* the project (i.e. the FLTK library and programs).
+
+    The following paragraphs describe both tools in a nutshell.
+    For details please see README.CMake.txt.
 
 
-MAKE TARGETS
+Building and Installing FLTK With CMake (Commandline)
 
-    make            -- builds the library + test programs (does not install)
-    make install    -- builds and installs
-    make clean      -- clean for a rebuild
-    make distclean  -- like 'clean', but also removes docs, configure, fltk-config
-    ( cd src; make ) -- builds just the fltk libraries
+    On systems where a commandline `CMake` utility is available (this is
+    the case even on Windows), the commands to build FLTK using CMake can
+    be similar to:
+
+      $ cd /path/to/fltk
+      $ cmake . -B build [ options ]
+      $ cmake --build build
+
+    These commands create the build folder 'build' inside your source tree,
+    build the library and all test programs. Note that parameters in '[ ... ]'
+    are optional and '.' represents the current directory (the source folder).
+
+    You may want to test the demo programs by running `build/bin/test/demo`.
+
+    Instead of building FLTK with a CMake command you can also use the
+    build tool you generated in the first step and/or run CMake from the
+    build directory, for instance:
+
+      $ cd /path/to/fltk
+      $ mkdir build
+      $ cd build
+      $ cmake .. -G "Unix Makefiles" [ options ]
+      $ make [ -j N ]
+
+    You may want to test the demo programs by running `bin/test/demo`.
+
+    After successful tests you may install the library with the following
+    command or a similar one, but please be aware that this will install
+    FLTK in a system directory for system-wide use if you don't change the
+    default installation path. We don't recommend this unless you know
+    what you're doing.
+
+      $ sudo cmake --install build  # from the source tree (with CMake)
+
+    or
+
+      $ sudo make install           # from the build folder (with make)
+
+    Other commands (e.g. `ninja`) may be used as well, depending on the
+    CMake generator you used.
 
 
-BUILDING FLTK UNDER MICROSOFT WINDOWS
+Building and Installing FLTK With CMake (GUI)
+
+    On most systems CMake comes with a GUI program called `cmake-gui`, on
+    Unix/Linux like systems also a "TUI" called `ccmake` (a "grapical" utility
+    for a terminal). The latter is out of scope for this README file.
+
+    If you want to use CMake's GUI program, execute it by running `cmake-gui`
+    and then follow the dialog on the screen.
+
+    You need to select the source folder and the build folder at the top
+    of the screen. After clicking on `Configure` CMake will prompt you to
+    select the build system or compilers of your choice. In many cases
+    you can select the default compilers, e.g Visual Studio on Windows.
+    For more details please see the CMake documentation.
+
+    Note: on Windows it may be necessary to run CMake from a "Visual Studio
+    Command Prompt" so CMake can find the existing Visual Studio compilers
+    and SDK's, but details are beyond the scope of this document.
+
+    After running `Configure` successfully (look for error messages in the
+    window) you need to click on `Generate` to create the actual build files,
+    for instance Makefiles, the Visual Studio IDE project files on Windows,
+    or the Xcode IDE project on macOS, etc..
+
+    With some CMake generators for IDE projects (VS, Xcode) you can finally
+    click on `Open Project` to launch the IDE tool of your choice. In other
+    cases you may execute the build system by running `make`, `ninja`, etc.
+    after leaving the GUI to build the library and FLTK (test) programs.
+
+
+Building FLTK under Microsoft Windows
 
     There are two ways to build FLTK under Microsoft Windows.
 
-    The first is to use CMake to create the Visual C++ project or NMake files
-    in your favorite development directory, then build FLTK with Visual Studio.
+    The first is to use CMake to create the Visual Studio IDE project or
+    NMake files as described above, then build FLTK with Visual Studio or
+    NMake.
 
     The second method is to use a GNU-based development tool. To build with
-    the Cygwin or MinGW tools, use the supplied configure script as specified
-    in the UNIX section above:
-
-        ./configure ...options...
+    the Cygwin, MinGW, or MSYS2 tools, use CMake to create the build files
+    from the `cmake` commandline and build the library as described above.
+    On some of these systems you may also install and use `cmake-gui`.
 
     See README.Windows.txt and README.CMake.txt for more info.
 
 
-BUILDING HTML DOCUMENTATION
+Building HTML Documentation
 
-    If you want to build the HTML documentation:
+    FLTK uses Doxygen for documentation, so you'll at least need doxygen
+    installed for creating HTML docs, and additionally LaTeX for creating
+    PDF documentation.
 
-        ( cd documentation && make html )
+    If you want to build the documentation, change directory to your build
+    folder, for instance
 
-    If you want to build the PDF documentation:
+        cd /path/to/fltk/build
 
-        ( cd documentation && make pdf )
+    To build the HTML or PDF documentation, use these CMake commands:
 
-    FLTK uses doxygen for documentation, so you'll at least need doxygen
-    installed for creating html docs, and LaTeX for creating PDF docs.
+        cmake --build . --target html
+        cmake --build . --target pdf
 
-
-INTERNET RESOURCES
-
-    FLTK is available on the 'net in a bunch of locations:
-
-        - WWW:   https://www.fltk.org/
-                 https://www.fltk.org/bugs.php [for reporting bugs]
-                 https://www.fltk.org/software.php [source code]
+    Note: instead of using the generic CMake commands above you can also
+    use equivalent commands of your build system, e.g. `make html` or
+    `ninja pdf`, respectively.
 
 
-GENERAL QUESTIONS
+Internet Resources
 
-    To join the FLTK mailing list, go the following web page:
+    FLTK is available on the internet in a bunch of locations:
+
+    - https://www.fltk.org/                   - homepage
+    - https://github.com/fltk/fltk            - source code and discussions
+    - https://www.fltk.org/bugs.php           - info for reporting bugs
+    - https://www.fltk.org/software.php       - download source code
+    - https://github.com/fltk/fltk/releases   - source code and documentation
+
+    Note that we don't provide pre-compiled (binary) distributions. Consult
+    the package manager of your (Linux, Unix, macOS) operating system.
+
+
+General Questions
+
+    To join the FLTK mailing list, go to the following web page:
 
         https://groups.google.com/forum/#!forum/fltkgeneral
 
-    You can find detailed instructions how you can register for the mailing
-    list (even w/o a Google mail address) at the bottom of this page:
+    Detailed instructions on how to register for the mailing list (even
+    without a Google account) can be found further down on this page:
 
         https://www.fltk.org/newsgroups.php
 
+    Since July 2024 we offer GitHub Discussions on our GitHub project page.
+    Use the 'Q&A' section for general questions on building and using FLTK.
 
-REPORTING BUGS
+        https://github.com/fltk/fltk/discussions/categories/q-a
+
+
+Reporting Bugs
 
     If you are new to FLTK, or have general questions about how to use FLTK,
     or aren't sure if you found a bug, please ask first on the fltk.general
@@ -182,24 +224,28 @@ REPORTING BUGS
 
         https://groups.google.com/forum/#!forum/fltkgeneral
 
-    See paragraph GENERAL QUESTIONS above for more info.
+    or on GitHub Discussions (Q&A) as noted above:
+
+        https://github.com/fltk/fltk/discussions/categories/q-a
+
+
+    See also paragraph "General Questions" above for more info.
 
     If you are sure you found a bug, please see the following page for
-    further information:
+    further information on how to report a bug:
 
         https://www.fltk.org/bugs.php
 
 
-TRADEMARKS
+Trademarks
 
-    Microsoft and Windows are registered trademarks of Microsoft
-    Corporation. UNIX is a registered trademark of the X/Open
-    Group, Inc.  OpenGL is a registered trademark of Silicon
-    Graphics, Inc.  macOS is a registered trademark of Apple
-    Computers, Inc.
+    - Microsoft and Windows are registered trademarks of Microsoft Corporation.
+    - UNIX is a registered trademark of the X/Open Group, Inc.
+    - OpenGL is a registered trademark of Silicon Graphics, Inc.
+    - macOS is a registered trademark of Apple Computers, Inc.
 
 
-COPYRIGHT
+Copyright
 
     FLTK is copyright 1998-2025 by Bill Spitzak and others,
     see the CREDITS.txt file for more info.

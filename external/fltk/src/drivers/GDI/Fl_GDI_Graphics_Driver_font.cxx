@@ -103,7 +103,7 @@ enumcbw(CONST LOGFONTW    *lpelf,
         DWORD               /* FontType */,
         LPARAM            p) {
   if (!p && lpelf->lfCharSet != ANSI_CHARSET) return 1;
-  char        *fn = NULL;                                                  // FLTK font name
+  char        *fn = nullptr;                                               // FLTK font name
   unsigned     lw = (unsigned)wcslen(lpelf->lfFaceName);
   unsigned dstlen = fl_utf8fromwc(fn, 0, (wchar_t*)lpelf->lfFaceName, lw); // measure the string
   fn = (char*)malloc((size_t)dstlen + 2);                                  // "?" + name + NUL

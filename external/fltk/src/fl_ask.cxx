@@ -1,7 +1,7 @@
 //
 // Standard dialog functions for the Fast Light Tool Kit (FLTK).
 //
-// Copyright 1998-2022 by Bill Spitzak and others.
+// Copyright 1998-2025 by Bill Spitzak and others.
 //
 // This library is free software. Distribution and use rights are outlined in
 // the file "COPYING" which should have been included with this file.  If this
@@ -29,7 +29,7 @@
   - fl_alert()
   - fl_beep()
   - fl_message()
-  - fl_ask()
+  - fl_ask()      // deprecated since 1.1.7 (2006), see comment in FL/fl_ask.H
   - fl_choice()
   - fl_input()
   - fl_input_str()
@@ -129,6 +129,8 @@ void fl_alert(const char *fmt, ...) {
   va_end(ap);
 }
 
+#if FLTK_INCLUDE_FL_ASK // see FL/fl_ask.H
+
 /** Shows a dialog displaying the \p fmt message,
     this dialog features 2 yes/no buttons.
 
@@ -153,6 +155,8 @@ int fl_ask(const char *fmt, ...) {
 
   return r;
 }
+
+#endif // FLTK_INCLUDE_FL_ASK
 
 /** Shows a dialog displaying the printf style \p fmt message.
 
@@ -346,9 +350,6 @@ const char *fl_input(int maxchar, const char *fmt, const char *defstr, ...) {
 }
 
 
-
-#if (FLTK_USE_STD)
-
 /** Shows an input dialog displaying the \p fmt message with variable arguments.
 
   Like fl_input(), but this method has the additional argument \p maxchar
@@ -412,7 +413,6 @@ std::string fl_input_str(int maxchar, const char *fmt, const char *defstr, ...) 
   return (r == NULL) ? std::string("") : std::string(r);
 }
 
-#endif // FLTK_USE_STD
 
 /** Shows an input dialog displaying the \p fmt message with variable arguments.
 
@@ -460,7 +460,6 @@ const char *fl_password(int maxchar, const char *fmt, const char *defstr, ...) {
   return r;
 }
 
-#if (FLTK_USE_STD)
 
 /** Shows an input dialog displaying the \p fmt message with variable arguments.
 
@@ -509,8 +508,6 @@ std::string fl_password_str(int maxchar, const char *fmt, const char *defstr, ..
   va_end(ap);
   return (r == NULL) ? std::string("") : std::string(r);
 }
-
-#endif // FLTK_USE_STD
 
 
 /** Sets the preferred position for the message box used in

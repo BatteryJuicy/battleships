@@ -401,8 +401,11 @@ const Fl_Menu_Item* Fl_Menu_::picked(const Fl_Menu_Item* v) {
     value_ = v;
     if (when()&(FL_WHEN_CHANGED|FL_WHEN_RELEASE)) {
       if (changed() || when()&FL_WHEN_NOT_CHANGED) {
-        if (value_ && value_->callback_) value_->do_callback((Fl_Widget*)this);
-        else do_callback();
+        if (value_ && value_->callback_) {
+          value_->do_callback((Fl_Widget*)this, value_->user_data(), FL_REASON_SELECTED);
+        } else {
+          do_callback(FL_REASON_SELECTED);
+        }
       }
     }
   }
@@ -457,6 +460,12 @@ void Fl_Menu_::setonly(Fl_Menu_Item* item) {
     j->clear();
   }
 }
+
+/**
+ \deprecated Please use Fl_Menu_Item::setonly(Fl_Menu_Item const* first) instead.
+ */
+void Fl_Menu_Item::setonly() { setonly(nullptr); }
+
 
 /** Turns the radio item "on" for the menu item and turns "off" adjacent radio items set.
  \note This method is dangerous if radio items are first in the menu.

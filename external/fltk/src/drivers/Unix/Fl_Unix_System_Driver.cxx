@@ -21,7 +21,6 @@
 #include <FL/fl_string_functions.h>  // fl_strdup
 #include <FL/platform.H>
 #include "../../flstring.h"
-#include "../../Fl_String.H"
 #include "../../Fl_Timeout.h"
 
 #include <locale.h>
@@ -31,6 +30,7 @@
 #include <pwd.h>
 #include <string.h>     // strerror(errno)
 #include <errno.h>      // errno
+#include <string>
 #if HAVE_DLSYM && HAVE_DLFCN_H
 #include <dlfcn.h>   // for dlsym
 #endif
@@ -538,7 +538,8 @@ char *Fl_Unix_System_Driver::preference_user_rootnode(
     char *buffer)
 {
   // Find the path to the user's home directory.
-  Fl_String home_path = getenv("HOME");
+  const char *home_path_c = getenv("HOME");
+  std::string home_path = home_path_c ? home_path_c : "";
   if (home_path.empty()) {
     struct passwd *pw = getpwuid(getuid());
     if (pw)
@@ -546,30 +547,31 @@ char *Fl_Unix_System_Driver::preference_user_rootnode(
   }
 
   // 1: Generate the 1.4 path for this vendor and application.
-  Fl_String prefs_path_14 = getenv("XDG_CONFIG_HOME");
+  const char *prefs_path_14_c = getenv("XDG_CONFIG_HOME");
+  std::string prefs_path_14 = prefs_path_14_c ? prefs_path_14_c : "";
   if (prefs_path_14.empty()) {
     prefs_path_14 = home_path + "/.config";
   } else {
     if (prefs_path_14[prefs_path_14.size()-1]!='/')
-      prefs_path_14.append('/');
+      prefs_path_14.append("/");
     if (prefs_path_14.find("~/")==0) // starts with "~"
       prefs_path_14.replace(0, 1, home_path);
     int h_env = prefs_path_14.find("${HOME}");
-    if (h_env!=prefs_path_14.npos)
+    if (h_env!=(int)prefs_path_14.npos)
       prefs_path_14.replace(h_env, 7, home_path);
     h_env = prefs_path_14.find("$HOME/");
-    if (h_env!=prefs_path_14.npos)
+    if (h_env!=(int)prefs_path_14.npos)
       prefs_path_14.replace(h_env, 5, home_path);
   }
   if (prefs_path_14[prefs_path_14.size()-1]!='/')
-    prefs_path_14.append('/');
+    prefs_path_14.append("/");
   prefs_path_14.append(vendor);
 
   // 2: If this base path does not exist, try the 1.3 path
   if (::access(prefs_path_14.c_str(), F_OK) == -1) {
-    Fl_String prefs_path_13 = home_path + "/.fltk/" + vendor;
+    std::string prefs_path_13 = home_path + "/.fltk/" + vendor;
     if (::access(prefs_path_13.c_str(), F_OK) == 0) {
-      prefs_path_13.append('/');
+      prefs_path_13.append("/");
       prefs_path_13.append(application);
       prefs_path_13.append(".prefs");
       strlcpy(buffer, prefs_path_13.c_str(), FL_PATH_MAX);
@@ -578,7 +580,7 @@ char *Fl_Unix_System_Driver::preference_user_rootnode(
   }
 
   // 3: neither path exists, return the 1.4 file path and name
-  prefs_path_14.append('/');
+  prefs_path_14.append("/");
   prefs_path_14.append(application);
   prefs_path_14.append(".prefs");
   strlcpy(buffer, prefs_path_14.c_str(), FL_PATH_MAX);
@@ -721,18 +723,18 @@ void Fl_Unix_System_Driver::add_fd(int n, int events, void (*cb)(int, void*), vo
 #  if USE_POLL
     pollfd *tpoll;
 
-    if (!pollfds) tpoll = (pollfd*)malloc(fd_array_size*sizeof(pollfd));
-    else tpoll = (pollfd*)realloc(pollfds, fd_array_size*sizeof(pollfd));
+    if (!Fl_Unix_Screen_Driver::pollfds) tpoll = (pollfd*)malloc(fd_array_size*sizeof(pollfd));
+    else tpoll = (pollfd*)realloc(Fl_Unix_Screen_Driver::pollfds, fd_array_size*sizeof(pollfd));
 
     if (!tpoll) return;
-    pollfds = tpoll;
+    Fl_Unix_Screen_Driver::pollfds = tpoll;
 #  endif
   }
   Fl_Unix_Screen_Driver::fd[i].cb = cb;
   Fl_Unix_Screen_Driver::fd[i].arg = v;
 #  if USE_POLL
-  pollfds[i].fd = n;
-  pollfds[i].events = events;
+  Fl_Unix_Screen_Driver::pollfds[i].fd = n;
+  Fl_Unix_Screen_Driver::pollfds[i].events = events;
 #  else
   Fl_Unix_Screen_Driver::fd[i].fd = n;
   Fl_Unix_Screen_Driver::fd[i].events = events;
@@ -754,10 +756,10 @@ void Fl_Unix_System_Driver::remove_fd(int n, int events) {
 # endif
   for (i=j=0; i<Fl_Unix_Screen_Driver::nfds; i++) {
 #  if USE_POLL
-    if (pollfds[i].fd == n) {
-      int e = pollfds[i].events & ~events;
+    if (Fl_Unix_Screen_Driver::pollfds[i].fd == n) {
+      int e = Fl_Unix_Screen_Driver::pollfds[i].events & ~events;
       if (!e) continue; // if no events left, delete this fd
-      pollfds[j].events = e;
+      Fl_Unix_Screen_Driver::pollfds[j].events = e;
     }
 #  else
     if (Fl_Unix_Screen_Driver::fd[i].fd == n) {
@@ -771,7 +773,7 @@ void Fl_Unix_System_Driver::remove_fd(int n, int events) {
     if (j<i) {
       Fl_Unix_Screen_Driver::fd[j] = Fl_Unix_Screen_Driver::fd[i];
 #  if USE_POLL
-      pollfds[j] = pollfds[i];
+      Fl_Unix_Screen_Driver::pollfds[j] = Fl_Unix_Screen_Driver::pollfds[i];
 #  endif
     }
     j++;
@@ -801,7 +803,7 @@ double Fl_Unix_System_Driver::wait(double time_to_wait)
   } else {
     // do flush first so that user sees the display:
     Fl::flush();
-    if (Fl::idle) // 'idle' may have been set within flush()
+    if (Fl::idle()) // 'idle_' may have been set within flush()
       time_to_wait = 0.0;
     else {
       Fl_Timeout::elapse_timeouts();

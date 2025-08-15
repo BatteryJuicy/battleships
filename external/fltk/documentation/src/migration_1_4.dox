@@ -339,10 +339,10 @@ some of the "old" names have been introduced in early 1.4.0 development.
 
 Old Option Name (FLTK 1.3.x)         | New Option Name (FLTK 1.4.x)
 -------------------------------------|------------------------------------
+  none (built always)                | FLTK_BUILD_FORMS
 FLTK_BUILD_EXAMPLES                  | FLTK_BUILD_EXAMPLES
 FLTK_BUILD_FLTK_OPTIONS              | FLTK_BUILD_FLTK_OPTIONS
 FLTK_BUILD_FLUID                     | FLTK_BUILD_FLUID
-FLTK_BUILD_FORMS                     | FLTK_BUILD_FORMS
 FLTK_BUILD_TEST                      | FLTK_BUILD_TEST
 FLTK_MSVC_RUNTIME_DLL                | FLTK_MSVC_RUNTIME_DLL
 OPTION_ABI_VERSION                   | FLTK_ABI_VERSION
@@ -368,7 +368,7 @@ OPTION_USE_GL                        | FLTK_BUILD_GL
 OPTION_USE_KDIALOG                   | FLTK_USE_KDIALOG
 OPTION_USE_PANGO                     | FLTK_USE_PANGO
 OPTION_USE_POLL                      | FLTK_USE_POLL
-OPTION_USE_STD                       | FLTK_OPTION_STD
+OPTION_USE_STD                       | FLTK_OPTION_STD  [1]
 OPTION_USE_SVG                       | FLTK_OPTION_SVG
 OPTION_USE_SYSTEM_LIBDECOR           | FLTK_USE_SYSTEM_LIBDECOR
 OPTION_USE_SYSTEM_LIBJPEG            | FLTK_USE_SYSTEM_LIBJPEG
@@ -382,6 +382,9 @@ OPTION_USE_XFT                       | FLTK_USE_XFT
 OPTION_USE_XINERAMA                  | FLTK_USE_XINERAMA
 OPTION_USE_XRENDER                   | FLTK_USE_XRENDER
 OPTION_WAYLAND_ONLY                  | FLTK_BACKEND_X11=OFF
+
+------------------------------------------------
+[1] Note: obsolete and therefore removed in 1.5
 
 
 \section migration_1_4_windows_font New FL_HELVETICA Font on Windows
@@ -427,8 +430,8 @@ This code will load the old font 'Arial' on Windows:
     <a class="el" href="index.html">[Index]</a>
   </td>
   <td width="45%" align="RIGHT">
-    <a class="el" href="license.html">
-    Software License
+    <a class="el" href="migration_1_5.html">
+    Migrating Code from FLTK 1.4 to 1.5
     [Next]
     </a>
   </td>
