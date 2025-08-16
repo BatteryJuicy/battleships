@@ -1,10 +1,79 @@
 #include <GameView.h>
 
 #include <FL/Fl_Box.H>
+#include <FL/Fl_PNG_Image.H>
+#include <FL/Fl_RGB_Image.H>
 
 #include <iostream>
 
 using namespace Battleships;
+
+//--------------BOARDBUTTON--------------
+
+Fl_RGB_Image* BoardButton::makeDimmed(const Fl_PNG_Image* src, float factor) {
+    // factor < 1.0 makes it darker (e.g. 0.5 = half brightness)
+
+    int w = src->w();
+    int h = src->h();
+    int d = src->d();  // depth: 3 = RGB, 4 = RGBA
+
+    // Copy pixel data from the source
+    const uchar* srcData = (const uchar*)src->data()[0];
+    int dataSize = w * h * d;
+    uchar* newData = new uchar[dataSize];
+
+    for (int i = 0; i < dataSize; i += d) {
+        newData[i + 0] = (uchar)(srcData[i + 0] * factor); // R
+        newData[i + 1] = (uchar)(srcData[i + 1] * factor); // G
+        newData[i + 2] = (uchar)(srcData[i + 2] * factor); // B
+        if (d == 4) {
+            newData[i + 3] = srcData[i + 3]; // keep alpha unchanged
+        }
+    }
+
+    return new Fl_RGB_Image(newData, w, h, d);
+}
+
+BoardButton::BoardButton(int X, int Y, int W, int H, Fl_Image* buttonSprite)
+    : Fl_Button(X, Y, W, H) 
+{
+    normal_sprite = buttonSprite;
+    hover_sprite = makeDimmed((const Fl_PNG_Image*)buttonSprite, 0.9f);
+    click_sprite = makeDimmed((const Fl_PNG_Image*)buttonSprite, 0.7f);
+}
+
+int BoardButton::handle(int event) 
+{
+    switch(event) {
+        case FL_ENTER:      // mouse enters
+            this->image(hover_sprite);
+            redraw();
+            break;
+        case FL_LEAVE:      // mouse leaves
+            this->image(normal_sprite);
+            redraw();
+            break;
+        case FL_PUSH:       // mouse button pressed
+            this->image(click_sprite);
+            redraw();
+            break;
+        case FL_RELEASE:
+            if (hover_sprite) {
+                this->image(normal_sprite);
+            } else if (normal_sprite) {
+                this->image(normal_sprite);
+            }
+            redraw();
+            break;
+    }
+    return Fl_Button::handle(event);
+}
+
+//--------------GAMEVIEW--------------
+
+//padding 
+const int cellPadding = 5;
+const int boardPadding = 100;
 
 void GameView::createWindow(int width, int height)
 {
@@ -16,12 +85,41 @@ void GameView::createWindow(int width, int height)
 
     window = new Fl_Window(x, y, width, height, "BATTLESHIPS");
 
-    // Create an invisible box to act as the resizable area
-    Fl_Box* resizableDummy = new Fl_Box(0, 0, 1, 1);
-    resizableDummy->hide();  // Don't want it to be seen
+    window->color(FL_DARK3);
 
-    // Set dummy as the resizable widget
-    window->resizable(resizableDummy);
+    // // Create an invisible box to act as the resizable area
+    // Fl_Box* resizableDummy = new Fl_Box(0, 0, 1, 1);
+    // resizableDummy->hide();  // Don't want it to be seen
+
+    // // Set dummy as the resizable widget
+    // window->resizable(resizableDummy);
+}
+
+void GameView::makeBoard(std::vector<std::vector<Fl_Button*>>& board, Fl_Group* group, unsigned int boardSize)
+{
+    board.reserve(boardSize);
+    for (unsigned int i = 0; i < boardSize; i++)
+    {
+        std::vector<Fl_Button*> row;
+        row.reserve(boardSize);
+
+        for (unsigned int j = 0; j < boardSize; j++)
+        {
+            int x = group->x() + j*(cellSize + cellPadding);
+            int y = group->y() + i*(cellSize + cellPadding);
+
+            BoardButton* b = new BoardButton(x, y, cellSize, cellSize, buttonSprite_sea);
+            b->box(FL_NO_BOX); // Remove the default button box
+            b->take_focus(); // Prevent it from receiving keyboard focus
+            b->clear_visible_focus(); // Disable the focus rectangle
+
+            b->image(buttonSprite_sea);
+
+            row.push_back(b);
+        }
+        board.push_back(row);
+    }
+    group->end();
 }
 
 //CONTROLLER MUST PASS THE FUNCTIONS THE BUTTONS EXECUTE
@@ -31,15 +129,9 @@ void GameView::createBoards(unsigned int boardSize)
     int w = window->w();
     int h = window->h();
 
-    //pixel size of each cell of each board
-    const int cellSize = h/12;
-
-    //padding for the edges of the window to place the board
-    const int cellPadding = 5;
-    const int boardPadding = 100;
-
     const int boardPixelSize = (cellSize+cellPadding)*(boardSize-1) + cellSize;
 
+    //padding for the edges of the window to place the board
     const int horizontalPadding = (w - 2 * boardPixelSize - boardPadding) / 2;
     const int VerticalPadding = (h - boardPixelSize) / 2;
 
@@ -50,25 +142,9 @@ void GameView::createBoards(unsigned int boardSize)
                                     VerticalPadding, 
                                     boardPixelSize,
                                     boardPixelSize
-                                    );
-
-    opponentBoard.reserve(boardSize);
-    for (int i = 0; i < boardSize; i++)
-    {
-        std::vector<Fl_Button*> row;
-        row.reserve(boardSize);
-
-        for (int j = 0; j < boardSize; j++)
-        {
-            int x = opponentBoard_Group->x() + j*(cellSize + cellPadding);
-            int y = opponentBoard_Group->y() + i*(cellSize + cellPadding) ;
-            Fl_Button* b = new Fl_Button(x, y, cellSize, cellSize);
-
-            row.push_back(b);
-        }
-        opponentBoard.push_back(row);
-    }
-    opponentBoard_Group->end();
+    );
+    
+    makeBoard(opponentBoard, opponentBoard_Group, boardSize);
 
     //--------player board---------
     
@@ -77,30 +153,21 @@ void GameView::createBoards(unsigned int boardSize)
                                     VerticalPadding, 
                                     boardPixelSize,
                                     boardPixelSize
-                                    );
+    );
 
-    playerBoard.reserve(boardSize);
-    for (int i = 0; i < boardSize; i++)
-    {
-        std::vector<Fl_Button*> row;
-        row.reserve(boardSize);
-
-        for (int j = 0; j < boardSize; j++)
-        {
-            int x = playerBoard_Group->x() + j*(cellSize + cellPadding);
-            int y = playerBoard_Group->y() + i*(cellSize + cellPadding) ;
-            Fl_Button* b = new Fl_Button(x, y, cellSize, cellSize);
-
-            row.push_back(b);
-        }
-        playerBoard.push_back(row);
-    }
-
-    playerBoard_Group->end();
+    makeBoard(playerBoard, playerBoard_Group, boardSize);
     
 }
 
-GameView::GameView(int width, int height, unsigned int boardSize) {
+GameView::GameView(int width, int height, unsigned int boardSize) : cellSize(height/12) {
+
+    Fl_PNG_Image sprite_sea_temp("../assets/cell_default.png");
+    //Fl_PNG_Image sprite_sea_temp("E:/computer science/CPP/battleships/assets/cell_default.png");
+    buttonSprite_sea = sprite_sea_temp.copy(cellSize, cellSize);
+    if (sprite_sea_temp.fail()) {
+        std::cout << "FAIL: cannot find sprite" << std::endl;
+    }
+
     createWindow(width, height);
 
     createBoards(boardSize);
@@ -135,9 +202,9 @@ void GameView::updateBoard(GameModel& model)
         //if ship is shunken mark the cells differently
     }
 
-    for (int y = 0; y < board.getSize(); y++)
+    for (unsigned int y = 0; y < board.getSize(); y++)
     {
-        for (int x = 0; x < board.getSize(); x++)
+        for (unsigned int x = 0; x < board.getSize(); x++)
         {
             Fl_Button* b = opponentBoard[y][x];
             Cell& c = board.getCell(Coord(x, y));
@@ -147,10 +214,10 @@ void GameView::updateBoard(GameModel& model)
             }
             
             if (c.isHit() == true){
-                b->color(FL_RED);
+                b->image(buttonSprite_hit);
             }
             else{
-                b->color(FL_GRAY);
+                b->image(buttonSprite_miss);
             }
         }
         
