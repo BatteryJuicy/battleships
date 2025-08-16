@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <vector>
+#include <stdexcept>
 
 #include <GameModel.h>
 
@@ -11,6 +12,15 @@
 #include <FL/Fl_PNG_Image.H>
 
 namespace Battleships{
+
+/**
+ * @brief Custom exception for when a sprite couldn't be loaded
+ * 
+ */
+class ImageLoadException : public std::runtime_error {
+public:
+    ImageLoadException(const std::string& msg);
+};
 
 /**
  * @brief Button that behaves more interactively
@@ -74,10 +84,12 @@ private:
     Fl_Image* buttonSprite_sea;
     Fl_Image* buttonSprite_miss;
     Fl_Image* buttonSprite_hit;
+    Fl_Image* buttonSprite_sank;
 
-    const int cellSize;
+    const int cellButtonSize;
 
     //UI creations helpers
+    void loadSprites();
     void createWindow(int width, int height);
     void makeBoard(std::vector<std::vector<Fl_Button*>>& board, Fl_Group* group, unsigned int boardSize);
     void createBoards(unsigned int boardSize);
