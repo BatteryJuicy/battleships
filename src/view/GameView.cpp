@@ -1,12 +1,14 @@
 #include <GameView.h>
 
+#include <iostream>
+
 #include <FL/Fl_Box.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_RGB_Image.H>
 
-#include <iostream>
-
 using namespace Battleships;
+
+ImageLoadException::ImageLoadException(const std::string& msg) : std::runtime_error(msg) {}
 
 //--------------BOARDBUTTON--------------
 
@@ -44,6 +46,8 @@ BoardButton::BoardButton(int X, int Y, int W, int H, Fl_Image* buttonSprite)
 
 int BoardButton::handle(int event) 
 {
+    if (!this->active()) return 0;
+
     switch(event) {
         case FL_ENTER:      // mouse enters
             this->image(hover_sprite);
@@ -57,12 +61,8 @@ int BoardButton::handle(int event)
             this->image(click_sprite);
             redraw();
             break;
-        case FL_RELEASE:
-            if (hover_sprite) {
-                this->image(normal_sprite);
-            } else if (normal_sprite) {
-                this->image(normal_sprite);
-            }
+        case FL_RELEASE:    //mouse button released
+            this->image(normal_sprite);
             redraw();
             break;
     }
@@ -74,6 +74,32 @@ int BoardButton::handle(int event)
 //padding 
 const int cellPadding = 5;
 const int boardPadding = 100;
+
+void GameView::loadSprites()
+{
+    const unsigned int spriteCount = 4;
+    std::string spriteDir = "../assets/";
+    std::string spriteNames[spriteCount] = {"cell_default.png", "cell_hit.png", "cell_miss.png", "cell_shipSank.png"};
+    Fl_Image** images[spriteCount] = {
+        &buttonSprite_sea,
+        &buttonSprite_hit,
+        &buttonSprite_miss,
+        &buttonSprite_sank
+    };
+
+    for (int i = 0; i < spriteCount; i++)
+    {
+        std::string fullPath = spriteDir + spriteNames[i];
+        Fl_PNG_Image getTemp(fullPath.c_str());
+
+        if (getTemp.fail()) {
+            throw ImageLoadException("FAIL: Could not load sprite: " + fullPath + ". Try reloading cmake.");
+        }
+        
+        *images[i] = getTemp.copy(cellButtonSize, cellButtonSize);
+    }
+    
+}
 
 void GameView::createWindow(int width, int height)
 {
@@ -105,10 +131,10 @@ void GameView::makeBoard(std::vector<std::vector<Fl_Button*>>& board, Fl_Group* 
 
         for (unsigned int j = 0; j < boardSize; j++)
         {
-            int x = group->x() + j*(cellSize + cellPadding);
-            int y = group->y() + i*(cellSize + cellPadding);
+            int x = group->x() + j*(cellButtonSize + cellPadding);
+            int y = group->y() + i*(cellButtonSize + cellPadding);
 
-            BoardButton* b = new BoardButton(x, y, cellSize, cellSize, buttonSprite_sea);
+            BoardButton* b = new BoardButton(x, y, cellButtonSize, cellButtonSize, buttonSprite_sea);
             b->box(FL_NO_BOX); // Remove the default button box
             b->take_focus(); // Prevent it from receiving keyboard focus
             b->clear_visible_focus(); // Disable the focus rectangle
@@ -129,7 +155,7 @@ void GameView::createBoards(unsigned int boardSize)
     int w = window->w();
     int h = window->h();
 
-    const int boardPixelSize = (cellSize+cellPadding)*(boardSize-1) + cellSize;
+    const int boardPixelSize = (cellButtonSize+cellPadding)*(boardSize-1) + cellButtonSize;
 
     //padding for the edges of the window to place the board
     const int horizontalPadding = (w - 2 * boardPixelSize - boardPadding) / 2;
@@ -159,15 +185,18 @@ void GameView::createBoards(unsigned int boardSize)
     
 }
 
-GameView::GameView(int width, int height, unsigned int boardSize) : cellSize(height/12) {
+GameView::GameView(int width, int height, unsigned int boardSize) : cellButtonSize(height/12) {
 
-    Fl_PNG_Image sprite_sea_temp("../assets/cell_default.png");
-    //Fl_PNG_Image sprite_sea_temp("E:/computer science/CPP/battleships/assets/cell_default.png");
-    buttonSprite_sea = sprite_sea_temp.copy(cellSize, cellSize);
-    if (sprite_sea_temp.fail()) {
-        std::cout << "FAIL: cannot find sprite" << std::endl;
+    try
+    {
+        loadSprites();
     }
-
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        std::exit(1);
+    }
+    
     createWindow(width, height);
 
     createBoards(boardSize);
