@@ -28,7 +28,7 @@ void GameController::handleButton_guess(Fl_Widget* w, void* data)
     GameController* c = d->controller;
     Coord coords = d->coord;
 
-    if (c->model.getTurn() == GameModel::Turn::PLAYER1){
+    if (c->model.getTurn() == GameModel::Turn::PLAYER1){ // Changing game state only if it's the player's turn
         c->model.makeGuess(coords);
         c->view.updateBoard(c->getModel());
     }   
