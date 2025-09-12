@@ -1,5 +1,5 @@
 <map id="Battleships::Player" name="Battleships::Player">
-<area shape="rect" id="Node000001" title="Represents a generic player in the Battleships game, managing their own board and guess logic." alt="" coords="5,102,137,128"/>
-<area shape="rect" id="Node000002" href="$class_battleships_1_1_board.html" title="A 2d vector array of Cell objects." alt="" coords="7,5,135,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,74,101,68,101,68,46"/>
+<area shape="rect" id="Node000001" title="Represents a generic player in the Battleships game, managing their own board and guess logic." alt="" coords="5,104,137,131"/>
+<area shape="rect" id="Node000002" href="$class_battleships_1_1_board.html" title="A 2d vector array of Cell objects." alt="" coords="7,5,135,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,48,74,104,68,104,68,48"/>
 </map>

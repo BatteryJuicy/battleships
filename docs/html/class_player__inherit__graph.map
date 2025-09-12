@@ -1,5 +1,0 @@
-<map id="Player" name="Player">
-<area shape="rect" id="Node000001" title="Represents a generic player in the Battleships game, managing their own board and guess logic." alt="" coords="5,5,64,31"/>
-<area shape="rect" id="Node000002" href="$class_ai.html" title=" " alt="" coords="15,79,54,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="37,46,37,79,32,79,32,46"/>
-</map>

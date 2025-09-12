@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ship_0',['Ship',['../class_battleships_1_1_ship.html',1,'Battleships']]]
+  ['player_0',['Player',['../class_battleships_1_1_player.html',1,'Battleships']]]
 ];

@@ -1,47 +1,73 @@
 \doxysection{Game\+View.\+h}
-\hypertarget{_game_view_8h_source}{}\label{_game_view_8h_source}\index{include/View/GameView.h@{include/View/GameView.h}}
+\hypertarget{_game_view_8h_source}{}\label{_game_view_8h_source}\index{include/view/GameView.h@{include/view/GameView.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VIEW\_H}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VIEW\_H}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <GameModel.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <FL/Fl.H>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <FL/Fl\_Window.H>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <FL/Fl\_Button.H>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <FL/Fl\_PNG\_Image.H>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }Battleships\{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }GameView\{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00020\ \ \ \ \ Fl\_Window\ *window;}
-\DoxyCodeLine{00021\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\ playerBoard;\ \textcolor{comment}{//player1\ board}}
-\DoxyCodeLine{00022\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\ opponentBoard;\ \textcolor{comment}{//player2's\ board\ where\ player1\ guesses.}}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ Fl\_PNG\_Image*\ buttonSprite\_sea;}
-\DoxyCodeLine{00025\ \ \ \ \ Fl\_PNG\_Image*\ buttonSprite\_miss;}
-\DoxyCodeLine{00026\ \ \ \ \ Fl\_PNG\_Image*\ buttonSprite\_hit;}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//UI\ creations\ helpers}}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ createWindow(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ createBoards(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize);}
-\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ GameView(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\&\ getPlayerBoard();}
-\DoxyCodeLine{00037\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\&\ getOpponentBoard();}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ show();}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBoard(\mbox{\hyperlink{class_battleships_1_1_game_model}{GameModel}}\&\ model);}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \};}
-\DoxyCodeLine{00044\ \}}
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <GameModel.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <FL/Fl.H>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <FL/Fl\_Window.H>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <FL/Fl\_Button.H>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <FL/Fl\_PNG\_Image.H>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }Battleships\{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }ImageLoadException\ :\ \textcolor{keyword}{public}\ std::runtime\_error\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ ImageLoadException(\textcolor{keyword}{const}\ std::string\&\ msg);}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_battleships_1_1_board_button_afbff82dc208cea4eb3e5bef7c4904274}{BoardButton}}\ :\ \textcolor{keyword}{public}\ Fl\_Button\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ Fl\_Image*\ normal\_sprite;}
+\DoxyCodeLine{00033\ \ \ \ \ Fl\_Image*\ hover\_sprite;}
+\DoxyCodeLine{00034\ \ \ \ \ Fl\_Image*\ click\_sprite;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_battleships_1_1_board_button_afbff82dc208cea4eb3e5bef7c4904274}{BoardButton}}(\textcolor{keywordtype}{int}\ X,\ \textcolor{keywordtype}{int}\ Y,\ \textcolor{keywordtype}{int}\ W,\ \textcolor{keywordtype}{int}\ H,\ Fl\_Image*\ buttonSprite);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ handle(\textcolor{keywordtype}{int}\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00072\ \ \ \ \ Fl\_RGB\_Image*\ \mbox{\hyperlink{class_battleships_1_1_board_button_a16c2cddc5ec027ac6bf04dc43ea76095}{BoardButton::makeDimmed}}(\textcolor{keyword}{const}\ Fl\_PNG\_Image*\ src,\ \textcolor{keywordtype}{float}\ factor);}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{class\ }GameView\{}
+\DoxyCodeLine{00080\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00081\ \ \ \ \ Fl\_Window\ *window;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ player1\ board.}}
+\DoxyCodeLine{00083\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\ playerBoard;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ player2's\ board\ where\ player1\ guesses\ (doesn't\ store\ info\ about\ oponent's\ ships)}}
+\DoxyCodeLine{00085\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\ opponentBoard;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ std::unordered\_map<std::string,\ Fl\_Image*>\ \mbox{\hyperlink{class_battleships_1_1_game_view_afee991db9bd2d7767538d4e0085e12a2}{buttonSprites}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cellButtonSize;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//UI\ creations\ helpers}}
+\DoxyCodeLine{00096\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ loadSprites();}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ createWindow(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ makeBoard(std::vector<std::vector<Fl\_Button*>>\&\ board,\ Fl\_Group*\ group,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize);}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ createBoards(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize);}
+\DoxyCodeLine{00101\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ GameView(\textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ boardSize);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\&\ getPlayerBoard();}
+\DoxyCodeLine{00106\ \ \ \ \ std::vector<std::vector<Fl\_Button*>>\&\ getOpponentBoard();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ show();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBoard(\mbox{\hyperlink{class_battleships_1_1_game_model}{GameModel}}\&\ model);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ \}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

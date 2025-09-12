@@ -1,9 +1,0 @@
-<map id="Player::applyGuess" name="Player::applyGuess">
-<area shape="rect" id="Node000001" title="Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly." alt="" coords="5,55,141,80"/>
-<area shape="rect" id="Node000002" href="$class_cell.html#a6fc7631b919a3296864c456538b7840b" title="Get the CellType." alt="" coords="201,5,299,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,51,186,33,187,38,123,57"/>
-<area shape="rect" id="Node000003" href="$class_cell.html#a86208e974a7b67156df121bddb1f7bd8" title="Set the Guessed object." alt="" coords="189,55,311,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,65,173,65,173,70,141,70"/>
-<area shape="rect" id="Node000004" href="$class_cell.html#a4c909d38bdacb223beafe10321c0b1e0" title="Set the Hit object." alt="" coords="206,104,294,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="123,78,192,98,191,103,121,84"/>
-</map>

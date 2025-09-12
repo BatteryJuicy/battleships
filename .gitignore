@@ -23,3 +23,6 @@ Makefile
 *~
 *.swp
 .DS_Store
+
+# Ignore doxygen files
+docs/

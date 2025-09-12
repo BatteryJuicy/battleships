@@ -112,8 +112,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>updateBoard</b> (<a c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a72c6cd6c3eb1830438ec1082788bfe33" id="r_a72c6cd6c3eb1830438ec1082788bfe33"><td class="memItemLeft" align="right" valign="top"><a id="a72c6cd6c3eb1830438ec1082788bfe33" name="a72c6cd6c3eb1830438ec1082788bfe33"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSprites</b> ()</td></tr>
 <tr class="memitem:a66ef1785a53477d1a8594d94409b20a6" id="r_a66ef1785a53477d1a8594d94409b20a6"><td class="memItemLeft" align="right" valign="top"><a id="a66ef1785a53477d1a8594d94409b20a6" name="a66ef1785a53477d1a8594d94409b20a6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>createWindow</b> (int width, int height)</td></tr>
+<tr class="memitem:a2130a080d6a92735489e34f29e8827f3" id="r_a2130a080d6a92735489e34f29e8827f3"><td class="memItemLeft" align="right" valign="top"><a id="a2130a080d6a92735489e34f29e8827f3" name="a2130a080d6a92735489e34f29e8827f3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>makeBoard</b> (std::vector&lt; std::vector&lt; Fl_Button * &gt; &gt; &amp;board, Fl_Group *group, unsigned int boardSize)</td></tr>
 <tr class="memitem:a6c7f828bb17529ffb1912017b4c6bc2a" id="r_a6c7f828bb17529ffb1912017b4c6bc2a"><td class="memItemLeft" align="right" valign="top"><a id="a6c7f828bb17529ffb1912017b4c6bc2a" name="a6c7f828bb17529ffb1912017b4c6bc2a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>createBoards</b> (unsigned int boardSize)</td></tr>
 </table><table class="memberdecls">
@@ -125,17 +129,16 @@ Fl_Window *&#160;</td><td class="memItemRight" valign="bottom"><b>window</b></td
 std::vector&lt; std::vector&lt; Fl_Button * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>playerBoard</b></td></tr>
 <tr class="memitem:ae3a60097cf472057be9bd5de5c937738" id="r_ae3a60097cf472057be9bd5de5c937738"><td class="memItemLeft" align="right" valign="top"><a id="ae3a60097cf472057be9bd5de5c937738" name="ae3a60097cf472057be9bd5de5c937738"></a>
 std::vector&lt; std::vector&lt; Fl_Button * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>opponentBoard</b></td></tr>
-<tr class="memitem:a0c6abae3c9e524ba25b700871eccda3c" id="r_a0c6abae3c9e524ba25b700871eccda3c"><td class="memItemLeft" align="right" valign="top"><a id="a0c6abae3c9e524ba25b700871eccda3c" name="a0c6abae3c9e524ba25b700871eccda3c"></a>
-Fl_PNG_Image *&#160;</td><td class="memItemRight" valign="bottom"><b>buttonSprite_sea</b></td></tr>
-<tr class="memitem:af935c17a82e00ab82810c92c66c38a02" id="r_af935c17a82e00ab82810c92c66c38a02"><td class="memItemLeft" align="right" valign="top"><a id="af935c17a82e00ab82810c92c66c38a02" name="af935c17a82e00ab82810c92c66c38a02"></a>
-Fl_PNG_Image *&#160;</td><td class="memItemRight" valign="bottom"><b>buttonSprite_miss</b></td></tr>
-<tr class="memitem:ae260d321a9e3544701e59cebcb686f1f" id="r_ae260d321a9e3544701e59cebcb686f1f"><td class="memItemLeft" align="right" valign="top"><a id="ae260d321a9e3544701e59cebcb686f1f" name="ae260d321a9e3544701e59cebcb686f1f"></a>
-Fl_PNG_Image *&#160;</td><td class="memItemRight" valign="bottom"><b>buttonSprite_hit</b></td></tr>
+<tr class="memitem:afee991db9bd2d7767538d4e0085e12a2" id="r_afee991db9bd2d7767538d4e0085e12a2"><td class="memItemLeft" align="right" valign="top"><a id="afee991db9bd2d7767538d4e0085e12a2" name="afee991db9bd2d7767538d4e0085e12a2"></a>
+std::unordered_map&lt; std::string, Fl_Image * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>buttonSprites</b></td></tr>
+<tr class="memdesc:afee991db9bd2d7767538d4e0085e12a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">HashTable that stores the button sprites and accesses them with key=&lt;file name&gt;. <br /></td></tr>
+<tr class="memitem:accaba0e68984925ab5a1ff4f1c1966ce" id="r_accaba0e68984925ab5a1ff4f1c1966ce"><td class="memItemLeft" align="right" valign="top"><a id="accaba0e68984925ab5a1ff4f1c1966ce" name="accaba0e68984925ab5a1ff4f1c1966ce"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>cellButtonSize</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Responsible for rendering the game interface and handling user interactions. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/View/<a class="el" href="_game_view_8h_source.html">GameView.h</a></li>
+<li>include/view/<a class="el" href="_game_view_8h_source.html">GameView.h</a></li>
 <li>src/view/<b>GameView.cpp</b></li>
 </ul>
 </div><!-- contents -->

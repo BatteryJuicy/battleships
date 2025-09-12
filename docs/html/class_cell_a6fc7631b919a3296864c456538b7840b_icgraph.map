@@ -1,5 +1,0 @@
-<map id="Cell::getType" name="Cell::getType">
-<area shape="rect" id="Node000001" title="Get the CellType." alt="" coords="189,5,287,31"/>
-<area shape="rect" id="Node000002" href="$class_player.html#a3bed0f6540b05a114b1f84afe58dedde" title="Applies the guess at the cell at BOARD index (x,y) and changes its member variables accordingly." alt="" coords="5,5,141,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,21,141,21,141,16,173,16"/>
-</map>

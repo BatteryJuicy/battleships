@@ -30,8 +30,14 @@ void {\bfseries update\+Board} (\mbox{\hyperlink{class_battleships_1_1_game_mode
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{class_battleships_1_1_game_view_a72c6cd6c3eb1830438ec1082788bfe33}\label{class_battleships_1_1_game_view_a72c6cd6c3eb1830438ec1082788bfe33} 
+void {\bfseries load\+Sprites} ()
+\item 
 \Hypertarget{class_battleships_1_1_game_view_a66ef1785a53477d1a8594d94409b20a6}\label{class_battleships_1_1_game_view_a66ef1785a53477d1a8594d94409b20a6} 
 void {\bfseries create\+Window} (int width, int height)
+\item 
+\Hypertarget{class_battleships_1_1_game_view_a2130a080d6a92735489e34f29e8827f3}\label{class_battleships_1_1_game_view_a2130a080d6a92735489e34f29e8827f3} 
+void {\bfseries make\+Board} (std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ \&board, Fl\+\_\+\+Group \texorpdfstring{$\ast$}{*}group, unsigned int board\+Size)
 \item 
 \Hypertarget{class_battleships_1_1_game_view_a6c7f828bb17529ffb1912017b4c6bc2a}\label{class_battleships_1_1_game_view_a6c7f828bb17529ffb1912017b4c6bc2a} 
 void {\bfseries create\+Boards} (unsigned int board\+Size)
@@ -48,14 +54,11 @@ std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>
 \Hypertarget{class_battleships_1_1_game_view_ae3a60097cf472057be9bd5de5c937738}\label{class_battleships_1_1_game_view_ae3a60097cf472057be9bd5de5c937738} 
 std\+::vector$<$ std\+::vector$<$ Fl\+\_\+\+Button \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries opponent\+Board}
 \item 
-\Hypertarget{class_battleships_1_1_game_view_a0c6abae3c9e524ba25b700871eccda3c}\label{class_battleships_1_1_game_view_a0c6abae3c9e524ba25b700871eccda3c} 
-Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+sea}
-\item 
-\Hypertarget{class_battleships_1_1_game_view_af935c17a82e00ab82810c92c66c38a02}\label{class_battleships_1_1_game_view_af935c17a82e00ab82810c92c66c38a02} 
-Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+miss}
-\item 
-\Hypertarget{class_battleships_1_1_game_view_ae260d321a9e3544701e59cebcb686f1f}\label{class_battleships_1_1_game_view_ae260d321a9e3544701e59cebcb686f1f} 
-Fl\+\_\+\+PNG\+\_\+\+Image \texorpdfstring{$\ast$}{*} {\bfseries button\+Sprite\+\_\+hit}
+\Hypertarget{class_battleships_1_1_game_view_afee991db9bd2d7767538d4e0085e12a2}\label{class_battleships_1_1_game_view_afee991db9bd2d7767538d4e0085e12a2} 
+std\+::unordered\+\_\+map$<$ std\+::string, Fl\+\_\+\+Image \texorpdfstring{$\ast$}{*} $>$ {\bfseries button\+Sprites}
+\begin{DoxyCompactList}\small\item\em Hash\+Table that stores the button sprites and accesses them with key=$<$file name$>$. \end{DoxyCompactList}\item 
+\Hypertarget{class_battleships_1_1_game_view_accaba0e68984925ab5a1ff4f1c1966ce}\label{class_battleships_1_1_game_view_accaba0e68984925ab5a1ff4f1c1966ce} 
+const int {\bfseries cell\+Button\+Size}
 \end{DoxyCompactItemize}
 
 
@@ -64,5 +67,5 @@ Responsible for rendering the game interface and handling user interactions.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-include/\+View/Game\+View.\+h\item 
+include/view/Game\+View.\+h\item 
 src/view/Game\+View.\+cpp\end{DoxyCompactItemize}

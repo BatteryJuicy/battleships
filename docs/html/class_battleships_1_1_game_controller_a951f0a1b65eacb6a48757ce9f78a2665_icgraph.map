@@ -1,5 +1,5 @@
 <map id="Battleships::GameController::getModel" name="Battleships::GameController::getModel">
-<area shape="rect" id="Node000001" title="Get the Model object." alt="" coords="239,5,424,46"/>
-<area shape="rect" id="Node000002" href="$class_battleships_1_1_game_controller.html#aca9de972b41e99c2f3787768c5f49ce8" title="handle button event on the oponent&#39;s board AKA the player guesses a cell." alt="" coords="5,5,191,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,28,191,28,191,23,223,23"/>
+<area shape="rect" id="Node000001" title="Get the Model object." alt="" coords="239,5,424,48"/>
+<area shape="rect" id="Node000002" href="$class_battleships_1_1_game_controller.html#aca9de972b41e99c2f3787768c5f49ce8" title="handle button event on the oponent&#39;s board AKA the player guesses a cell." alt="" coords="5,5,191,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,29,191,29,191,24,223,24"/>
 </map>
