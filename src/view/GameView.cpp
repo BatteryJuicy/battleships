@@ -1,104 +1,35 @@
 #include <GameView.h>
+#include <BoardButton.h>
+#include <config.h>
 
 #include <iostream>
 
 #include <FL/Fl_Box.H>
-#include <FL/Fl_PNG_Image.H>
-#include <FL/Fl_RGB_Image.H>
 
 using namespace Battleships;
 
 ImageLoadException::ImageLoadException(const std::string& msg) : std::runtime_error(msg) {}
 
-//--------------BOARDBUTTON--------------
-
-Fl_RGB_Image* BoardButton::makeDimmed(const Fl_PNG_Image* src, float factor) {
-    // factor < 1.0 makes it darker (e.g. 0.5 = half brightness)
-
-    int w = src->w();
-    int h = src->h();
-    int d = src->d();  // depth: 3 = RGB, 4 = RGBA
-
-    // Copy pixel data from the source
-    const uchar* srcData = (const uchar*)src->data()[0];
-    int dataSize = w * h * d;
-    uchar* newData = new uchar[dataSize];
-
-    for (int i = 0; i < dataSize; i += d) {
-        newData[i + 0] = (uchar)(srcData[i + 0] * factor); // R
-        newData[i + 1] = (uchar)(srcData[i + 1] * factor); // G
-        newData[i + 2] = (uchar)(srcData[i + 2] * factor); // B
-        if (d == 4) {
-            newData[i + 3] = srcData[i + 3]; // keep alpha unchanged
-        }
-    }
-
-    return new Fl_RGB_Image(newData, w, h, d);
-}
-
-BoardButton::BoardButton(int X, int Y, int W, int H, Fl_Image* buttonSprite)
-    : Fl_Button(X, Y, W, H) 
-{
-    normal_sprite = buttonSprite;
-    hover_sprite = makeDimmed((const Fl_PNG_Image*)buttonSprite, 0.9f);
-    click_sprite = makeDimmed((const Fl_PNG_Image*)buttonSprite, 0.7f);
-}
-
-int BoardButton::handle(int event) 
-{
-    if (!this->active()) return 0;
-
-    switch(event) {
-        case FL_ENTER:      // mouse enters
-            this->image(hover_sprite);
-            redraw();
-            break;
-        case FL_LEAVE:      // mouse leaves
-            this->image(normal_sprite);
-            redraw();
-            break;
-        case FL_PUSH:       // mouse button pressed
-            this->image(click_sprite);
-            redraw();
-            break;
-        case FL_RELEASE:    //mouse button released
-            this->image(normal_sprite);
-            redraw();
-            break;
-    }
-    return Fl_Button::handle(event);
-}
-
-//--------------GAMEVIEW--------------
-
-//padding 
-const int cellPadding = 5;
-const int boardPadding = 100;
-
 void GameView::loadSprites()
 {
+    // sprites paths
     const unsigned int spriteCount = 4;
+    std::string spriteFileEncoding = ".png";
     std::string spriteDir = "../assets/";
-    std::string spriteNames[spriteCount] = {"cell_default.png", "cell_hit.png", "cell_miss.png", "cell_shipSank.png"};
-    Fl_Image** images[spriteCount] = {
-        &buttonSprite_sea,
-        &buttonSprite_hit,
-        &buttonSprite_miss,
-        &buttonSprite_sank
-    };
+    std::string spriteNames[spriteCount] = {"cell_default", "cell_hit", "cell_miss", "cell_shipSank"};
 
     for (int i = 0; i < spriteCount; i++)
     {
-        std::string fullPath = spriteDir + spriteNames[i];
+        std::string fullPath = spriteDir + spriteNames[i] + spriteFileEncoding;
         Fl_PNG_Image getTemp(fullPath.c_str());
 
         if (getTemp.fail()) {
             throw ImageLoadException("FAIL: Could not load sprite: " + fullPath + ". Try reloading cmake.");
         }
         
-        *images[i] = getTemp.copy(cellButtonSize, cellButtonSize);
+        //adding the pair <spriteNames[i], Fl_image(<file path>)> to the sprites hashtable.
+        buttonSprites[spriteNames[i]] = getTemp.copy(cellButtonSize, cellButtonSize);
     }
-    
 }
 
 void GameView::createWindow(int width, int height)
@@ -134,13 +65,7 @@ void GameView::makeBoard(std::vector<std::vector<Fl_Button*>>& board, Fl_Group* 
             int x = group->x() + j*(cellButtonSize + cellPadding);
             int y = group->y() + i*(cellButtonSize + cellPadding);
 
-            BoardButton* b = new BoardButton(x, y, cellButtonSize, cellButtonSize, buttonSprite_sea);
-            b->box(FL_NO_BOX); // Remove the default button box
-            b->take_focus(); // Prevent it from receiving keyboard focus
-            b->clear_visible_focus(); // Disable the focus rectangle
-
-            b->image(buttonSprite_sea);
-
+            BoardButton* b = new BoardButton(x, y, cellButtonSize, cellButtonSize, buttonSprites["cell_default"]);
             row.push_back(b);
         }
         board.push_back(row);
@@ -149,7 +74,7 @@ void GameView::makeBoard(std::vector<std::vector<Fl_Button*>>& board, Fl_Group* 
 }
 
 //CONTROLLER MUST PASS THE FUNCTIONS THE BUTTONS EXECUTE
-void GameView::createBoards(unsigned int boardSize)
+void GameView::addBoards(unsigned int boardSize)
 {
     //window dimentions
     int w = window->w();
@@ -165,24 +90,23 @@ void GameView::createBoards(unsigned int boardSize)
 
     Fl_Group* opponentBoard_Group = new Fl_Group(
                                     horizontalPadding + boardPixelSize + boardPadding,
-                                    VerticalPadding, 
+                                    VerticalPadding,
                                     boardPixelSize,
                                     boardPixelSize
     );
     
     makeBoard(opponentBoard, opponentBoard_Group, boardSize);
 
-    //--------player board---------
+    //------------player board------------
     
     Fl_Group* playerBoard_Group = new Fl_Group(
                                     horizontalPadding,
-                                    VerticalPadding, 
+                                    VerticalPadding,
                                     boardPixelSize,
                                     boardPixelSize
     );
 
     makeBoard(playerBoard, playerBoard_Group, boardSize);
-    
 }
 
 GameView::GameView(int width, int height, unsigned int boardSize) : cellButtonSize(height/12) {
@@ -199,7 +123,7 @@ GameView::GameView(int width, int height, unsigned int boardSize) : cellButtonSi
     
     createWindow(width, height);
 
-    createBoards(boardSize);
+    addBoards(boardSize);
 
     window->end();
 }
@@ -243,10 +167,10 @@ void GameView::updateBoard(GameModel& model)
             }
             
             if (c.isHit() == true){
-                b->image(buttonSprite_hit);
+                b->image(buttonSprites["cell_hit"]);
             }
             else{
-                b->image(buttonSprite_miss);
+                b->image(buttonSprites["cell_miss"]);
             }
         }
         
